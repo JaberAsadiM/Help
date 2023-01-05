@@ -1,0 +1,22 @@
+                            //گرفتن ضریب ارزش معاملاتی ملک در بازه تاریخی مشخص ******************
+                            foreach (var item in MasahatKhalafViewM)
+                            {
+                                //int? date = item.Tarikh;
+                                //int? day = 0;int? mont = 0;int? yer = 0;
+                                if (item.Tarikh != null)
+                                {
+                                    //    //جدا کردن روز و ماه و سال  تاریخ از نوع عددی
+                                    //    day = date % 100;
+                                    //    mont = (date / 100) % 100;
+                                    //    yer = date / 10000;
+                                    //    //*********************************
+
+                                    //    System.Globalization.PersianCalendar pc = new System.Globalization.PersianCalendar();
+                                    //    DateTime dataMiladi = new DateTime(day.GetValueOrDefault(), mont.GetValueOrDefault(), yer.GetValueOrDefault(), pc);
+                                    DateTime dataMiladi = MyFunctions.ConvertIntPersinDateToMiladiDate(item.Tarikh);
+
+                                    item.Coefficient = Amard.Shahrsazi.DataAccess.Services.BuildingTypeDetailService.GetByDateBuildingType(
+                                        item.BuildingTypeId, dataMiladi);
+                                }
+                                else
+                                    item.Coefficient = 0;

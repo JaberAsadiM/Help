@@ -1,0 +1,15 @@
+    function onGridEdit(e) {
+        e.sender.one("dataBound", function (e) {
+            e.sender.dataSource.read();
+        });
+    }
+ 
+    function bindDataAndRefresh(e) {
+        var grid = $("#MasahatKhalafGrid_DefinitionFoul").data("kendoGrid");
+        grid.bind("dataBound", onGridEdit(e));
+    }
+ 
+    $(document).ready(function () {
+        var grid = $("#MasahatKhalafGrid_DefinitionFoul").data("kendoGrid");
+        grid.bind("save", bindDataAndRefresh);
+    });

@@ -1,0 +1,1 @@
+column.Bound(e => e.tarikhehdasmojaz).Width(80).Title("تاریخ احداث").ClientTemplate("#=formatDate_Grid(tarikhehdasmojaz)#").Width(120);

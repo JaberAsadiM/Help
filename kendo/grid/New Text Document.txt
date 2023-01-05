@@ -1,0 +1,31 @@
+// add contruler
+
+            ModelState.AddModelError(string.Empty, "این خلاف قبلا برای تبصره دیگری ثبت شده است");
+            var result = ModelState.ToDataSourceResult();
+            return Json(result, JsonRequestBehavior.AllowGet);
+
+***********************************
+
+// script code
+
+        function error_handler(e) {
+
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            showAppMessage(message, "error");
+            RefreshGridFormulaGrid();
+        }
+    }
+
+****************************************
+
+// add code in grid
+
+              .Events(events => events.Error("error_handler"))

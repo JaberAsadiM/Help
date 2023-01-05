@@ -1,0 +1,4 @@
+
+column.Bound(c => c.Code_Karbari_Asli_Mojod).Title("کاربری موجود اصلی").Width(150).EditorViewData(new { ParametricType = ParametricType.Sabetha, CodeAsli = "1" }).EditorTemplateName("MyParametricDropDownList").ClientTemplate("#=Onvan_Karbari_Asli_Mojod==null?'':Onvan_Karbari_Asli_Mojod#");
+
+columns.Bound(c => c.TotalAmount).Width(105).Title("مبلغ کل").ClientTemplate("#=formatNumber(TotalAmount)#").HtmlAttributes(new {@class = "font_Numbers"}).ClientFooterTemplate("<div class='editgrid_kartabl' style='float: right'>#= kendo.toString(sum, 'n0') #</div>");

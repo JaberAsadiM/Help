@@ -1,0 +1,82 @@
+﻿@using Amard.Shahrsazi.Core.Utilities
+@using Amard.Shahrsazi.DataAccess.Services
+@using Amard.Shahrsazi.Web.Framework.Enums
+@using AmardWebShahrsazi.Business
+@model int?
+
+@{
+    var parametricType = EnumExtensions.ParseEnum<ParametricType>(ViewData["ParametricType"].ToString());
+    var codeAsli = Convert.ToInt32(ViewData["CodeAsli"]);
+
+    var selectListItem = new List<SelectListItem>();
+    switch (parametricType)
+    {
+        case ParametricType.Parametric:
+        {
+            selectListItem.AddRange(ParametricService.GetDataDropDownList(codeAsli).Select(s => new SelectListItem
+            {
+                Text = s.sharh,
+                Value = s.kodfarei.ToString()
+            }));
+            break;
+        }
+        case ParametricType.Sabetha:
+        {
+            selectListItem.AddRange(SabethaService.GetData(codeAsli).Select(s => new SelectListItem
+            {
+                Text = s.sharh,
+                Value = s.kodfarei.ToString()
+            }));
+            break;
+        }
+        case ParametricType.Made100AccountType:
+        {
+            selectListItem.AddRange(AccountTypeService.GetAll().Select(s => new SelectListItem
+            {
+                Text = s.Title,
+                Value = s.Id.ToString()
+            }));
+            break;
+        }
+        case ParametricType.Made100BuildingType:
+        {
+            selectListItem.AddRange(BuildingTypeService.GetAll().Select(s => new SelectListItem
+            {
+                Text = s.Title,
+                Value = s.Id.ToString()
+            }));
+            break;
+        }
+        case ParametricType.Made100Density:
+        {
+            selectListItem.AddRange(DensityService.GetAll().Select(s => new SelectListItem
+            {
+                Text = s.Title,
+                Value = s.Id.ToString()
+            }));
+            break;
+        }
+        case ParametricType.Made100RegionalPrices:
+        {
+            selectListItem.AddRange(RegionalPricesService.GetAll().Select(s => new SelectListItem
+            {
+                Text = s.Title,
+                Value = s.Id.ToString()
+            }));
+            break;
+        }
+        case ParametricType.Made100TypeStructuresMaterials:
+        {
+            selectListItem.AddRange(TypeStructuresMaterialsService.GetAll().Select(s => new SelectListItem
+            {
+                Text = s.Title,
+                Value = s.Id.ToString()
+            }));
+            break;
+        }
+    }
+
+    @(Html.Kendo().ComboBoxFor(model=> model)
+        .Filter(FilterType.Contains)
+        .BindTo(selectListItem))
+}

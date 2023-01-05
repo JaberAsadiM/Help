@@ -1,0 +1,44 @@
+﻿<style>
+    .NosaziCodeBox {
+        /*width: 13.3%;
+        height: 30px;
+        
+        color: #333;
+        border-radius: 5px;
+        font-size: 11px;
+        text-align: center;
+        top:-3px;*/
+    }
+</style>
+<div class="input-group" style="width:40%; float:left;">
+
+    <input type="text" class="form-control NosaziCodeBox" onfocus="this.select();" placeholder=" صنفی" aria-describedby="sizing-addon2" id="txtSenfi" >
+    <span class="input-group-addon NosaziCodeBox" id="sizing-addon2">-</span>
+
+    <input type="text" class="form-control NosaziCodeBox" onfocus="this.select();" placeholder="آپارتمان" aria-describedby="sizing-addon2" onkeydown="TextBoxes_OnKeyDown(event,'txtSenfi')" id="txtappar">
+    <span class="input-group-addon NosaziCodeBox" id="sizing-addon2">-</span>
+
+    <input type="text" class="form-control NosaziCodeBox" onfocus="this.select();" placeholder="ساختمان" aria-describedby="sizing-addon2" onkeydown="TextBoxes_OnKeyDown(event,'txtappar')" id="txtsakhteman">
+    <span class="input-group-addon NosaziCodeBox" id="sizing-addon2">-</span>
+
+    <input type="text" class="form-control" placeholder="ملک" onfocus="this.select();" aria-describedby="sizing-addon2" id="txtMelk" onkeydown="TextBoxes_OnKeyDown(event,'txtsakhteman')">
+    <span class="input-group-addon NosaziCodeBox" id="sizing-addon2">-</span>
+
+    <input type="text" class="form-control NosaziCodeBox" placeholder="بلوک" onfocus="this.select();" aria-describedby="sizing-addon2" id="txtBlock" onkeydown="TextBoxes_OnKeyDown(event,'txtMelk')">
+    <span class="input-group-addon NosaziCodeBox" id="sizing-addon2">-</span>
+
+    <input type="text" class="form-control NosaziCodeBox" placeholder="محله" onfocus="this.select();" aria-describedby="sizing-addon2" id="txtMahale" onkeydown="TextBoxes_OnKeyDown(event,'txtBlock')">
+    <span class="input-group-addon NosaziCodeBox" id="sizing-addon2">-</span>
+
+    <input type="text" class="form-control NosaziCodeBox" placeholder="منطقه" onfocus="this.select();" onkeydown="TextBoxes_OnKeyDown(event,'txtMahale')"  aria-describedby="sizing-addon2">
+</div>
+
+<script>
+
+      function TextBoxes_OnKeyDown(event, NextControl) {
+        if (event.keyCode == 13) {
+            document.getElementById(NextControl).focus();
+        }
+    }
+
+</script>

@@ -1,0 +1,5 @@
+.DataSource(dataSource => dataSource        
+        .Ajax()
+        .PageSize(20)
+        .ServerOperation(false)        
+     )

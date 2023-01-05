@@ -1,0 +1,17 @@
+               columns.Template(@<text></text>).ClientTemplate("<input id='reayat' type='checkbox' #= reayat ? checked='checked':'' # class='chkbx_reayat_Aghabneshini' />").Width(100).Title("آیا رعایت شده؟");
+
+
+
+ $(function () {
+        $('#grdPakhha_Aghabneshini_Pakhha').on('click', '.chkbx_reayat_Aghabneshini_Pakhha', function() { //چک باکس آیا رعایت شده؟
+            var checked = $(this).is(':checked');
+            var grid = $('#grdPakhha_Aghabneshini_Pakhha').data().kendoGrid;
+            var dataItem = grid.dataItem($(this).closest('tr'));
+            dataItem.set('reayat', checked);
+        });
+    });
+
+
+*********************************************** or show only
+
+columns.Bound(p => p.reayat).ClientTemplate("<input type='checkbox' disabled #= reayat == true ? checked='checked' : '' # />");

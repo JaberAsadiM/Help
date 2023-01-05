@@ -1,0 +1,22 @@
+    function GetVoteViolationType() {
+
+        var url = `${'@Url.Action("LoadVoteViolationTypePartial", "SodorRayNew",new{Area = "Made100" })'}?rayNumber=${GetRayTypeId()}&shod=${$.trim(GetShod())}&pishnevisId=${GetPishnevisId()}`;
+
+        $('#divPartialViewVoteViolationType').load(url, function () {
+            var rayType = GetRayTypeId();
+
+            if (rayType == 1) {
+                $("#VoteViolationType_A").fadeIn();
+                $("#VoteViolationType_C").fadeOut();
+                $("#VoteViolationType_B").fadeOut();
+            } else if (rayType == 2) {
+                $("#VoteViolationType_A").fadeOut();
+                $("#VoteViolationType_C").fadeIn();
+                $("#VoteViolationType_B").fadeOut();
+            } else {
+                $("#VoteViolationType_A").fadeOut();
+                $("#VoteViolationType_C").fadeOut();
+                $("#VoteViolationType_B").fadeIn();
+            }
+        });
+    }

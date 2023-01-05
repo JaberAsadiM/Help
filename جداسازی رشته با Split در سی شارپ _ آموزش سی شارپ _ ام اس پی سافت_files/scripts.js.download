@@ -1,0 +1,2213 @@
+/**
+ * Featherlight - ultra slim jQuery lightbox
+ * Version 1.7.13 - http://noelboss.github.io/featherlight/
+ *
+ * Copyright 2018, Noël Raoul Bossart (http://www.noelboss.com)
+ * MIT Licensed.
+ **/
+(function ($) {
+    "use strict";
+
+    if ('undefined' === typeof $) {
+        if ('console' in window) {
+            window.console.info('Too much lightness, Featherlight needs jQuery.');
+        }
+        return;
+    }
+    if ($.fn.jquery.match(/-ajax/)) {
+        if ('console' in window) {
+            window.console.info('Featherlight needs regular jQuery, not the slim version.');
+        }
+        return;
+    }
+
+    /* Featherlight is exported as $.featherlight.
+       It is a function used to open a featherlight lightbox.
+
+       [tech]
+       Featherlight uses prototype inheritance.
+       Each opened lightbox will have a corresponding object.
+       That object may have some attributes that override the
+       prototype's.
+       Extensions created with Featherlight.extend will have their
+       own prototype that inherits from Featherlight's prototype,
+       thus attributes can be overriden either at the object level,
+       or at the extension level.
+       To create callbacks that chain themselves instead of overriding,
+       use chainCallbacks.
+       For those familiar with CoffeeScript, this correspond to
+       Featherlight being a class and the Gallery being a class
+       extending Featherlight.
+       The chainCallbacks is used since we don't have access to
+       CoffeeScript's `super`.
+    */
+
+    function Featherlight($content, config) {
+        if (this instanceof Featherlight) {  /* called with new */
+            this.id = Featherlight.id++;
+            this.setup($content, config);
+            this.chainCallbacks(Featherlight._callbackChain);
+        } else {
+            var fl = new Featherlight($content, config);
+            fl.open();
+            return fl;
+        }
+    }
+
+    var opened = [],
+        pruneOpened = function (remove) {
+            opened = $.grep(opened, function (fl) {
+                return fl !== remove && fl.$instance.closest('body').length > 0;
+            });
+            return opened;
+        };
+
+    // Removes keys of `set` from `obj` and returns the removed key/values.
+    function slice(obj, set) {
+        var r = {};
+        for (var key in obj) {
+            if (key in set) {
+                r[key] = obj[key];
+                delete obj[key];
+            }
+        }
+        return r;
+    }
+
+    // NOTE: List of available [iframe attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe).
+    var iFrameAttributeSet = {
+        allow: 1, allowfullscreen: 1, frameborder: 1, height: 1, longdesc: 1, marginheight: 1, marginwidth: 1,
+        mozallowfullscreen: 1, name: 1, referrerpolicy: 1, sandbox: 1, scrolling: 1, src: 1, srcdoc: 1, style: 1,
+        webkitallowfullscreen: 1, width: 1
+    };
+
+    // Converts camelCased attributes to dasherized versions for given prefix:
+    //   parseAttrs({hello: 1, hellFrozeOver: 2}, 'hell') => {froze-over: 2}
+    function parseAttrs(obj, prefix) {
+        var attrs = {},
+            regex = new RegExp('^' + prefix + '([A-Z])(.*)');
+        for (var key in obj) {
+            var match = key.match(regex);
+            if (match) {
+                var dasherized = (match[1] + match[2].replace(/([A-Z])/g, '-$1')).toLowerCase();
+                attrs[dasherized] = obj[key];
+            }
+        }
+        return attrs;
+    }
+
+    /* document wide key handler */
+    var eventMap = {keyup: 'onKeyUp', resize: 'onResize'};
+
+    var globalEventHandler = function (event) {
+        $.each(Featherlight.opened().reverse(), function () {
+            if (!event.isDefaultPrevented()) {
+                if (false === this[eventMap[event.type]](event)) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
+                }
+            }
+        });
+    };
+
+    var toggleGlobalEvents = function (set) {
+        if (set !== Featherlight._globalHandlerInstalled) {
+            Featherlight._globalHandlerInstalled = set;
+            var events = $.map(eventMap, function (_, name) {
+                return name + '.' + Featherlight.prototype.namespace;
+            }).join(' ');
+            $(window)[set ? 'on' : 'off'](events, globalEventHandler);
+        }
+    };
+
+    Featherlight.prototype = {
+        constructor: Featherlight,
+        /*** defaults ***/
+        /* extend featherlight with defaults and methods */
+        namespace: 'featherlight', /* Name of the events and css class prefix */
+        targetAttr: 'data-featherlight', /* Attribute of the triggered element that contains the selector to the lightbox content */
+        variant: null, /* Class that will be added to change look of the lightbox */
+        resetCss: false, /* Reset all css */
+        background: null, /* Custom DOM for the background, wrapper and the closebutton */
+        openTrigger: 'click', /* Event that triggers the lightbox */
+        closeTrigger: 'click', /* Event that triggers the closing of the lightbox */
+        filter: null, /* Selector to filter events. Think $(...).on('click', filter, eventHandler) */
+        root: 'body', /* Where to append featherlights */
+        openSpeed: 250, /* Duration of opening animation */
+        closeSpeed: 250, /* Duration of closing animation */
+        closeOnClick: 'background', /* Close lightbox on click ('background', 'anywhere' or false) */
+        closeOnEsc: true, /* Close lightbox when pressing esc */
+        closeIcon: '&#10005;', /* Close icon */
+        loading: '', /* Content to show while initial content is loading */
+        persist: false, /* If set, the content will persist and will be shown again when opened again. 'shared' is a special value when binding multiple elements for them to share the same content */
+        otherClose: null, /* Selector for alternate close buttons (e.g. "a.close") */
+        beforeOpen: $.noop, /* Called before open. can return false to prevent opening of lightbox. Gets event as parameter, this contains all data */
+        beforeContent: $.noop, /* Called when content is loaded. Gets event as parameter, this contains all data */
+        beforeClose: $.noop, /* Called before close. can return false to prevent opening of lightbox. Gets event as parameter, this contains all data */
+        afterOpen: $.noop, /* Called after open. Gets event as parameter, this contains all data */
+        afterContent: $.noop, /* Called after content is ready and has been set. Gets event as parameter, this contains all data */
+        afterClose: $.noop, /* Called after close. Gets event as parameter, this contains all data */
+        onKeyUp: $.noop, /* Called on key up for the frontmost featherlight */
+        onResize: $.noop, /* Called after new content and when a window is resized */
+        type: null, /* Specify type of lightbox. If unset, it will check for the targetAttrs value. */
+        contentFilters: ['jquery', 'image', 'html', 'ajax', 'iframe', 'text'], /* List of content filters to use to determine the content */
+
+        /*** methods ***/
+        /* setup iterates over a single instance of featherlight and prepares the background and binds the events */
+        setup: function (target, config) {
+            /* all arguments are optional */
+            if (typeof target === 'object' && target instanceof $ === false && !config) {
+                config = target;
+                target = undefined;
+            }
+
+            var self = $.extend(this, config, {target: target}),
+                css = !self.resetCss ? self.namespace : self.namespace + '-reset', /* by adding -reset to the classname, we reset all the default css */
+                $background = $(self.background || [
+                    '<div class="' + css + '-loading ' + css + '">',
+                    '<div class="' + css + '-content">',
+                    '<button class="' + css + '-close-icon ' + self.namespace + '-close" aria-label="Close">',
+                    self.closeIcon,
+                    '</button>',
+                    '<div class="' + self.namespace + '-inner">' + self.loading + '</div>',
+                    '</div>',
+                    '</div>'].join('')),
+                closeButtonSelector = '.' + self.namespace + '-close' + (self.otherClose ? ',' + self.otherClose : '');
+
+            self.$instance = $background.clone().addClass(self.variant);
+            /* clone DOM for the background, wrapper and the close button */
+
+            /* close when click on background/anywhere/null or closebox */
+            self.$instance.on(self.closeTrigger + '.' + self.namespace, function (event) {
+                if (event.isDefaultPrevented()) {
+                    return;
+                }
+                var $target = $(event.target);
+                if (('background' === self.closeOnClick && $target.is('.' + self.namespace))
+                    || 'anywhere' === self.closeOnClick
+                    || $target.closest(closeButtonSelector).length) {
+                    self.close(event);
+                    event.preventDefault();
+                }
+            });
+
+            return this;
+        },
+
+        /* this method prepares the content and converts it into a jQuery object or a promise */
+        getContent: function () {
+            if (this.persist !== false && this.$content) {
+                return this.$content;
+            }
+            var self = this,
+                filters = this.constructor.contentFilters,
+                readTargetAttr = function (name) {
+                    return self.$currentTarget && self.$currentTarget.attr(name);
+                },
+                targetValue = readTargetAttr(self.targetAttr),
+                data = self.target || targetValue || '';
+
+            /* Find which filter applies */
+            var filter = filters[self.type];
+            /* check explicit type like {type: 'image'} */
+
+            /* check explicit type like data-featherlight="image" */
+            if (!filter && data in filters) {
+                filter = filters[data];
+                data = self.target && targetValue;
+            }
+            data = data || readTargetAttr('href') || '';
+
+            /* check explicity type & content like {image: 'photo.jpg'} */
+            if (!filter) {
+                for (var filterName in filters) {
+                    if (self[filterName]) {
+                        filter = filters[filterName];
+                        data = self[filterName];
+                    }
+                }
+            }
+
+            /* otherwise it's implicit, run checks */
+            if (!filter) {
+                var target = data;
+                data = null;
+                $.each(self.contentFilters, function () {
+                    filter = filters[this];
+                    if (filter.test) {
+                        data = filter.test(target);
+                    }
+                    if (!data && filter.regex && target.match && target.match(filter.regex)) {
+                        data = target;
+                    }
+                    return !data;
+                });
+                if (!data) {
+                    if ('console' in window) {
+                        window.console.error('Featherlight: no content filter found ' + (target ? ' for "' + target + '"' : ' (no target specified)'));
+                    }
+                    return false;
+                }
+            }
+            /* Process it */
+            return filter.process.call(self, data);
+        },
+
+        /* sets the content of $instance to $content */
+        setContent: function ($content) {
+            this.$instance.removeClass(this.namespace + '-loading');
+
+            /* we need a special class for the iframe */
+            this.$instance.toggleClass(this.namespace + '-iframe', $content.is('iframe'));
+
+            /* replace content by appending to existing one before it is removed
+               this insures that featherlight-inner remain at the same relative
+               position to any other items added to featherlight-content */
+            this.$instance.find('.' + this.namespace + '-inner')
+                .not($content)                /* excluded new content, important if persisted */
+                .slice(1).remove().end()      /* In the unexpected event where there are many inner elements, remove all but the first one */
+                .replaceWith($.contains(this.$instance[0], $content[0]) ? '' : $content);
+
+            this.$content = $content.addClass(this.namespace + '-inner');
+
+            return this;
+        },
+
+        /* opens the lightbox. "this" contains $instance with the lightbox, and with the config.
+            Returns a promise that is resolved after is successfully opened. */
+        open: function (event) {
+            var self = this;
+            self.$instance.hide().appendTo(self.root);
+            if ((!event || !event.isDefaultPrevented())
+                && self.beforeOpen(event) !== false) {
+
+                if (event) {
+                    event.preventDefault();
+                }
+                var $content = self.getContent();
+
+                if ($content) {
+                    opened.push(self);
+
+                    toggleGlobalEvents(true);
+
+                    self.$instance.fadeIn(self.openSpeed);
+                    self.beforeContent(event);
+
+                    /* Set content and show */
+                    return $.when($content)
+                        .always(function ($openendContent) {
+                            if ($openendContent) {
+                                self.setContent($openendContent);
+                                self.afterContent(event);
+                            }
+                        })
+                        .then(self.$instance.promise())
+                        /* Call afterOpen after fadeIn is done */
+                        .done(function () {
+                            self.afterOpen(event);
+                        });
+                }
+            }
+            self.$instance.detach();
+            return $.Deferred().reject().promise();
+        },
+
+        /* closes the lightbox. "this" contains $instance with the lightbox, and with the config
+            returns a promise, resolved after the lightbox is successfully closed. */
+        close: function (event) {
+            var self = this,
+                deferred = $.Deferred();
+
+            if (self.beforeClose(event) === false) {
+                deferred.reject();
+            } else {
+
+                if (0 === pruneOpened(self).length) {
+                    toggleGlobalEvents(false);
+                }
+
+                self.$instance.fadeOut(self.closeSpeed, function () {
+                    self.$instance.detach();
+                    self.afterClose(event);
+                    deferred.resolve();
+                });
+            }
+            return deferred.promise();
+        },
+
+        /* resizes the content so it fits in visible area and keeps the same aspect ratio.
+                Does nothing if either the width or the height is not specified.
+                Called automatically on window resize.
+                Override if you want different behavior. */
+        resize: function (w, h) {
+            if (w && h) {
+                /* Reset apparent image size first so container grows */
+                this.$content.css('width', '').css('height', '');
+                /* Calculate the worst ratio so that dimensions fit */
+                /* Note: -1 to avoid rounding errors */
+                var ratio = Math.max(
+                    w / (this.$content.parent().width() - 1),
+                    h / (this.$content.parent().height() - 1));
+                /* Resize content */
+                if (ratio > 1) {
+                    ratio = h / Math.floor(h / ratio);
+                    /* Round ratio down so height calc works */
+                    this.$content.css('width', '' + w / ratio + 'px').css('height', '' + h / ratio + 'px');
+                }
+            }
+        },
+
+        /* Utility function to chain callbacks
+           [Warning: guru-level]
+           Used be extensions that want to let users specify callbacks but
+           also need themselves to use the callbacks.
+           The argument 'chain' has callback names as keys and function(super, event)
+           as values. That function is meant to call `super` at some point.
+        */
+        chainCallbacks: function (chain) {
+            for (var name in chain) {
+                this[name] = $.proxy(chain[name], this, $.proxy(this[name], this));
+            }
+        }
+    };
+
+    $.extend(Featherlight, {
+        id: 0, /* Used to id single featherlight instances */
+        autoBind: '[data-featherlight]', /* Will automatically bind elements matching this selector. Clear or set before onReady */
+        defaults: Featherlight.prototype, /* You can access and override all defaults using $.featherlight.defaults, which is just a synonym for $.featherlight.prototype */
+        /* Contains the logic to determine content */
+        contentFilters: {
+            jquery: {
+                regex: /^[#.]\w/, /* Anything that starts with a class name or identifiers */
+                test: function (elem) {
+                    return elem instanceof $ && elem;
+                },
+                process: function (elem) {
+                    return this.persist !== false ? $(elem) : $(elem).clone(true);
+                }
+            },
+            image: {
+                regex: /\.(png|jpg|jpeg|gif|tiff?|bmp|svg)(\?\S*)?$/i,
+                process: function (url) {
+                    var self = this,
+                        deferred = $.Deferred(),
+                        img = new Image(),
+                        $img = $('<img src="' + url + '" alt="" class="' + self.namespace + '-image" />');
+                    img.onload = function () {
+                        /* Store naturalWidth & height for IE8 */
+                        $img.naturalWidth = img.width;
+                        $img.naturalHeight = img.height;
+                        deferred.resolve($img);
+                    };
+                    img.onerror = function () {
+                        deferred.reject($img);
+                    };
+                    img.src = url;
+                    return deferred.promise();
+                }
+            },
+            html: {
+                regex: /^\s*<[\w!][^<]*>/, /* Anything that starts with some kind of valid tag */
+                process: function (html) {
+                    return $(html);
+                }
+            },
+            ajax: {
+                regex: /./, /* At this point, any content is assumed to be an URL */
+                process: function (url) {
+                    var self = this,
+                        deferred = $.Deferred();
+                    /* we are using load so one can specify a target with: url.html #targetelement */
+                    var $container = $('<div></div>').load(url, function (response, status) {
+                        if (status !== "error") {
+                            deferred.resolve($container.contents());
+                        }
+                        deferred.reject();
+                    });
+                    return deferred.promise();
+                }
+            },
+            iframe: {
+                process: function (url) {
+                    var deferred = new $.Deferred();
+                    var $content = $('<iframe/>');
+                    var css = parseAttrs(this, 'iframe');
+                    var attrs = slice(css, iFrameAttributeSet);
+                    $content.hide()
+                        .attr('src', url)
+                        .attr(attrs)
+                        .css(css)
+                        .on('load', function () {
+                            deferred.resolve($content.show());
+                        })
+                        // We can't move an <iframe> and avoid reloading it,
+                        // so let's put it in place ourselves right now:
+                        .appendTo(this.$instance.find('.' + this.namespace + '-content'));
+                    return deferred.promise();
+                }
+            },
+            text: {
+                process: function (text) {
+                    return $('<div>', {text: text});
+                }
+            }
+        },
+
+        functionAttributes: ['beforeOpen', 'afterOpen', 'beforeContent', 'afterContent', 'beforeClose', 'afterClose'],
+
+        /*** class methods ***/
+        /* read element's attributes starting with data-featherlight- */
+        readElementConfig: function (element, namespace) {
+            var Klass = this,
+                regexp = new RegExp('^data-' + namespace + '-(.*)'),
+                config = {};
+            if (element && element.attributes) {
+                $.each(element.attributes, function () {
+                    var match = this.name.match(regexp);
+                    if (match) {
+                        var val = this.value,
+                            name = $.camelCase(match[1]);
+                        if ($.inArray(name, Klass.functionAttributes) >= 0) {  /* jshint -W054 */
+                            val = new Function(val);
+                            /* jshint +W054 */
+                        } else {
+                            try {
+                                val = JSON.parse(val);
+                            } catch (e) {
+                            }
+                        }
+                        config[name] = val;
+                    }
+                });
+            }
+            return config;
+        },
+
+        /* Used to create a Featherlight extension
+           [Warning: guru-level]
+           Creates the extension's prototype that in turn
+           inherits Featherlight's prototype.
+           Could be used to extend an extension too...
+           This is pretty high level wizardy, it comes pretty much straight
+           from CoffeeScript and won't teach you anything about Featherlight
+           as it's not really specific to this library.
+           My suggestion: move along and keep your sanity.
+        */
+        extend: function (child, defaults) {
+            /* Setup class hierarchy, adapted from CoffeeScript */
+            var Ctor = function () {
+                this.constructor = child;
+            };
+            Ctor.prototype = this.prototype;
+            child.prototype = new Ctor();
+            child.__super__ = this.prototype;
+            /* Copy class methods & attributes */
+            $.extend(child, this, defaults);
+            child.defaults = child.prototype;
+            return child;
+        },
+
+        attach: function ($source, $content, config) {
+            var Klass = this;
+            if (typeof $content === 'object' && $content instanceof $ === false && !config) {
+                config = $content;
+                $content = undefined;
+            }
+            /* make a copy */
+            config = $.extend({}, config);
+
+            /* Only for openTrigger, filter & namespace... */
+            var namespace = config.namespace || Klass.defaults.namespace,
+                tempConfig = $.extend({}, Klass.defaults, Klass.readElementConfig($source[0], namespace), config),
+                sharedPersist;
+            var handler = function (event) {
+                var $target = $(event.currentTarget);
+                /* ... since we might as well compute the config on the actual target */
+                var elemConfig = $.extend(
+                    {$source: $source, $currentTarget: $target},
+                    Klass.readElementConfig($source[0], tempConfig.namespace),
+                    Klass.readElementConfig(event.currentTarget, tempConfig.namespace),
+                    config);
+                var fl = sharedPersist || $target.data('featherlight-persisted') || new Klass($content, elemConfig);
+                if (fl.persist === 'shared') {
+                    sharedPersist = fl;
+                } else if (fl.persist !== false) {
+                    $target.data('featherlight-persisted', fl);
+                }
+                if (elemConfig.$currentTarget.blur) {
+                    elemConfig.$currentTarget.blur(); // Otherwise 'enter' key might trigger the dialog again
+                }
+                fl.open(event);
+            };
+
+            $source.on(tempConfig.openTrigger + '.' + tempConfig.namespace, tempConfig.filter, handler);
+
+            return {filter: tempConfig.filter, handler: handler};
+        },
+
+        current: function () {
+            var all = this.opened();
+            return all[all.length - 1] || null;
+        },
+
+        opened: function () {
+            var klass = this;
+            pruneOpened();
+            return $.grep(opened, function (fl) {
+                return fl instanceof klass;
+            });
+        },
+
+        close: function (event) {
+            var cur = this.current();
+            if (cur) {
+                return cur.close(event);
+            }
+        },
+
+        /* Does the auto binding on startup.
+           Meant only to be used by Featherlight and its extensions
+        */
+        _onReady: function () {
+            var Klass = this;
+            if (Klass.autoBind) {
+                var $autobound = $(Klass.autoBind);
+                /* Bind existing elements */
+                $autobound.each(function () {
+                    Klass.attach($(this));
+                });
+                /* If a click propagates to the document level, then we have an item that was added later on */
+                $(document).on('click', Klass.autoBind, function (evt) {
+                    if (evt.isDefaultPrevented()) {
+                        return;
+                    }
+                    var $cur = $(evt.currentTarget);
+                    var len = $autobound.length;
+                    $autobound = $autobound.add($cur);
+                    if (len === $autobound.length) {
+                        return;
+                        /* already bound */
+                    }
+                    /* Bind featherlight */
+                    var data = Klass.attach($cur);
+                    /* Dispatch event directly */
+                    if (!data.filter || $(evt.target).parentsUntil($cur, data.filter).length > 0) {
+                        data.handler(evt);
+                    }
+                });
+            }
+        },
+
+        /* Featherlight uses the onKeyUp callback to intercept the escape key.
+           Private to Featherlight.
+        */
+        _callbackChain: {
+            onKeyUp: function (_super, event) {
+                if (27 === event.keyCode) {
+                    if (this.closeOnEsc) {
+                        $.featherlight.close(event);
+                    }
+                    return false;
+                } else {
+                    return _super(event);
+                }
+            },
+
+            beforeOpen: function (_super, event) {
+                // Used to disable scrolling
+                $(document.documentElement).addClass('with-featherlight');
+
+                // Remember focus:
+                this._previouslyActive = document.activeElement;
+
+                // Disable tabbing:
+                // See http://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus
+                this._$previouslyTabbable = $("a, input, select, textarea, iframe, button, iframe, [contentEditable=true]")
+                    .not('[tabindex]')
+                    .not(this.$instance.find('button'));
+
+                this._$previouslyWithTabIndex = $('[tabindex]').not('[tabindex="-1"]');
+                this._previousWithTabIndices = this._$previouslyWithTabIndex.map(function (_i, elem) {
+                    return $(elem).attr('tabindex');
+                });
+
+                this._$previouslyWithTabIndex.add(this._$previouslyTabbable).attr('tabindex', -1);
+
+                if (document.activeElement.blur) {
+                    document.activeElement.blur();
+                }
+                return _super(event);
+            },
+
+            afterClose: function (_super, event) {
+                var r = _super(event);
+                // Restore focus
+                var self = this;
+                this._$previouslyTabbable.removeAttr('tabindex');
+                this._$previouslyWithTabIndex.each(function (i, elem) {
+                    $(elem).attr('tabindex', self._previousWithTabIndices[i]);
+                });
+                this._previouslyActive.focus();
+                // Restore scroll
+                if (Featherlight.opened().length === 0) {
+                    $(document.documentElement).removeClass('with-featherlight');
+                }
+                return r;
+            },
+
+            onResize: function (_super, event) {
+                this.resize(this.$content.naturalWidth, this.$content.naturalHeight);
+                return _super(event);
+            },
+
+            afterContent: function (_super, event) {
+                var r = _super(event);
+                this.$instance.find('[autofocus]:not([disabled])').focus();
+                this.onResize(event);
+                return r;
+            }
+        }
+    });
+
+    $.featherlight = Featherlight;
+
+    /* bind jQuery elements to trigger featherlight */
+    $.fn.featherlight = function ($content, config) {
+        Featherlight.attach(this, $content, config);
+        return this;
+    };
+
+    /* bind featherlight on ready if config autoBind is set */
+    $(document).ready(function () {
+        Featherlight._onReady();
+    });
+}(jQuery));
+
+/*! tooltipster v4.2.6 */
+!function (a, b) {
+    "function" == typeof define && define.amd ? define(["jquery"], function (a) {
+        return b(a)
+    }) : "object" == typeof exports ? module.exports = b(require("jquery")) : b(jQuery)
+}(this, function (a) {
+    function b(a) {
+        this.$container, this.constraints = null, this.__$tooltip, this.__init(a)
+    }
+
+    function c(b, c) {
+        var d = !0;
+        return a.each(b, function (a, e) {
+            return void 0 === c[a] || b[a] !== c[a] ? (d = !1, !1) : void 0
+        }), d
+    }
+
+    function d(b) {
+        var c = b.attr("id"), d = c ? h.window.document.getElementById(c) : null;
+        return d ? d === b[0] : a.contains(h.window.document.body, b[0])
+    }
+
+    function e() {
+        if (!g) return !1;
+        var a = g.document.body || g.document.documentElement, b = a.style, c = "transition",
+            d = ["Moz", "Webkit", "Khtml", "O", "ms"];
+        if ("string" == typeof b[c]) return !0;
+        c = c.charAt(0).toUpperCase() + c.substr(1);
+        for (var e = 0; e < d.length; e++) if ("string" == typeof b[d[e] + c]) return !0;
+        return !1
+    }
+
+    var f = {
+        animation: "fade",
+        animationDuration: 350,
+        content: null,
+        contentAsHTML: !1,
+        contentCloning: !1,
+        debug: !0,
+        delay: 300,
+        delayTouch: [300, 500],
+        functionInit: null,
+        functionBefore: null,
+        functionReady: null,
+        functionAfter: null,
+        functionFormat: null,
+        IEmin: 6,
+        interactive: !1,
+        multiple: !1,
+        parent: null,
+        plugins: ["sideTip"],
+        repositionOnScroll: !1,
+        restoration: "none",
+        selfDestruction: !0,
+        theme: [],
+        timer: 0,
+        trackerInterval: 500,
+        trackOrigin: !1,
+        trackTooltip: !1,
+        trigger: "hover",
+        triggerClose: {click: !1, mouseleave: !1, originClick: !1, scroll: !1, tap: !1, touchleave: !1},
+        triggerOpen: {click: !1, mouseenter: !1, tap: !1, touchstart: !1},
+        updateAnimation: "rotate",
+        zIndex: 9999999
+    }, g = "undefined" != typeof window ? window : null, h = {
+        hasTouchCapability: !(!g || !("ontouchstart" in g || g.DocumentTouch && g.document instanceof g.DocumentTouch || g.navigator.maxTouchPoints)),
+        hasTransitions: e(),
+        IE: !1,
+        semVer: "4.2.6",
+        window: g
+    }, i = function () {
+        this.__$emitterPrivate = a({}), this.__$emitterPublic = a({}), this.__instancesLatestArr = [], this.__plugins = {}, this._env = h
+    };
+    i.prototype = {
+        __bridge: function (b, c, d) {
+            if (!c[d]) {
+                var e = function () {
+                };
+                e.prototype = b;
+                var g = new e;
+                g.__init && g.__init(c), a.each(b, function (a, b) {
+                    0 != a.indexOf("__") && (c[a] ? f.debug && console.log("The " + a + " method of the " + d + " plugin conflicts with another plugin or native methods") : (c[a] = function () {
+                        return g[a].apply(g, Array.prototype.slice.apply(arguments))
+                    }, c[a].bridged = g))
+                }), c[d] = g
+            }
+            return this
+        }, __setWindow: function (a) {
+            return h.window = a, this
+        }, _getRuler: function (a) {
+            return new b(a)
+        }, _off: function () {
+            return this.__$emitterPrivate.off.apply(this.__$emitterPrivate, Array.prototype.slice.apply(arguments)), this
+        }, _on: function () {
+            return this.__$emitterPrivate.on.apply(this.__$emitterPrivate, Array.prototype.slice.apply(arguments)), this
+        }, _one: function () {
+            return this.__$emitterPrivate.one.apply(this.__$emitterPrivate, Array.prototype.slice.apply(arguments)), this
+        }, _plugin: function (b) {
+            var c = this;
+            if ("string" == typeof b) {
+                var d = b, e = null;
+                return d.indexOf(".") > 0 ? e = c.__plugins[d] : a.each(c.__plugins, function (a, b) {
+                    return b.name.substring(b.name.length - d.length - 1) == "." + d ? (e = b, !1) : void 0
+                }), e
+            }
+            if (b.name.indexOf(".") < 0) throw new Error("Plugins must be namespaced");
+            return c.__plugins[b.name] = b, b.core && c.__bridge(b.core, c, b.name), this
+        }, _trigger: function () {
+            var a = Array.prototype.slice.apply(arguments);
+            return "string" == typeof a[0] && (a[0] = {type: a[0]}), this.__$emitterPrivate.trigger.apply(this.__$emitterPrivate, a), this.__$emitterPublic.trigger.apply(this.__$emitterPublic, a), this
+        }, instances: function (b) {
+            var c = [], d = b || ".tooltipstered";
+            return a(d).each(function () {
+                var b = a(this), d = b.data("tooltipster-ns");
+                d && a.each(d, function (a, d) {
+                    c.push(b.data(d))
+                })
+            }), c
+        }, instancesLatest: function () {
+            return this.__instancesLatestArr
+        }, off: function () {
+            return this.__$emitterPublic.off.apply(this.__$emitterPublic, Array.prototype.slice.apply(arguments)), this
+        }, on: function () {
+            return this.__$emitterPublic.on.apply(this.__$emitterPublic, Array.prototype.slice.apply(arguments)), this
+        }, one: function () {
+            return this.__$emitterPublic.one.apply(this.__$emitterPublic, Array.prototype.slice.apply(arguments)), this
+        }, origins: function (b) {
+            var c = b ? b + " " : "";
+            return a(c + ".tooltipstered").toArray()
+        }, setDefaults: function (b) {
+            return a.extend(f, b), this
+        }, triggerHandler: function () {
+            return this.__$emitterPublic.triggerHandler.apply(this.__$emitterPublic, Array.prototype.slice.apply(arguments)), this
+        }
+    }, a.tooltipster = new i, a.Tooltipster = function (b, c) {
+        this.__callbacks = {
+            close: [],
+            open: []
+        }, this.__closingTime, this.__Content, this.__contentBcr, this.__destroyed = !1, this.__$emitterPrivate = a({}), this.__$emitterPublic = a({}), this.__enabled = !0, this.__garbageCollector, this.__Geometry, this.__lastPosition, this.__namespace = "tooltipster-" + Math.round(1e6 * Math.random()), this.__options, this.__$originParents, this.__pointerIsOverOrigin = !1, this.__previousThemes = [], this.__state = "closed", this.__timeouts = {
+            close: [],
+            open: null
+        }, this.__touchEvents = [], this.__tracker = null, this._$origin, this._$tooltip, this.__init(b, c)
+    }, a.Tooltipster.prototype = {
+        __init: function (b, c) {
+            var d = this;
+            if (d._$origin = a(b), d.__options = a.extend(!0, {}, f, c), d.__optionsFormat(), !h.IE || h.IE >= d.__options.IEmin) {
+                var e = null;
+                if (void 0 === d._$origin.data("tooltipster-initialTitle") && (e = d._$origin.attr("title"), void 0 === e && (e = null), d._$origin.data("tooltipster-initialTitle", e)), null !== d.__options.content) d.__contentSet(d.__options.content); else {
+                    var g, i = d._$origin.attr("data-tooltip-content");
+                    i && (g = a(i)), g && g[0] ? d.__contentSet(g.first()) : d.__contentSet(e)
+                }
+                d._$origin.removeAttr("title").addClass("tooltipstered"), d.__prepareOrigin(), d.__prepareGC(), a.each(d.__options.plugins, function (a, b) {
+                    d._plug(b)
+                }), h.hasTouchCapability && a(h.window.document.body).on("touchmove." + d.__namespace + "-triggerOpen", function (a) {
+                    d._touchRecordEvent(a)
+                }), d._on("created", function () {
+                    d.__prepareTooltip()
+                })._on("repositioned", function (a) {
+                    d.__lastPosition = a.position
+                })
+            } else d.__options.disabled = !0
+        }, __contentInsert: function () {
+            var a = this, b = a._$tooltip.find(".tooltipster-content"), c = a.__Content, d = function (a) {
+                c = a
+            };
+            return a._trigger({
+                type: "format",
+                content: a.__Content,
+                format: d
+            }), a.__options.functionFormat && (c = a.__options.functionFormat.call(a, a, {origin: a._$origin[0]}, a.__Content)), "string" != typeof c || a.__options.contentAsHTML ? b.empty().append(c) : b.text(c), a
+        }, __contentSet: function (b) {
+            return b instanceof a && this.__options.contentCloning && (b = b.clone(!0)), this.__Content = b, this._trigger({
+                type: "updated",
+                content: b
+            }), this
+        }, __destroyError: function () {
+            throw new Error("This tooltip has been destroyed and cannot execute your method call.")
+        }, __geometry: function () {
+            var b = this, c = b._$origin, d = b._$origin.is("area");
+            if (d) {
+                var e = b._$origin.parent().attr("name");
+                c = a('img[usemap="#' + e + '"]')
+            }
+            var f = c[0].getBoundingClientRect(), g = a(h.window.document), i = a(h.window), j = c, k = {
+                available: {document: null, window: null},
+                document: {size: {height: g.height(), width: g.width()}},
+                window: {
+                    scroll: {
+                        left: h.window.scrollX || h.window.document.documentElement.scrollLeft,
+                        top: h.window.scrollY || h.window.document.documentElement.scrollTop
+                    }, size: {height: i.height(), width: i.width()}
+                },
+                origin: {
+                    fixedLineage: !1,
+                    offset: {},
+                    size: {height: f.bottom - f.top, width: f.right - f.left},
+                    usemapImage: d ? c[0] : null,
+                    windowOffset: {bottom: f.bottom, left: f.left, right: f.right, top: f.top}
+                }
+            };
+            if (d) {
+                var l = b._$origin.attr("shape"), m = b._$origin.attr("coords");
+                if (m && (m = m.split(","), a.map(m, function (a, b) {
+                    m[b] = parseInt(a)
+                })), "default" != l) switch (l) {
+                    case"circle":
+                        var n = m[0], o = m[1], p = m[2], q = o - p, r = n - p;
+                        k.origin.size.height = 2 * p, k.origin.size.width = k.origin.size.height, k.origin.windowOffset.left += r, k.origin.windowOffset.top += q;
+                        break;
+                    case"rect":
+                        var s = m[0], t = m[1], u = m[2], v = m[3];
+                        k.origin.size.height = v - t, k.origin.size.width = u - s, k.origin.windowOffset.left += s, k.origin.windowOffset.top += t;
+                        break;
+                    case"poly":
+                        for (var w = 0, x = 0, y = 0, z = 0, A = "even", B = 0; B < m.length; B++) {
+                            var C = m[B];
+                            "even" == A ? (C > y && (y = C, 0 === B && (w = y)), w > C && (w = C), A = "odd") : (C > z && (z = C, 1 == B && (x = z)), x > C && (x = C), A = "even")
+                        }
+                        k.origin.size.height = z - x, k.origin.size.width = y - w, k.origin.windowOffset.left += w, k.origin.windowOffset.top += x
+                }
+            }
+            var D = function (a) {
+                k.origin.size.height = a.height, k.origin.windowOffset.left = a.left, k.origin.windowOffset.top = a.top, k.origin.size.width = a.width
+            };
+            for (b._trigger({
+                type: "geometry",
+                edit: D,
+                geometry: {
+                    height: k.origin.size.height,
+                    left: k.origin.windowOffset.left,
+                    top: k.origin.windowOffset.top,
+                    width: k.origin.size.width
+                }
+            }), k.origin.windowOffset.right = k.origin.windowOffset.left + k.origin.size.width, k.origin.windowOffset.bottom = k.origin.windowOffset.top + k.origin.size.height, k.origin.offset.left = k.origin.windowOffset.left + k.window.scroll.left, k.origin.offset.top = k.origin.windowOffset.top + k.window.scroll.top, k.origin.offset.bottom = k.origin.offset.top + k.origin.size.height, k.origin.offset.right = k.origin.offset.left + k.origin.size.width, k.available.document = {
+                bottom: {
+                    height: k.document.size.height - k.origin.offset.bottom,
+                    width: k.document.size.width
+                },
+                left: {height: k.document.size.height, width: k.origin.offset.left},
+                right: {height: k.document.size.height, width: k.document.size.width - k.origin.offset.right},
+                top: {height: k.origin.offset.top, width: k.document.size.width}
+            }, k.available.window = {
+                bottom: {
+                    height: Math.max(k.window.size.height - Math.max(k.origin.windowOffset.bottom, 0), 0),
+                    width: k.window.size.width
+                },
+                left: {height: k.window.size.height, width: Math.max(k.origin.windowOffset.left, 0)},
+                right: {
+                    height: k.window.size.height,
+                    width: Math.max(k.window.size.width - Math.max(k.origin.windowOffset.right, 0), 0)
+                },
+                top: {height: Math.max(k.origin.windowOffset.top, 0), width: k.window.size.width}
+            }; "html" != j[0].tagName.toLowerCase();) {
+                if ("fixed" == j.css("position")) {
+                    k.origin.fixedLineage = !0;
+                    break
+                }
+                j = j.parent()
+            }
+            return k
+        }, __optionsFormat: function () {
+            return "number" == typeof this.__options.animationDuration && (this.__options.animationDuration = [this.__options.animationDuration, this.__options.animationDuration]), "number" == typeof this.__options.delay && (this.__options.delay = [this.__options.delay, this.__options.delay]), "number" == typeof this.__options.delayTouch && (this.__options.delayTouch = [this.__options.delayTouch, this.__options.delayTouch]), "string" == typeof this.__options.theme && (this.__options.theme = [this.__options.theme]), null === this.__options.parent ? this.__options.parent = a(h.window.document.body) : "string" == typeof this.__options.parent && (this.__options.parent = a(this.__options.parent)), "hover" == this.__options.trigger ? (this.__options.triggerOpen = {
+                mouseenter: !0,
+                touchstart: !0
+            }, this.__options.triggerClose = {
+                mouseleave: !0,
+                originClick: !0,
+                touchleave: !0
+            }) : "click" == this.__options.trigger && (this.__options.triggerOpen = {
+                click: !0,
+                tap: !0
+            }, this.__options.triggerClose = {click: !0, tap: !0}), this._trigger("options"), this
+        }, __prepareGC: function () {
+            var b = this;
+            return b.__options.selfDestruction ? b.__garbageCollector = setInterval(function () {
+                var c = (new Date).getTime();
+                b.__touchEvents = a.grep(b.__touchEvents, function (a, b) {
+                    return c - a.time > 6e4
+                }), d(b._$origin) || b.close(function () {
+                    b.destroy()
+                })
+            }, 2e4) : clearInterval(b.__garbageCollector), b
+        }, __prepareOrigin: function () {
+            var a = this;
+            if (a._$origin.off("." + a.__namespace + "-triggerOpen"), h.hasTouchCapability && a._$origin.on("touchstart." + a.__namespace + "-triggerOpen touchend." + a.__namespace + "-triggerOpen touchcancel." + a.__namespace + "-triggerOpen", function (b) {
+                a._touchRecordEvent(b)
+            }), a.__options.triggerOpen.click || a.__options.triggerOpen.tap && h.hasTouchCapability) {
+                var b = "";
+                a.__options.triggerOpen.click && (b += "click." + a.__namespace + "-triggerOpen "), a.__options.triggerOpen.tap && h.hasTouchCapability && (b += "touchend." + a.__namespace + "-triggerOpen"), a._$origin.on(b, function (b) {
+                    a._touchIsMeaningfulEvent(b) && a._open(b)
+                })
+            }
+            if (a.__options.triggerOpen.mouseenter || a.__options.triggerOpen.touchstart && h.hasTouchCapability) {
+                var b = "";
+                a.__options.triggerOpen.mouseenter && (b += "mouseenter." + a.__namespace + "-triggerOpen "), a.__options.triggerOpen.touchstart && h.hasTouchCapability && (b += "touchstart." + a.__namespace + "-triggerOpen"), a._$origin.on(b, function (b) {
+                    !a._touchIsTouchEvent(b) && a._touchIsEmulatedEvent(b) || (a.__pointerIsOverOrigin = !0, a._openShortly(b))
+                })
+            }
+            if (a.__options.triggerClose.mouseleave || a.__options.triggerClose.touchleave && h.hasTouchCapability) {
+                var b = "";
+                a.__options.triggerClose.mouseleave && (b += "mouseleave." + a.__namespace + "-triggerOpen "), a.__options.triggerClose.touchleave && h.hasTouchCapability && (b += "touchend." + a.__namespace + "-triggerOpen touchcancel." + a.__namespace + "-triggerOpen"), a._$origin.on(b, function (b) {
+                    a._touchIsMeaningfulEvent(b) && (a.__pointerIsOverOrigin = !1)
+                })
+            }
+            return a
+        }, __prepareTooltip: function () {
+            var b = this, c = b.__options.interactive ? "auto" : "";
+            return b._$tooltip.attr("id", b.__namespace).css({
+                "pointer-events": c,
+                zIndex: b.__options.zIndex
+            }), a.each(b.__previousThemes, function (a, c) {
+                b._$tooltip.removeClass(c)
+            }), a.each(b.__options.theme, function (a, c) {
+                b._$tooltip.addClass(c)
+            }), b.__previousThemes = a.merge([], b.__options.theme), b
+        }, __scrollHandler: function (b) {
+            var c = this;
+            if (c.__options.triggerClose.scroll) c._close(b); else if (d(c._$origin) && d(c._$tooltip)) {
+                var e = null;
+                if (b.target === h.window.document) c.__Geometry.origin.fixedLineage || c.__options.repositionOnScroll && c.reposition(b); else {
+                    e = c.__geometry();
+                    var f = !1;
+                    if ("fixed" != c._$origin.css("position") && c.__$originParents.each(function (b, c) {
+                        var d = a(c), g = d.css("overflow-x"), h = d.css("overflow-y");
+                        if ("visible" != g || "visible" != h) {
+                            var i = c.getBoundingClientRect();
+                            if ("visible" != g && (e.origin.windowOffset.left < i.left || e.origin.windowOffset.right > i.right)) return f = !0, !1;
+                            if ("visible" != h && (e.origin.windowOffset.top < i.top || e.origin.windowOffset.bottom > i.bottom)) return f = !0, !1
+                        }
+                        return "fixed" == d.css("position") ? !1 : void 0
+                    }), f) c._$tooltip.css("visibility", "hidden"); else if (c._$tooltip.css("visibility", "visible"), c.__options.repositionOnScroll) c.reposition(b); else {
+                        var g = e.origin.offset.left - c.__Geometry.origin.offset.left,
+                            i = e.origin.offset.top - c.__Geometry.origin.offset.top;
+                        c._$tooltip.css({left: c.__lastPosition.coord.left + g, top: c.__lastPosition.coord.top + i})
+                    }
+                }
+                c._trigger({type: "scroll", event: b, geo: e})
+            }
+            return c
+        }, __stateSet: function (a) {
+            return this.__state = a, this._trigger({type: "state", state: a}), this
+        }, __timeoutsClear: function () {
+            return clearTimeout(this.__timeouts.open), this.__timeouts.open = null, a.each(this.__timeouts.close, function (a, b) {
+                clearTimeout(b)
+            }), this.__timeouts.close = [], this
+        }, __trackerStart: function () {
+            var a = this, b = a._$tooltip.find(".tooltipster-content");
+            return a.__options.trackTooltip && (a.__contentBcr = b[0].getBoundingClientRect()), a.__tracker = setInterval(function () {
+                if (d(a._$origin) && d(a._$tooltip)) {
+                    if (a.__options.trackOrigin) {
+                        var e = a.__geometry(), f = !1;
+                        c(e.origin.size, a.__Geometry.origin.size) && (a.__Geometry.origin.fixedLineage ? c(e.origin.windowOffset, a.__Geometry.origin.windowOffset) && (f = !0) : c(e.origin.offset, a.__Geometry.origin.offset) && (f = !0)), f || (a.__options.triggerClose.mouseleave ? a._close() : a.reposition())
+                    }
+                    if (a.__options.trackTooltip) {
+                        var g = b[0].getBoundingClientRect();
+                        g.height === a.__contentBcr.height && g.width === a.__contentBcr.width || (a.reposition(), a.__contentBcr = g)
+                    }
+                } else a._close()
+            }, a.__options.trackerInterval), a
+        }, _close: function (b, c, d) {
+            var e = this, f = !0;
+            if (e._trigger({
+                type: "close", event: b, stop: function () {
+                    f = !1
+                }
+            }), f || d) {
+                c && e.__callbacks.close.push(c), e.__callbacks.open = [], e.__timeoutsClear();
+                var g = function () {
+                    a.each(e.__callbacks.close, function (a, c) {
+                        c.call(e, e, {event: b, origin: e._$origin[0]})
+                    }), e.__callbacks.close = []
+                };
+                if ("closed" != e.__state) {
+                    var i = !0, j = new Date, k = j.getTime(), l = k + e.__options.animationDuration[1];
+                    if ("disappearing" == e.__state && l > e.__closingTime && e.__options.animationDuration[1] > 0 && (i = !1), i) {
+                        e.__closingTime = l, "disappearing" != e.__state && e.__stateSet("disappearing");
+                        var m = function () {
+                            clearInterval(e.__tracker), e._trigger({
+                                type: "closing",
+                                event: b
+                            }), e._$tooltip.off("." + e.__namespace + "-triggerClose").removeClass("tooltipster-dying"), a(h.window).off("." + e.__namespace + "-triggerClose"), e.__$originParents.each(function (b, c) {
+                                a(c).off("scroll." + e.__namespace + "-triggerClose")
+                            }), e.__$originParents = null, a(h.window.document.body).off("." + e.__namespace + "-triggerClose"), e._$origin.off("." + e.__namespace + "-triggerClose"), e._off("dismissable"), e.__stateSet("closed"), e._trigger({
+                                type: "after",
+                                event: b
+                            }), e.__options.functionAfter && e.__options.functionAfter.call(e, e, {
+                                event: b,
+                                origin: e._$origin[0]
+                            }), g()
+                        };
+                        h.hasTransitions ? (e._$tooltip.css({
+                            "-moz-animation-duration": e.__options.animationDuration[1] + "ms",
+                            "-ms-animation-duration": e.__options.animationDuration[1] + "ms",
+                            "-o-animation-duration": e.__options.animationDuration[1] + "ms",
+                            "-webkit-animation-duration": e.__options.animationDuration[1] + "ms",
+                            "animation-duration": e.__options.animationDuration[1] + "ms",
+                            "transition-duration": e.__options.animationDuration[1] + "ms"
+                        }), e._$tooltip.clearQueue().removeClass("tooltipster-show").addClass("tooltipster-dying"), e.__options.animationDuration[1] > 0 && e._$tooltip.delay(e.__options.animationDuration[1]), e._$tooltip.queue(m)) : e._$tooltip.stop().fadeOut(e.__options.animationDuration[1], m)
+                    }
+                } else g()
+            }
+            return e
+        }, _off: function () {
+            return this.__$emitterPrivate.off.apply(this.__$emitterPrivate, Array.prototype.slice.apply(arguments)), this
+        }, _on: function () {
+            return this.__$emitterPrivate.on.apply(this.__$emitterPrivate, Array.prototype.slice.apply(arguments)), this
+        }, _one: function () {
+            return this.__$emitterPrivate.one.apply(this.__$emitterPrivate, Array.prototype.slice.apply(arguments)), this
+        }, _open: function (b, c) {
+            var e = this;
+            if (!e.__destroying && d(e._$origin) && e.__enabled) {
+                var f = !0;
+                if ("closed" == e.__state && (e._trigger({
+                    type: "before", event: b, stop: function () {
+                        f = !1
+                    }
+                }), f && e.__options.functionBefore && (f = e.__options.functionBefore.call(e, e, {
+                    event: b,
+                    origin: e._$origin[0]
+                }))), f !== !1 && null !== e.__Content) {
+                    c && e.__callbacks.open.push(c), e.__callbacks.close = [], e.__timeoutsClear();
+                    var g, i = function () {
+                        "stable" != e.__state && e.__stateSet("stable"), a.each(e.__callbacks.open, function (a, b) {
+                            b.call(e, e, {origin: e._$origin[0], tooltip: e._$tooltip[0]})
+                        }), e.__callbacks.open = []
+                    };
+                    if ("closed" !== e.__state) g = 0, "disappearing" === e.__state ? (e.__stateSet("appearing"), h.hasTransitions ? (e._$tooltip.clearQueue().removeClass("tooltipster-dying").addClass("tooltipster-show"), e.__options.animationDuration[0] > 0 && e._$tooltip.delay(e.__options.animationDuration[0]), e._$tooltip.queue(i)) : e._$tooltip.stop().fadeIn(i)) : "stable" == e.__state && i(); else {
+                        if (e.__stateSet("appearing"), g = e.__options.animationDuration[0], e.__contentInsert(), e.reposition(b, !0), h.hasTransitions ? (e._$tooltip.addClass("tooltipster-" + e.__options.animation).addClass("tooltipster-initial").css({
+                            "-moz-animation-duration": e.__options.animationDuration[0] + "ms",
+                            "-ms-animation-duration": e.__options.animationDuration[0] + "ms",
+                            "-o-animation-duration": e.__options.animationDuration[0] + "ms",
+                            "-webkit-animation-duration": e.__options.animationDuration[0] + "ms",
+                            "animation-duration": e.__options.animationDuration[0] + "ms",
+                            "transition-duration": e.__options.animationDuration[0] + "ms"
+                        }), setTimeout(function () {
+                            "closed" != e.__state && (e._$tooltip.addClass("tooltipster-show").removeClass("tooltipster-initial"), e.__options.animationDuration[0] > 0 && e._$tooltip.delay(e.__options.animationDuration[0]), e._$tooltip.queue(i))
+                        }, 0)) : e._$tooltip.css("display", "none").fadeIn(e.__options.animationDuration[0], i), e.__trackerStart(), a(h.window).on("resize." + e.__namespace + "-triggerClose", function (b) {
+                            var c = a(document.activeElement);
+                            (c.is("input") || c.is("textarea")) && a.contains(e._$tooltip[0], c[0]) || e.reposition(b)
+                        }).on("scroll." + e.__namespace + "-triggerClose", function (a) {
+                            e.__scrollHandler(a)
+                        }), e.__$originParents = e._$origin.parents(), e.__$originParents.each(function (b, c) {
+                            a(c).on("scroll." + e.__namespace + "-triggerClose", function (a) {
+                                e.__scrollHandler(a)
+                            })
+                        }), e.__options.triggerClose.mouseleave || e.__options.triggerClose.touchleave && h.hasTouchCapability) {
+                            e._on("dismissable", function (a) {
+                                a.dismissable ? a.delay ? (m = setTimeout(function () {
+                                    e._close(a.event)
+                                }, a.delay), e.__timeouts.close.push(m)) : e._close(a) : clearTimeout(m)
+                            });
+                            var j = e._$origin, k = "", l = "", m = null;
+                            e.__options.interactive && (j = j.add(e._$tooltip)), e.__options.triggerClose.mouseleave && (k += "mouseenter." + e.__namespace + "-triggerClose ", l += "mouseleave." + e.__namespace + "-triggerClose "), e.__options.triggerClose.touchleave && h.hasTouchCapability && (k += "touchstart." + e.__namespace + "-triggerClose", l += "touchend." + e.__namespace + "-triggerClose touchcancel." + e.__namespace + "-triggerClose"), j.on(l, function (a) {
+                                if (e._touchIsTouchEvent(a) || !e._touchIsEmulatedEvent(a)) {
+                                    var b = "mouseleave" == a.type ? e.__options.delay : e.__options.delayTouch;
+                                    e._trigger({delay: b[1], dismissable: !0, event: a, type: "dismissable"})
+                                }
+                            }).on(k, function (a) {
+                                !e._touchIsTouchEvent(a) && e._touchIsEmulatedEvent(a) || e._trigger({
+                                    dismissable: !1,
+                                    event: a,
+                                    type: "dismissable"
+                                })
+                            })
+                        }
+                        e.__options.triggerClose.originClick && e._$origin.on("click." + e.__namespace + "-triggerClose", function (a) {
+                            e._touchIsTouchEvent(a) || e._touchIsEmulatedEvent(a) || e._close(a)
+                        }), (e.__options.triggerClose.click || e.__options.triggerClose.tap && h.hasTouchCapability) && setTimeout(function () {
+                            if ("closed" != e.__state) {
+                                var b = "", c = a(h.window.document.body);
+                                e.__options.triggerClose.click && (b += "click." + e.__namespace + "-triggerClose "), e.__options.triggerClose.tap && h.hasTouchCapability && (b += "touchend." + e.__namespace + "-triggerClose"), c.on(b, function (b) {
+                                    e._touchIsMeaningfulEvent(b) && (e._touchRecordEvent(b), e.__options.interactive && a.contains(e._$tooltip[0], b.target) || e._close(b))
+                                }), e.__options.triggerClose.tap && h.hasTouchCapability && c.on("touchstart." + e.__namespace + "-triggerClose", function (a) {
+                                    e._touchRecordEvent(a)
+                                })
+                            }
+                        }, 0), e._trigger("ready"), e.__options.functionReady && e.__options.functionReady.call(e, e, {
+                            origin: e._$origin[0],
+                            tooltip: e._$tooltip[0]
+                        })
+                    }
+                    if (e.__options.timer > 0) {
+                        var m = setTimeout(function () {
+                            e._close()
+                        }, e.__options.timer + g);
+                        e.__timeouts.close.push(m)
+                    }
+                }
+            }
+            return e
+        }, _openShortly: function (a) {
+            var b = this, c = !0;
+            if ("stable" != b.__state && "appearing" != b.__state && !b.__timeouts.open && (b._trigger({
+                type: "start",
+                event: a,
+                stop: function () {
+                    c = !1
+                }
+            }), c)) {
+                var d = 0 == a.type.indexOf("touch") ? b.__options.delayTouch : b.__options.delay;
+                d[0] ? b.__timeouts.open = setTimeout(function () {
+                    b.__timeouts.open = null, b.__pointerIsOverOrigin && b._touchIsMeaningfulEvent(a) ? (b._trigger("startend"), b._open(a)) : b._trigger("startcancel")
+                }, d[0]) : (b._trigger("startend"), b._open(a))
+            }
+            return b
+        }, _optionsExtract: function (b, c) {
+            var d = this, e = a.extend(!0, {}, c), f = d.__options[b];
+            return f || (f = {}, a.each(c, function (a, b) {
+                var c = d.__options[a];
+                void 0 !== c && (f[a] = c)
+            })), a.each(e, function (b, c) {
+                void 0 !== f[b] && ("object" != typeof c || c instanceof Array || null == c || "object" != typeof f[b] || f[b] instanceof Array || null == f[b] ? e[b] = f[b] : a.extend(e[b], f[b]))
+            }), e
+        }, _plug: function (b) {
+            var c = a.tooltipster._plugin(b);
+            if (!c) throw new Error('The "' + b + '" plugin is not defined');
+            return c.instance && a.tooltipster.__bridge(c.instance, this, c.name), this
+        }, _touchIsEmulatedEvent: function (a) {
+            for (var b = !1, c = (new Date).getTime(), d = this.__touchEvents.length - 1; d >= 0; d--) {
+                var e = this.__touchEvents[d];
+                if (!(c - e.time < 500)) break;
+                e.target === a.target && (b = !0)
+            }
+            return b
+        }, _touchIsMeaningfulEvent: function (a) {
+            return this._touchIsTouchEvent(a) && !this._touchSwiped(a.target) || !this._touchIsTouchEvent(a) && !this._touchIsEmulatedEvent(a)
+        }, _touchIsTouchEvent: function (a) {
+            return 0 == a.type.indexOf("touch")
+        }, _touchRecordEvent: function (a) {
+            return this._touchIsTouchEvent(a) && (a.time = (new Date).getTime(), this.__touchEvents.push(a)), this
+        }, _touchSwiped: function (a) {
+            for (var b = !1, c = this.__touchEvents.length - 1; c >= 0; c--) {
+                var d = this.__touchEvents[c];
+                if ("touchmove" == d.type) {
+                    b = !0;
+                    break
+                }
+                if ("touchstart" == d.type && a === d.target) break
+            }
+            return b
+        }, _trigger: function () {
+            var b = Array.prototype.slice.apply(arguments);
+            return "string" == typeof b[0] && (b[0] = {type: b[0]}), b[0].instance = this, b[0].origin = this._$origin ? this._$origin[0] : null, b[0].tooltip = this._$tooltip ? this._$tooltip[0] : null, this.__$emitterPrivate.trigger.apply(this.__$emitterPrivate, b), a.tooltipster._trigger.apply(a.tooltipster, b), this.__$emitterPublic.trigger.apply(this.__$emitterPublic, b), this
+        }, _unplug: function (b) {
+            var c = this;
+            if (c[b]) {
+                var d = a.tooltipster._plugin(b);
+                d.instance && a.each(d.instance, function (a, d) {
+                    c[a] && c[a].bridged === c[b] && delete c[a]
+                }), c[b].__destroy && c[b].__destroy(), delete c[b]
+            }
+            return c
+        }, close: function (a) {
+            return this.__destroyed ? this.__destroyError() : this._close(null, a), this
+        }, content: function (a) {
+            var b = this;
+            if (void 0 === a) return b.__Content;
+            if (b.__destroyed) b.__destroyError(); else if (b.__contentSet(a), null !== b.__Content) {
+                if ("closed" !== b.__state && (b.__contentInsert(), b.reposition(), b.__options.updateAnimation)) if (h.hasTransitions) {
+                    var c = b.__options.updateAnimation;
+                    b._$tooltip.addClass("tooltipster-update-" + c), setTimeout(function () {
+                        "closed" != b.__state && b._$tooltip.removeClass("tooltipster-update-" + c)
+                    }, 1e3)
+                } else b._$tooltip.fadeTo(200, .5, function () {
+                    "closed" != b.__state && b._$tooltip.fadeTo(200, 1)
+                })
+            } else b._close();
+            return b
+        }, destroy: function () {
+            var b = this;
+            if (b.__destroyed) b.__destroyError(); else {
+                "closed" != b.__state ? b.option("animationDuration", 0)._close(null, null, !0) : b.__timeoutsClear(), b._trigger("destroy"), b.__destroyed = !0, b._$origin.removeData(b.__namespace).off("." + b.__namespace + "-triggerOpen"), a(h.window.document.body).off("." + b.__namespace + "-triggerOpen");
+                var c = b._$origin.data("tooltipster-ns");
+                if (c) if (1 === c.length) {
+                    var d = null;
+                    "previous" == b.__options.restoration ? d = b._$origin.data("tooltipster-initialTitle") : "current" == b.__options.restoration && (d = "string" == typeof b.__Content ? b.__Content : a("<div></div>").append(b.__Content).html()), d && b._$origin.attr("title", d), b._$origin.removeClass("tooltipstered"), b._$origin.removeData("tooltipster-ns").removeData("tooltipster-initialTitle")
+                } else c = a.grep(c, function (a, c) {
+                    return a !== b.__namespace
+                }), b._$origin.data("tooltipster-ns", c);
+                b._trigger("destroyed"), b._off(), b.off(), b.__Content = null, b.__$emitterPrivate = null, b.__$emitterPublic = null, b.__options.parent = null, b._$origin = null, b._$tooltip = null, a.tooltipster.__instancesLatestArr = a.grep(a.tooltipster.__instancesLatestArr, function (a, c) {
+                    return b !== a
+                }), clearInterval(b.__garbageCollector)
+            }
+            return b
+        }, disable: function () {
+            return this.__destroyed ? (this.__destroyError(), this) : (this._close(), this.__enabled = !1, this)
+        }, elementOrigin: function () {
+            return this.__destroyed ? void this.__destroyError() : this._$origin[0]
+        }, elementTooltip: function () {
+            return this._$tooltip ? this._$tooltip[0] : null
+        }, enable: function () {
+            return this.__enabled = !0, this
+        }, hide: function (a) {
+            return this.close(a)
+        }, instance: function () {
+            return this
+        }, off: function () {
+            return this.__destroyed || this.__$emitterPublic.off.apply(this.__$emitterPublic, Array.prototype.slice.apply(arguments)), this
+        }, on: function () {
+            return this.__destroyed ? this.__destroyError() : this.__$emitterPublic.on.apply(this.__$emitterPublic, Array.prototype.slice.apply(arguments)), this
+        }, one: function () {
+            return this.__destroyed ? this.__destroyError() : this.__$emitterPublic.one.apply(this.__$emitterPublic, Array.prototype.slice.apply(arguments)), this
+        }, open: function (a) {
+            return this.__destroyed ? this.__destroyError() : this._open(null, a), this
+        }, option: function (b, c) {
+            return void 0 === c ? this.__options[b] : (this.__destroyed ? this.__destroyError() : (this.__options[b] = c, this.__optionsFormat(), a.inArray(b, ["trigger", "triggerClose", "triggerOpen"]) >= 0 && this.__prepareOrigin(), "selfDestruction" === b && this.__prepareGC()), this)
+        }, reposition: function (a, b) {
+            var c = this;
+            return c.__destroyed ? c.__destroyError() : "closed" != c.__state && d(c._$origin) && (b || d(c._$tooltip)) && (b || c._$tooltip.detach(), c.__Geometry = c.__geometry(), c._trigger({
+                type: "reposition",
+                event: a,
+                helper: {geo: c.__Geometry}
+            })), c
+        }, show: function (a) {
+            return this.open(a)
+        }, status: function () {
+            return {
+                destroyed: this.__destroyed,
+                enabled: this.__enabled,
+                open: "closed" !== this.__state,
+                state: this.__state
+            }
+        }, triggerHandler: function () {
+            return this.__destroyed ? this.__destroyError() : this.__$emitterPublic.triggerHandler.apply(this.__$emitterPublic, Array.prototype.slice.apply(arguments)), this
+        }
+    }, a.fn.tooltipster = function () {
+        var b = Array.prototype.slice.apply(arguments),
+            c = "You are using a single HTML element as content for several tooltips. You probably want to set the contentCloning option to TRUE.";
+        if (0 === this.length) return this;
+        if ("string" == typeof b[0]) {
+            var d = "#*$~&";
+            return this.each(function () {
+                var e = a(this).data("tooltipster-ns"), f = e ? a(this).data(e[0]) : null;
+                if (!f) throw new Error("You called Tooltipster's \"" + b[0] + '" method on an uninitialized element');
+                if ("function" != typeof f[b[0]]) throw new Error('Unknown method "' + b[0] + '"');
+                this.length > 1 && "content" == b[0] && (b[1] instanceof a || "object" == typeof b[1] && null != b[1] && b[1].tagName) && !f.__options.contentCloning && f.__options.debug && console.log(c);
+                var g = f[b[0]](b[1], b[2]);
+                return g !== f || "instance" === b[0] ? (d = g, !1) : void 0
+            }), "#*$~&" !== d ? d : this
+        }
+        a.tooltipster.__instancesLatestArr = [];
+        var e = b[0] && void 0 !== b[0].multiple, g = e && b[0].multiple || !e && f.multiple,
+            h = b[0] && void 0 !== b[0].content, i = h && b[0].content || !h && f.content,
+            j = b[0] && void 0 !== b[0].contentCloning, k = j && b[0].contentCloning || !j && f.contentCloning,
+            l = b[0] && void 0 !== b[0].debug, m = l && b[0].debug || !l && f.debug;
+        return this.length > 1 && (i instanceof a || "object" == typeof i && null != i && i.tagName) && !k && m && console.log(c), this.each(function () {
+            var c = !1, d = a(this), e = d.data("tooltipster-ns"), f = null;
+            e ? g ? c = !0 : m && (console.log("Tooltipster: one or more tooltips are already attached to the element below. Ignoring."), console.log(this)) : c = !0, c && (f = new a.Tooltipster(this, b[0]), e || (e = []), e.push(f.__namespace), d.data("tooltipster-ns", e), d.data(f.__namespace, f), f.__options.functionInit && f.__options.functionInit.call(f, f, {origin: this}), f._trigger("init")), a.tooltipster.__instancesLatestArr.push(f)
+        }), this
+    }, b.prototype = {
+        __init: function (b) {
+            this.__$tooltip = b, this.__$tooltip.css({
+                left: 0,
+                overflow: "hidden",
+                position: "absolute",
+                top: 0
+            }).find(".tooltipster-content").css("overflow", "auto"), this.$container = a('<div class="tooltipster-ruler"></div>').append(this.__$tooltip).appendTo(h.window.document.body)
+        }, __forceRedraw: function () {
+            var a = this.__$tooltip.parent();
+            this.__$tooltip.detach(), this.__$tooltip.appendTo(a)
+        }, constrain: function (a, b) {
+            return this.constraints = {width: a, height: b}, this.__$tooltip.css({
+                display: "block",
+                height: "",
+                overflow: "auto",
+                width: a
+            }), this
+        }, destroy: function () {
+            this.__$tooltip.detach().find(".tooltipster-content").css({
+                display: "",
+                overflow: ""
+            }), this.$container.remove()
+        }, free: function () {
+            return this.constraints = null, this.__$tooltip.css({
+                display: "",
+                height: "",
+                overflow: "visible",
+                width: ""
+            }), this
+        }, measure: function () {
+            this.__forceRedraw();
+            var a = this.__$tooltip[0].getBoundingClientRect(),
+                b = {size: {height: a.height || a.bottom - a.top, width: a.width || a.right - a.left}};
+            if (this.constraints) {
+                var c = this.__$tooltip.find(".tooltipster-content"), d = this.__$tooltip.outerHeight(),
+                    e = c[0].getBoundingClientRect(), f = {
+                        height: d <= this.constraints.height,
+                        width: a.width <= this.constraints.width && e.width >= c[0].scrollWidth - 1
+                    };
+                b.fits = f.height && f.width
+            }
+            return h.IE && h.IE <= 11 && b.size.width !== h.window.document.documentElement.clientWidth && (b.size.width = Math.ceil(b.size.width) + 1), b
+        }
+    };
+    var j = navigator.userAgent.toLowerCase();
+    -1 != j.indexOf("msie") ? h.IE = parseInt(j.split("msie")[1]) : -1 !== j.toLowerCase().indexOf("trident") && -1 !== j.indexOf(" rv:11") ? h.IE = 11 : -1 != j.toLowerCase().indexOf("edge/") && (h.IE = parseInt(j.toLowerCase().split("edge/")[1]));
+    var k = "tooltipster.sideTip";
+    return a.tooltipster._plugin({
+        name: k, instance: {
+            __defaults: function () {
+                return {
+                    arrow: !0,
+                    distance: 6,
+                    functionPosition: null,
+                    maxWidth: null,
+                    minIntersection: 16,
+                    minWidth: 0,
+                    position: null,
+                    side: "top",
+                    viewportAware: !0
+                }
+            }, __init: function (a) {
+                var b = this;
+                b.__instance = a, b.__namespace = "tooltipster-sideTip-" + Math.round(1e6 * Math.random()), b.__previousState = "closed", b.__options, b.__optionsFormat(), b.__instance._on("state." + b.__namespace, function (a) {
+                    "closed" == a.state ? b.__close() : "appearing" == a.state && "closed" == b.__previousState && b.__create(), b.__previousState = a.state
+                }), b.__instance._on("options." + b.__namespace, function () {
+                    b.__optionsFormat()
+                }), b.__instance._on("reposition." + b.__namespace, function (a) {
+                    b.__reposition(a.event, a.helper)
+                })
+            }, __close: function () {
+                this.__instance.content() instanceof a && this.__instance.content().detach(), this.__instance._$tooltip.remove(), this.__instance._$tooltip = null
+            }, __create: function () {
+                var b = a('<div class="tooltipster-base tooltipster-sidetip"><div class="tooltipster-box"><div class="tooltipster-content"></div></div><div class="tooltipster-arrow"><div class="tooltipster-arrow-uncropped"><div class="tooltipster-arrow-border"></div><div class="tooltipster-arrow-background"></div></div></div></div>');
+                this.__options.arrow || b.find(".tooltipster-box").css("margin", 0).end().find(".tooltipster-arrow").hide(), this.__options.minWidth && b.css("min-width", this.__options.minWidth + "px"), this.__options.maxWidth && b.css("max-width", this.__options.maxWidth + "px"),
+                    this.__instance._$tooltip = b, this.__instance._trigger("created")
+            }, __destroy: function () {
+                this.__instance._off("." + self.__namespace)
+            }, __optionsFormat: function () {
+                var b = this;
+                if (b.__options = b.__instance._optionsExtract(k, b.__defaults()), b.__options.position && (b.__options.side = b.__options.position), "object" != typeof b.__options.distance && (b.__options.distance = [b.__options.distance]), b.__options.distance.length < 4 && (void 0 === b.__options.distance[1] && (b.__options.distance[1] = b.__options.distance[0]), void 0 === b.__options.distance[2] && (b.__options.distance[2] = b.__options.distance[0]), void 0 === b.__options.distance[3] && (b.__options.distance[3] = b.__options.distance[1]), b.__options.distance = {
+                    top: b.__options.distance[0],
+                    right: b.__options.distance[1],
+                    bottom: b.__options.distance[2],
+                    left: b.__options.distance[3]
+                }), "string" == typeof b.__options.side) {
+                    var c = {top: "bottom", right: "left", bottom: "top", left: "right"};
+                    b.__options.side = [b.__options.side, c[b.__options.side]], "left" == b.__options.side[0] || "right" == b.__options.side[0] ? b.__options.side.push("top", "bottom") : b.__options.side.push("right", "left")
+                }
+                6 === a.tooltipster._env.IE && b.__options.arrow !== !0 && (b.__options.arrow = !1)
+            }, __reposition: function (b, c) {
+                var d, e = this, f = e.__targetFind(c), g = [];
+                e.__instance._$tooltip.detach();
+                var h = e.__instance._$tooltip.clone(), i = a.tooltipster._getRuler(h), j = !1,
+                    k = e.__instance.option("animation");
+                switch (k && h.removeClass("tooltipster-" + k), a.each(["window", "document"], function (d, k) {
+                    var l = null;
+                    if (e.__instance._trigger({
+                        container: k, helper: c, satisfied: j, takeTest: function (a) {
+                            l = a
+                        }, results: g, type: "positionTest"
+                    }), 1 == l || 0 != l && 0 == j && ("window" != k || e.__options.viewportAware)) for (var d = 0; d < e.__options.side.length; d++) {
+                        var m = {horizontal: 0, vertical: 0}, n = e.__options.side[d];
+                        "top" == n || "bottom" == n ? m.vertical = e.__options.distance[n] : m.horizontal = e.__options.distance[n], e.__sideChange(h, n), a.each(["natural", "constrained"], function (a, d) {
+                            if (l = null, e.__instance._trigger({
+                                container: k,
+                                event: b,
+                                helper: c,
+                                mode: d,
+                                results: g,
+                                satisfied: j,
+                                side: n,
+                                takeTest: function (a) {
+                                    l = a
+                                },
+                                type: "positionTest"
+                            }), 1 == l || 0 != l && 0 == j) {
+                                var h = {
+                                        container: k,
+                                        distance: m,
+                                        fits: null,
+                                        mode: d,
+                                        outerSize: null,
+                                        side: n,
+                                        size: null,
+                                        target: f[n],
+                                        whole: null
+                                    },
+                                    o = "natural" == d ? i.free() : i.constrain(c.geo.available[k][n].width - m.horizontal, c.geo.available[k][n].height - m.vertical),
+                                    p = o.measure();
+                                if (h.size = p.size, h.outerSize = {
+                                    height: p.size.height + m.vertical,
+                                    width: p.size.width + m.horizontal
+                                }, "natural" == d ? c.geo.available[k][n].width >= h.outerSize.width && c.geo.available[k][n].height >= h.outerSize.height ? h.fits = !0 : h.fits = !1 : h.fits = p.fits, "window" == k && (h.fits ? "top" == n || "bottom" == n ? h.whole = c.geo.origin.windowOffset.right >= e.__options.minIntersection && c.geo.window.size.width - c.geo.origin.windowOffset.left >= e.__options.minIntersection : h.whole = c.geo.origin.windowOffset.bottom >= e.__options.minIntersection && c.geo.window.size.height - c.geo.origin.windowOffset.top >= e.__options.minIntersection : h.whole = !1), g.push(h), h.whole) j = !0; else if ("natural" == h.mode && (h.fits || h.size.width <= c.geo.available[k][n].width)) return !1
+                            }
+                        })
+                    }
+                }), e.__instance._trigger({
+                    edit: function (a) {
+                        g = a
+                    }, event: b, helper: c, results: g, type: "positionTested"
+                }), g.sort(function (a, b) {
+                    if (a.whole && !b.whole) return -1;
+                    if (!a.whole && b.whole) return 1;
+                    if (a.whole && b.whole) {
+                        var c = e.__options.side.indexOf(a.side), d = e.__options.side.indexOf(b.side);
+                        return d > c ? -1 : c > d ? 1 : "natural" == a.mode ? -1 : 1
+                    }
+                    if (a.fits && !b.fits) return -1;
+                    if (!a.fits && b.fits) return 1;
+                    if (a.fits && b.fits) {
+                        var c = e.__options.side.indexOf(a.side), d = e.__options.side.indexOf(b.side);
+                        return d > c ? -1 : c > d ? 1 : "natural" == a.mode ? -1 : 1
+                    }
+                    return "document" == a.container && "bottom" == a.side && "natural" == a.mode ? -1 : 1
+                }), d = g[0], d.coord = {}, d.side) {
+                    case"left":
+                    case"right":
+                        d.coord.top = Math.floor(d.target - d.size.height / 2);
+                        break;
+                    case"bottom":
+                    case"top":
+                        d.coord.left = Math.floor(d.target - d.size.width / 2)
+                }
+                switch (d.side) {
+                    case"left":
+                        d.coord.left = c.geo.origin.windowOffset.left - d.outerSize.width;
+                        break;
+                    case"right":
+                        d.coord.left = c.geo.origin.windowOffset.right + d.distance.horizontal;
+                        break;
+                    case"top":
+                        d.coord.top = c.geo.origin.windowOffset.top - d.outerSize.height;
+                        break;
+                    case"bottom":
+                        d.coord.top = c.geo.origin.windowOffset.bottom + d.distance.vertical
+                }
+                "window" == d.container ? "top" == d.side || "bottom" == d.side ? d.coord.left < 0 ? c.geo.origin.windowOffset.right - this.__options.minIntersection >= 0 ? d.coord.left = 0 : d.coord.left = c.geo.origin.windowOffset.right - this.__options.minIntersection - 1 : d.coord.left > c.geo.window.size.width - d.size.width && (c.geo.origin.windowOffset.left + this.__options.minIntersection <= c.geo.window.size.width ? d.coord.left = c.geo.window.size.width - d.size.width : d.coord.left = c.geo.origin.windowOffset.left + this.__options.minIntersection + 1 - d.size.width) : d.coord.top < 0 ? c.geo.origin.windowOffset.bottom - this.__options.minIntersection >= 0 ? d.coord.top = 0 : d.coord.top = c.geo.origin.windowOffset.bottom - this.__options.minIntersection - 1 : d.coord.top > c.geo.window.size.height - d.size.height && (c.geo.origin.windowOffset.top + this.__options.minIntersection <= c.geo.window.size.height ? d.coord.top = c.geo.window.size.height - d.size.height : d.coord.top = c.geo.origin.windowOffset.top + this.__options.minIntersection + 1 - d.size.height) : (d.coord.left > c.geo.window.size.width - d.size.width && (d.coord.left = c.geo.window.size.width - d.size.width), d.coord.left < 0 && (d.coord.left = 0)), e.__sideChange(h, d.side), c.tooltipClone = h[0], c.tooltipParent = e.__instance.option("parent").parent[0], c.mode = d.mode, c.whole = d.whole, c.origin = e.__instance._$origin[0], c.tooltip = e.__instance._$tooltip[0], delete d.container, delete d.fits, delete d.mode, delete d.outerSize, delete d.whole, d.distance = d.distance.horizontal || d.distance.vertical;
+                var l = a.extend(!0, {}, d);
+                if (e.__instance._trigger({
+                    edit: function (a) {
+                        d = a
+                    }, event: b, helper: c, position: l, type: "position"
+                }), e.__options.functionPosition) {
+                    var m = e.__options.functionPosition.call(e, e.__instance, c, l);
+                    m && (d = m)
+                }
+                i.destroy();
+                var n, o;
+                "top" == d.side || "bottom" == d.side ? (n = {
+                    prop: "left",
+                    val: d.target - d.coord.left
+                }, o = d.size.width - this.__options.minIntersection) : (n = {
+                    prop: "top",
+                    val: d.target - d.coord.top
+                }, o = d.size.height - this.__options.minIntersection), n.val < this.__options.minIntersection ? n.val = this.__options.minIntersection : n.val > o && (n.val = o);
+                var p;
+                p = c.geo.origin.fixedLineage ? c.geo.origin.windowOffset : {
+                    left: c.geo.origin.windowOffset.left + c.geo.window.scroll.left,
+                    top: c.geo.origin.windowOffset.top + c.geo.window.scroll.top
+                }, d.coord = {
+                    left: p.left + (d.coord.left - c.geo.origin.windowOffset.left),
+                    top: p.top + (d.coord.top - c.geo.origin.windowOffset.top)
+                }, e.__sideChange(e.__instance._$tooltip, d.side), c.geo.origin.fixedLineage ? e.__instance._$tooltip.css("position", "fixed") : e.__instance._$tooltip.css("position", ""), e.__instance._$tooltip.css({
+                    left: d.coord.left,
+                    top: d.coord.top,
+                    height: d.size.height,
+                    width: d.size.width
+                }).find(".tooltipster-arrow").css({
+                    left: "",
+                    top: ""
+                }).css(n.prop, n.val), e.__instance._$tooltip.appendTo(e.__instance.option("parent")), e.__instance._trigger({
+                    type: "repositioned",
+                    event: b,
+                    position: d
+                })
+            }, __sideChange: function (a, b) {
+                a.removeClass("tooltipster-bottom").removeClass("tooltipster-left").removeClass("tooltipster-right").removeClass("tooltipster-top").addClass("tooltipster-" + b)
+            }, __targetFind: function (a) {
+                var b = {}, c = this.__instance._$origin[0].getClientRects();
+                if (c.length > 1) {
+                    var d = this.__instance._$origin.css("opacity");
+                    1 == d && (this.__instance._$origin.css("opacity", .99), c = this.__instance._$origin[0].getClientRects(), this.__instance._$origin.css("opacity", 1))
+                }
+                if (c.length < 2) b.top = Math.floor(a.geo.origin.windowOffset.left + a.geo.origin.size.width / 2), b.bottom = b.top, b.left = Math.floor(a.geo.origin.windowOffset.top + a.geo.origin.size.height / 2), b.right = b.left; else {
+                    var e = c[0];
+                    b.top = Math.floor(e.left + (e.right - e.left) / 2), e = c.length > 2 ? c[Math.ceil(c.length / 2) - 1] : c[0], b.right = Math.floor(e.top + (e.bottom - e.top) / 2), e = c[c.length - 1], b.bottom = Math.floor(e.left + (e.right - e.left) / 2), e = c.length > 2 ? c[Math.ceil((c.length + 1) / 2) - 1] : c[c.length - 1], b.left = Math.floor(e.top + (e.bottom - e.top) / 2)
+                }
+                return b
+            }
+        }
+    }), a
+});
+
+jQuery(document).ready(function ($) {
+
+    /**
+     * Ajax search product request
+     * @type {*|jQuery|HTMLElement}
+     */
+    var _nonce = $('meta[name="_wast_nonce"]').attr('content');
+    var ajaxResult = $('.wast-product-title-wrapper .wast-ajax-result');
+    var searchInput = $('.product-title');
+    var loader = $('.wast-product-title-wrapper .wast-loader');
+    var $continue = true;
+    searchInput.on('input', function () {
+        var $this = $(this);
+        var searchTerm = $this.val();
+        if (searchTerm.length < 2) {
+            $continue = false;
+            ajaxResult.fadeOut();
+            loader.fadeOut();
+            return false;
+        } else {
+            $continue = true;
+        }
+
+        loader.fadeIn();
+
+        $.ajax({
+            url: wast_data.ajax_url,
+            type: 'post',
+            dataType: 'json',
+            timeout: 20000,
+            data: {
+                action: 'wast_search',
+                searchTerm: searchTerm,
+                _wast_nonce: _nonce
+            },
+            success: function (response) {
+                if (response._result !== '' && $continue) {
+                    ajaxResult.html(response._result).fadeIn();
+                } else {
+                    ajaxResult.empty().hide();
+                }
+                loader.fadeOut();
+            },
+            error: function () {
+                ajaxResult.fadeOut();
+                loader.fadeOut();
+            }
+        });
+    });
+    $(window).click(function () {
+        ajaxResult.empty().hide();
+        loader.fadeOut();
+    });
+    $('.search-form').click(function (event) {
+        event.stopPropagation();
+    });
+
+    /**
+     * Show product title in input
+     */
+    $(document).on('click', '.wast-ajax-result li', function (e) {
+        e.stopPropagation();
+        var $this = $(this);
+        var productID = parseInt($this.data('id'));
+        var productTitle = $this.text();
+
+        $('#product-id').val(productID);
+        searchInput.val(productTitle);
+        ajaxResult.fadeOut();
+    });
+    $('body').click(function () {
+        setTimeout(function () {
+            ajaxResult.empty().hide();
+            loader.fadeOut();
+        }, 500);
+    });
+
+    /**
+     * Show file name when file select form input[type="file"]
+     */
+    $('#ticket-file').change(function () {
+        var $this = $(this);
+        var file = $this[0].files[0];
+        $this.next('label').next('label').text(file['name']);
+    });
+
+    // Show ticket type description
+    $('select[id^="ticket-type"]').change(function () {
+        var $this = $(this);
+        var _value = $this.val();
+
+        $('.wast-tt-desc').hide();
+        $('#wast-tt-desc' + _value).slideDown();
+    });
+
+    // Renewal ajax request
+    $('.wast-btn-renewal').click(function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        var productID = parseInt($this.data('product-id'));
+        if (!productID) {
+            return false;
+        }
+
+        var modal = $('#wast-renewal-modal');
+        var modalAjaxLoader = $('.wast-modal-ajax-loader');
+        var modalProductInfo = $('.wast-modal-product-info');
+        var modalCartInfo = $('.wast-modal-cart-info');
+
+        modalAjaxLoader.show();
+        modalProductInfo.remove();
+        modalCartInfo.remove();
+        modalAjaxLoader.next('.wast-alert').hide();
+
+        $.ajax({
+            url: wast_data.ajax_url,
+            type: 'post',
+            dataType: 'json',
+            timeout: 20000,
+            data: {
+                action: 'wast_renewal',
+                productID: productID,
+                _wast_nonce: _nonce
+            },
+            success: function (response) {
+                modalAjaxLoader.hide();
+
+                if (response._success === true) {
+                    var productName = response.product_name;
+                    var renewalTime = response.renewal_time;
+                    var renewalAmount = response.renewal_amount;
+
+                    var resultHTML = '<div class="wast-modal-product-info">';
+                    resultHTML += '<h4 class="wast-product-name">تمدید پشتیبانی محصول "<span class="wast-text-muted">' + productName + '</span>"</h4>';
+                    resultHTML += '<div><span>به مدت: ' + renewalTime + '</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span>مبلغ: ' + renewalAmount + '</span></div>';
+                    resultHTML += '<p style="color: #eb3b5a;">با کلیک بر روی دکمه ادامه سبد خرید شما خالی خواهد شد و مبلغ تمدید پشتیبانی به سبد خرید اضافه خواهد شد.</p>';
+                    resultHTML += '<div><a href="#" class="wast-check-cart wast-btn wast-btn-primary" data-product-id="' + productID + '">ادامه</a></div>';
+                    resultHTML += '</div>';
+
+                    modalAjaxLoader.after(resultHTML);
+                } else {
+                    modalAjaxLoader.hide();
+                    modalAjaxLoader.after('<div class="wast-alert wast-alert-danger">خطایی رخ داده است! لطفا مجددا تلاش کنید.</div>');
+                    modal.html('<div class="wast-alert wast-alert-danger">خطایی رخ داده است! لطفا مجددا تلاش کنید.</div>');
+                }
+            },
+            error: function () {
+                modalAjaxLoader.hide();
+                modalAjaxLoader.after('<div class="wast-alert wast-alert-danger">خطایی رخ داده است! لطفا مجددا تلاش کنید.</div>');
+            }
+        });
+    });
+
+    // Add renewal product to cart
+    $(document).on('click', '.wast-check-cart', function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        var productID = parseInt($this.data('product-id'));
+        if (!productID) {
+            return false;
+        }
+
+        var modal = $('#wast-renewal-modal');
+        var modalAjaxLoader = $('.wast-modal-ajax-loader');
+        var modalProductInfo = $('.wast-modal-product-info');
+        var modalCartInfo = $('.wast-modal-cart-info');
+
+        modalAjaxLoader.show();
+        modalProductInfo.remove();
+        modalCartInfo.remove();
+        modalAjaxLoader.next('.wast-alert').hide();
+
+        $.ajax({
+            url: wast_data.ajax_url,
+            type: 'post',
+            dataType: 'json',
+            timeout: 20000,
+            data: {
+                action: 'wast_check_cart',
+                productID: productID,
+                _wast_nonce: _nonce
+            },
+            success: function (response) {
+                modalAjaxLoader.hide();
+
+                if (response._success === true) {
+                    var checkoutUrl = response._checkout_url;
+
+                    var resultHTML = '<div class="wast-modal-cart-info">';
+                    resultHTML += '<div>مبلغ تمدید پشتیبانی با موفقیت به سبد خرید اضافه شد.</div>';
+                    resultHTML += '<a href="' + checkoutUrl + '" class="wast-goto-checkout wast-btn wast-btn-primary">انتقال به سبد خرید</a>';
+                    resultHTML += '</div>';
+
+                    modalAjaxLoader.after(resultHTML);
+                } else {
+                    modalAjaxLoader.hide();
+                    modalAjaxLoader.after('<div class="wast-alert wast-alert-danger">خطایی رخ داده است! لطفا مجددا تلاش کنید.</div>');
+                    modal.html('<div class="wast-alert wast-alert-danger">خطایی رخ داده است! لطفا مجددا تلاش کنید.</div>');
+                }
+            },
+            error: function () {
+                modalAjaxLoader.hide();
+                modalAjaxLoader.after('<div class="wast-alert wast-alert-danger">خطایی رخ داده است! لطفا مجددا تلاش کنید.</div>');
+            }
+        });
+    });
+
+    // Show ticket form
+    $('.wast-reply-form-toggle').click(function (e) {
+        e.preventDefault();
+        $('#wast-reply-form').slideToggle();
+    });
+
+    // Initialize tooltipster plugin
+    $('.wast-tooltip').tooltipster();
+
+    // Handle multi step
+    $('#not-found-my-answer').click(function (e) {
+        e.preventDefault();
+        $('.wast-type-wrapper').show();
+    });
+    $('.wast-is-multi-step #ticket-type').change(function () {
+        var $this = $(this);
+        var _value = $this.val();
+        if (!_value.length) {
+            $('.wast-child-type-wrapper').hide();
+            $('.wast-child-type').find(":selected").prop("selected", false);
+            $('.wast-user-name-wrapper').hide();
+            $('.wast-user-email-wrapper').hide();
+            $('.wast-title-wrapper').hide();
+            $('.wast-tt-desc-wrapper').hide();
+            $('.wast-priority-wrapper').hide();
+            $('.wast-product-title-wrapper').hide();
+            $('.wast-content-wrapper').hide();
+            $('.wast-file-wrapper').hide();
+            $('.wast-g-recaptcha').hide();
+            $('.wast-submit-new-ticket-wrapper').hide();
+            return false;
+        }
+
+        $('.wast-child-type-wrapper').show();
+        var ticket_type = $('#ticket-type' + _value);
+        ticket_type.show();
+        ticket_type.attr('name', 'ticket-type');
+        ticket_type.siblings('.wast-custom-select').hide().removeAttr('name');
+    });
+    $('.wast-child-type').change(function () {
+        var $this = $(this);
+        var _value = $this.val();
+        var show_product = $this.find(":selected").data('show-product');
+        var blocked = parseInt($this.find(':selected').data('blocked'));
+
+        if (!_value || !_value.length || blocked === 1) {
+            $('.wast-user-name-wrapper').hide();
+            $('.wast-user-email-wrapper').hide();
+            $('.wast-title-wrapper').hide();
+            $('.wast-priority-wrapper').hide();
+            $('.wast-product-title-wrapper').hide();
+            $('.wast-content-wrapper').hide();
+            $('.wast-file-wrapper').hide();
+            $('.wast-g-recaptcha').hide();
+            $('.wast-submit-new-ticket-wrapper').hide();
+        } else  {
+            $('.wast-user-name-wrapper').show();
+            $('.wast-user-email-wrapper').show();
+            if (show_product === true) {
+                $('.wast-product-title-wrapper').show();
+            } else {
+                $('.wast-product-title-wrapper').hide();
+            }
+            $('.wast-title-wrapper').show();
+            $('.wast-priority-wrapper').show();
+            $('.wast-content-wrapper').show();
+            $('.wast-file-wrapper').show();
+            $('.wast-g-recaptcha').show();
+            $('.wast-submit-new-ticket-wrapper').show();
+        }
+        if (!_value || !_value.length) {
+            $('.wast-tt-desc-wrapper').hide();
+        } else  {
+            $('.wast-tt-desc-wrapper').show();
+        }
+    });
+    $('.wast-wrapper:not(.wast-is-multi-step) #ticket-type').change(function () {
+        var $this = $(this);
+        var blocked = parseInt($this.find(':selected').data('blocked'));
+
+        if (blocked === 1) {
+            $('.wast-child-type-wrapper').hide();
+            $('.wast-user-name-wrapper').hide();
+            $('.wast-user-email-wrapper').hide();
+            $('.wast-title-wrapper').hide();
+            $('.wast-priority-wrapper').hide();
+            $('.wast-product-title-wrapper').hide();
+            $('.wast-content-wrapper').hide();
+            $('.wast-file-wrapper').hide();
+            $('.wast-g-recaptcha').hide();
+            $('.wast-submit-new-ticket-wrapper').hide();
+        } else {
+            $('.wast-child-type-wrapper').show();
+            $('.wast-user-name-wrapper').show();
+            $('.wast-user-email-wrapper').show();
+            $('.wast-title-wrapper').show();
+            $('.wast-priority-wrapper').show();
+            $('.wast-product-title-wrapper').show();
+            $('.wast-content-wrapper').show();
+            $('.wast-file-wrapper').show();
+            $('.wast-g-recaptcha').show();
+            $('.wast-submit-new-ticket-wrapper').show();
+        }
+    });
+    $('.wast-child-type').change(function () {
+        return false;
+        var $this = $(this);
+        var blocked = parseInt($this.find(':selected').data('blocked'));
+
+        if (blocked === 1) {
+            $('.wast-user-name-wrapper').hide();
+            $('.wast-user-email-wrapper').hide();
+            $('.wast-title-wrapper').hide();
+            $('.wast-tt-desc-wrapper').show();
+            $('.wast-priority-wrapper').hide();
+            $('.wast-product-title-wrapper').hide();
+            $('.wast-content-wrapper').hide();
+            $('.wast-file-wrapper').hide();
+            $('.wast-g-recaptcha').hide();
+            $('.wast-submit-new-ticket-wrapper').hide();
+        } else {
+            $('.wast-user-name-wrapper').show();
+            $('.wast-user-email-wrapper').show();
+            $('.wast-title-wrapper').show();
+            $('.wast-tt-desc-wrapper').hide();
+            $('.wast-priority-wrapper').show();
+            $('.wast-product-title-wrapper').show();
+            $('.wast-content-wrapper').show();
+            $('.wast-file-wrapper').show();
+            $('.wast-g-recaptcha').show();
+            $('.wast-submit-new-ticket-wrapper').show();
+        }
+    });
+
+    // Send ticket with ajax
+    $(document).on('submit', '.wast-is-multi-step #new-ticket-form', function (e) {
+        e.preventDefault();
+
+        var $this = $(this);
+
+        var ajax_loader = $('.wast-is-multi-step .wast-ajax-loader');
+        ajax_loader.show();
+        ajax_loader.siblings('.wast-alert').remove();
+        $('html, body').stop().animate({
+            scrollTop: ajax_loader.offset().top - 50
+        }, 400, 'swing');
+
+        var ticket_type = $('[name="ticket-type"]').val();
+        var ticket_title = $('#ticket-title').val();
+        var ticket_priority = $('#ticket-priority').val();
+        if ($('#product-title').length > 0) {
+            var product_title = $('#product-title').val();
+        }
+        if ($('#product-id').length > 0) {
+            var product_id = $('#product-id').val();
+        }
+        var ticket_content = $('#ticket-content').val();
+
+        if (product_title === null) {
+            ajax_loader.hide().after('<div class="wast-alert wast-alert-danger">خطایی رخ داده است!</div>');
+            return false;
+        }
+
+        // From data validation
+        var errors = [];
+        if (ticket_title.length === 0) {
+            errors.push(wast_data.please_enter_title);
+        } else {
+            if (ticket_title.length > 128) {
+                errors.push(wast_data.title_long);
+            }
+        }
+        if ($('#product-title').length > 0) {
+            if (product_title.length > 512) {
+                errors.push(wast_data.product_title_long);
+            }
+        }
+        if (ticket_type.length === 0) {
+            errors.push(wast_data.please_select_child_type);
+        }
+        if (ticket_content.length === 0) {
+            errors.push(wast_data.please_enter_content);
+        } else {
+            if (ticket_content.length > 8192) {
+                errors.push(wast_data.content_long);
+            }
+        }
+        if ($('#user-name').length > 0) {
+            var user_name = $('#user-name').val();
+            if (user_name.length === 0) {
+                errors.push(wast_data.please_enter_user_name);
+            } else {
+                if (user_name.length > 64) {
+                    errors.push(wast_data.user_name_long);
+                }
+            }
+        }
+        if ($('#user-email').length > 0) {
+            var user_email = $('#user-email').val();
+            if (user_email.length === 0) {
+                errors.push(wast_data.please_enter_user_email);
+            } else {
+                if (user_email.length > 128) {
+                    errors.push(wast_data.user_email_long);
+                }
+                if (!isEmail(user_email)) {
+                    errors.push(wast_data.user_email_wrong);
+                }
+            }
+        }
+        if (errors.length > 0) {
+            for (var i = 0; i < errors.length; i++) {
+                ajax_loader.hide().after('<div class="wast-alert wast-alert-danger"><p>' + errors[i] + '</p></div>');
+            }
+            return false;
+        }
+
+        var form_data = new FormData();
+
+        form_data.append('action', 'wast_ajax_send_ticket');
+        form_data.append('_wast_nonce', _nonce);
+        form_data.append('ticket-type', ticket_type);
+        form_data.append('ticket-title', ticket_title);
+        form_data.append('ticket-priority', ticket_priority);
+        if ($('#product-title').length > 0) {
+            form_data.append('product-title', product_title);
+        }
+        if ($('#product-id').length > 0) {
+            form_data.append('product-id', product_id);
+        }
+        form_data.append('ticket-content', ticket_content);
+        form_data.append('page-id', wast_data.page_id);
+        if ($('#user-name').length > 0) {
+            form_data.append('user-name', user_name);
+        }
+        if ($('#user-email').length > 0) {
+            form_data.append('user-email', user_email);
+        }
+        if ($('#ticket-file').length > 0) {
+            var file_data = $('#ticket-file').prop('files')[0];
+            form_data.append('ticket-file', file_data);
+        }
+        if ($('#g-recaptcha-response').length > 0) {
+            form_data.append('g-recaptcha-response', $('#g-recaptcha-response').val());
+        }
+
+        $.ajax({
+            url: wast_data.ajax_url,
+            type: 'post',
+            contentType: false,
+            processData: false,
+            data: form_data,
+            timeout: 60000,
+            success: function (response) {
+                ajax_loader.hide().after(response._result);
+                if (response._result.indexOf('wast-alert-success') > 0) {
+                    $this.trigger("reset");
+                    if ($('#product-id').length > 0) {
+                        $('#product-id').attr('value', '');
+                    }
+                    $('#ticket-file').next('label').next('label').text(wast_data.select_ath);
+                }
+                if ($('#g-recaptcha-response').length > 0) {
+                    grecaptcha.reset();
+                }
+            },
+            error: function () {
+                ajax_loader.hide().after('<div class="wast-alert wast-alert-danger">خطایی رخ داده است! لطفا مجددا تلاش کنید.</div>');
+                if ($('#g-recaptcha-response').length > 0) {
+                    grecaptcha.reset();
+                }
+            }
+        });
+    });
+
+    // Reply ticket with ajax
+    $(document).on('submit', '.wast-is-multi-step #wast-reply-form', function (e) {
+        e.preventDefault();
+
+        var $this = $(this);
+
+        var ajax_loader = $('.wast-is-multi-step .wast-ajax-loader');
+        ajax_loader.show();
+        ajax_loader.siblings('.wast-alert').remove();
+        $('html, body').stop().animate({
+            scrollTop: ajax_loader.offset().top - 50
+        }, 400, 'swing');
+
+        var ticket_id = $('#ticket-id').val();
+        var ticket_content = $('#ticket-content').val();
+        var status = 'open';
+        if ($('#status').length > 0) {
+            status = $('#status').val();
+        } else if ($('#status-closed').length > 0 && $('#status-closed').is(':checked')) {
+            status = 'closed';
+        }
+
+        // From data validation
+        var errors = [];
+        if (ticket_content.length === 0) {
+            errors.push(wast_data.please_enter_content);
+        } else {
+            if (ticket_content.length > 8192) {
+                errors.push(wast_data.content_long);
+            }
+        }
+        if (errors.length > 0) {
+            for (var i = 0; i < errors.length; i++) {
+                ajax_loader.hide().after('<div class="wast-alert wast-alert-danger"><p>' + errors[i] + '</p></div>');
+            }
+            return false;
+        }
+
+        var form_data = new FormData();
+
+        form_data.append('action', 'wast_ajax_reply_ticket');
+        form_data.append('_wast_nonce', _nonce);
+        form_data.append('ticket-id', ticket_id);
+        form_data.append('ticket-content', ticket_content);
+        form_data.append('status', status);
+        form_data.append('page-id', wast_data.page_id);
+        form_data.append('user-id', wast_data._user_id);
+        if ($('#ticket-file').length > 0) {
+            var file_data = $('#ticket-file').prop('files')[0];
+            form_data.append('ticket-file', file_data);
+        }
+
+        $.ajax({
+            url: wast_data.ajax_url,
+            type: 'post',
+            contentType: false,
+            processData: false,
+            data: form_data,
+            timeout: 60000,
+            success: function (response) {
+                ajax_loader.hide().after(response._result);
+                if (response._result.indexOf('wast-alert-success') > 0) {
+                    if (wast_data.ticket_order === 'desc') {
+                        $('.wast-replies-wrapper').prepend(response._reply_html);
+                    } else {
+                        $('.wast-replies-wrapper').append(response._reply_html);
+                    }
+                    $('.wast-start-ticket .status .wast-badge').after(response._status_html).remove();
+                    $this.trigger("reset");
+                    $('#ticket-file').next('label').next('label').text(wast_data.select_ath);
+                }
+            },
+            error: function () {
+                ajax_loader.hide().after('<div class="wast-alert wast-alert-danger">خطایی رخ داده است! لطفا مجددا تلاش کنید.</div>');
+            }
+        });
+    });
+
+    // Email validation
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+
+    // Star rating
+    $('#wast-submit-rating').submit(function (e) {
+        e.preventDefault();
+        var $this = $(this);
+
+        var ticket_id = parseInt($this.find('#ticket-id').val());
+        if (!ticket_id) {
+            return false;
+        }
+
+        var author_id = parseInt($this.find('#author-id').val());
+        if (!author_id) {
+            return false;
+        }
+
+        var rating = $this.find('[name="rating"]:checked');
+        if (rating === undefined) {
+            return false;
+        }
+        var rating_value = rating.val();
+
+        var btn = $this.find('.wast-btn');
+        btn.text('لطفا صبر کنید…').prop('disabled', true);
+
+        $.ajax({
+            url: wast_data.ajax_url,
+            type: 'post',
+            dataType: 'json',
+            timeout: 20000,
+            data: {
+                action: 'wast_insert_rating',
+                ticket_id: ticket_id,
+                author_id: author_id,
+                rating_value: rating_value,
+                _wast_nonce: _nonce
+            },
+            success: function (response) {
+                if (response._success === true) {
+                    var html = '<p>' + wast_data.inserted_rating + '</p>';
+                    html += '<fieldset class="rating">';
+                    if (rating_value > 4) {
+                        html += '<label class="active"></label>';
+                    } else {
+                        html += '<label></label>';
+                    }
+                    if (rating_value > 3) {
+                        html += '<label class="active"></label>';
+                    } else {
+                        html += '<label></label>';
+                    }
+                    if (rating_value > 2) {
+                        html += '<label class="active"></label>';
+                    } else {
+                        html += '<label></label>';
+                    }
+                    if (rating_value > 1) {
+                        html += '<label class="active"></label>';
+                    } else {
+                        html += '<label></label>';
+                    }
+                    if (rating_value > 0) {
+                        html += '<label class="active"></label>';
+                    } else {
+                        html += '<label></label>';
+                    }
+                    html += '</fieldset>';
+                    $('.wast-rating-wrapper').html(html);
+                }
+                btn.text(wast_data.insert_rating).prop('disabled', false);
+            },
+            error: function () {
+                btn.text(wast_data.insert_rating).prop('disabled', false);
+            }
+        });
+    });
+});

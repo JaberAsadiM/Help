@@ -1,0 +1,10 @@
+﻿@using Amard.Shahrsazi.Core.Utilities
+@using AmardWebShahrsazi.Models.Enum
+@model PosType?
+
+@(Html.Kendo().ComboBox().Name("PosType")
+    .Filter(FilterType.Contains)
+    .BindTo(Enum.GetValues(typeof(PosType)).Cast<PosType>().Select(v => new SelectListItem {
+        Text = v.GetDisplayName(),
+        Value = ((int)v).ToString()
+    }).ToList()))

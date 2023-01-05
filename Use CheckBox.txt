@@ -1,0 +1,14 @@
+var Tax = $('#chkbTaxFlag_OnvanFormul_Daramad').is(":checked");
+
+
+
+***********************
+
+        var checkFormulaType = '@Model.Fx';
+        checkFormulaType = checkFormulaType.toString().toLowerCase();
+        checkFormulaType = checkFormulaType.substr(0, 1);
+        debugger;
+        if (checkFormulaType === "f" )
+            $('#chkbFormula_OnvanFormul_Daramad').prop('checked', true);
+        else
+            $('#chkbFormula_OnvanFormul_Daramad').prop('checked', false);

@@ -1,0 +1,44 @@
+   public List<sp_AdditionBudgetGenerate_Result> GetAdditionBudgets(int codingId, int year, int areaId, bool showZero = true,bool budgetIncrease=false,int? splitDate = 8)
+        {
+            using (var db = new AmardBudgetEntities())
+            {
+                var cal = new PersianCalendar();
+
+                var fiscal = db.FiscalYear.FirstOrDefault(i => i.Year == year);
+                string yearNumber = new String(fiscal.YearTitle.Where(Char.IsDigit).ToArray());
+                var startOfYearDate =PersianDateTime.ToDateTime(yearNumber + "/01/01");
+                var splitOfYearDate =PersianDateTime.ToDateTime(yearNumber + "/08/30");
+                var dayOfSplitMonth = cal.GetDaysInMonth(Convert.ToInt32(yearNumber), 12);
+                var endOfYearDate = PersianDateTime.ToDateTime(yearNumber + "/12/"+ dayOfSplitMonth);
+                
+                if (splitDate.HasValue && splitDate.Value!=8)
+                {
+                    dayOfSplitMonth = cal.GetDaysInMonth(Convert.ToInt32(yearNumber), splitDate.Value);
+
+                    if (splitDate < 10)
+                    {
+                        splitOfYearDate = PersianDateTime.ToDateTime(yearNumber + "/0" + splitDate.Value + "/"+dayOfSplitMonth);
+                    }
+                    else
+                    {
+                        splitOfYearDate = PersianDateTime.ToDateTime(yearNumber + "/" + splitDate.Value + "/"+ dayOfSplitMonth);
+
+                    }
+
+                }
+
+                //return db.sp_AdditionBudgetGenerate(codingId, year, areaId, showZero).ToList();
+                var param = new SqlParameter[8];
+                param[0] = new SqlParameter("CodingId", SqlDbType.Int) { Value = codingId };
+                param[1] = new SqlParameter("Year", SqlDbType.Int) { Value = year };
+                param[2] = new SqlParameter("AreaId", SqlDbType.Int) { Value = areaId };
+                param[3] = new SqlParameter("ShowZero", SqlDbType.Bit) { Value = showZero };
+                param[4] = new SqlParameter("BudgetIncrease", SqlDbType.Bit) { Value = budgetIncrease };
+                param[5] = new SqlParameter("SplitStartDate", SqlDbType.Date) { Value = startOfYearDate.Date };
+                param[6] = new SqlParameter("SplitDate", SqlDbType.Date) { Value = splitOfYearDate.Date };
+                param[7] = new SqlParameter("SplitEndDate", SqlDbType.Date) { Value = endOfYearDate.Date };
+
+                var result = db.ExecuteStoredProcedureList<sp_AdditionBudgetGenerate_Result>("sp_AdditionBudgetGenerate", param).ToList();
+                return result;
+            }
+        }

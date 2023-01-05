@@ -1,0 +1,3 @@
+columns.Template(t => { }).Title("ردیف").ClientTemplate("#= grdKarbari_Sakhteman_renderNumber(data) #").Width(40);
+
+columns.Template(c => c.ErtefaEhdasi - c.ertefamofid).Width(100).Title("اختلاف ارتفاع").ClientTemplate("#=formatNumber(ErtefaEhdasi - ertefamofid)#");

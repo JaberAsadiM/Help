@@ -1,0 +1,12 @@
+.ToolBar(c => c.Excel().Text("äãÇ?Ô ÏÑ Ç˜Óá"))
+                .Sortable()
+                .Scrollable()
+                .Resizable(rl => rl.Columns(true))
+                .Pageable(pager => pager.AmardConfig())
+                .HtmlAttributes(new { style = "height:350px;" })
+                .Selectable(sl => sl.Mode(GridSelectionMode.Single).Type(GridSelectionType.Row))
+                .Excel(excel => excel
+                      .FileName("GozareshRay.xlsx")
+                      .AllPages(true)
+                  //.ProxyURL(Url.Action("Excel_Export_Save", "GozareshRay"))
+                  )

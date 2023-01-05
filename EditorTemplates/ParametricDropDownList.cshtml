@@ -1,0 +1,107 @@
+﻿
+
+@model int?
+
+@{
+    string id="";
+    if (ViewData["DrpId"] != null)
+    {
+        id = ViewData["DrpId"].ToString();
+    }
+    else {id = ViewData["intType"].ToString();}
+    var gridName = ViewData["GridName"].ToString();
+    if (string.IsNullOrEmpty(id)) { id = "0"; }
+    var objectId = "#" + gridName + "_Parametric" + id;
+
+    int dependencecode = 0;
+    if (ViewData["dependencecode"] != null)
+    {
+        dependencecode = string.IsNullOrWhiteSpace(ViewData["dependencecode"].ToString()) ? 0 : Convert.ToInt32(ViewData["dependencecode"]);
+    }
+}
+
+@if (ViewData["intType"] == null)
+{
+    @(Html.Kendo().ComboBox().Filter(FilterType.Contains)
+          .Name(gridName + "_Parametric" + id).HtmlAttributes(new {ID = gridName + "_Parametric" + id, onchange = "CheckForValue('" + @objectId + "')"})
+          .BindTo(new SelectList(AmardWebShahrsazi.Business.ParametricService.GetDataDropDownList(int.Parse(id)), "kodfarei", "sharh")))
+}
+
+
+else
+{
+    @(Html.Kendo().ComboBox().Filter(FilterType.Contains)
+          .Name(gridName + "_Parametric" + id).HtmlAttributes(new
+          {
+              ID = gridName + "_Parametric" + id, paramId = gridName + "_Parametric" ,
+              dependencecode = @dependencecode, onchange = "CheckForValue('" + @objectId + "')"
+          })
+          
+          .BindTo(new SelectList(AmardWebShahrsazi.Business.SabethaService.GetData(int.Parse(id)), "kodfarei", "sharh")))
+}
+
+<script>
+    function CheckForValue(oId) {
+        debugger;
+        var dependencecode = $(oId).attr("dependencecode");
+        if (dependencecode > 0) {
+            var codeAsli = $(oId).data().kendoComboBox.value();
+            var paramId = $(oId).attr("paramId") + dependencecode;
+
+            var combobox = $("#" + paramId).data("kendoComboBox");
+            $.ajax({
+                url: '@Url.Action("SetFilteredParam", "Melk",new{area="Parvandeh"})',
+                type: "Post",
+                data: { kodAsli: dependencecode, baha1: codeAsli },
+                success: function(listItems) {
+                    combobox.setDataSource(listItems);
+                }
+            });
+        }
+
+
+        var selectText = $(oId).data().kendoComboBox.text();
+        var lst = $(oId).data().kendoComboBox.options.dataSource;
+        var canFind = false;
+        var firstText = "";
+        var firstValue = "";
+        var findText = "";
+        var findValue = "";
+        var isNumber = $.isNumeric(selectText);
+        for (var i = 0; i < lst.length; i++) {
+            var t = lst[i].Text;
+            var v = lst[i].Value;
+            if (i == 0) {
+                firstText = t;
+                firstValue = v;
+            }
+            if (isNumber) {
+                if (v == selectText) {
+                    findText = t;
+                    findValue = v;
+                    canFind = true;
+                    break;
+                }
+            } else {
+                if (t.trim() == selectText.trim()) {
+                    canFind = true;
+                    break;
+                }
+            }
+        }
+
+        if (canFind && isNumber) {
+            $(oId).data().kendoComboBox.value(findValue);
+            $(oId).data().kendoComboBox.text(findText);
+        }
+        else if (!canFind) {
+            $(oId).data().kendoComboBox.value("");
+            $(oId).data().kendoComboBox.text("");
+
+            //$(oId).data().kendoComboBox.value(firstValue);
+            //$(oId).data().kendoComboBox.text(firstText);
+        }
+    }
+
+
+</script>

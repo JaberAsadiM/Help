@@ -1,0 +1,15 @@
+ columns.Bound(c => c.Remaining ).Width(105).Title("باقیمانده").ClientTemplate("#=formatNumber(TotalAmount - Discount)#");
+
+columns.Bound(c => c.PaymentAmount).Width(105).Title("مبلغ پرداختی").ClientTemplate("#=formatNumber(PaymentAmount)#").HtmlAttributes(new { @class = "font_Numbers" 	}).ClientFooterTemplate("<div class='editgrid_kartabl' style='float: right'>#= kendo.toString(sum, 'n0') #</div>");
+
+columns.Bound(c => c.Discount).Width(75).Title("تخفیف").ClientTemplate("#=formatNumber(Discount)#").HtmlAttributes(new { @class = "font_Numbers" 	}).ClientFooterTemplate("<div class='editgrid_kartabl' style='float: right'>#= kendo.toString(sum, 'n0') #</div>");
+
+
+
+    $("#MasahatKhalafGrid_DefinitionFoul table").on("keydown", "td", function (e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 9) {
+            $("#takhalof").val($("#Ehdas").val() - $("#parvaneh").val());
+        }
+    });
+

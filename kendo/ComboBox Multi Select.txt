@@ -1,0 +1,169 @@
+ @(Html.Kendo()
+                    .MultiSelect()
+                    //.AutoClose(false)
+                    .Name("cmbSearchmarhaleKarshenasanM100")
+                    .HtmlAttributes(new { style = "width:150px" })
+                    .DataTextField("sharh")
+                    .DataValueField("kodfarei")
+                    //.SelectedIndex(0)
+                    .Filter(FilterType.Contains)
+                    .HighlightFirst(true)
+                    .DataSource(source =>
+                    { source.Read(read => { read.Action("FillSearchmarhaleMade100Combo", "Supervisor").Type(HttpVerbs.Post); }); }))
+
+
+
+
+*************************** Script
+
+        var data = new FormData();
+        data.append("kodasli", kodasli);
+        data.append("code_kar", $('#code_kar').val());
+
+        var cmbLevelMade100 = $("#cmbSearchmarhaleKarshenasanM100").val() || [];
+        var listCmbLevelMade100 = cmbLevelMade100.join(",");
+        data.append("levelId", listCmbLevelMade100.toString()); 
+
+
+
+        $.ajax({
+            //cache: false,
+            type: "post",
+            //datatype: "JSON",
+            url: '@(Url.Action("Save_Popup", "Supervisor"))',
+            data: data ,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data.Success === true) {
+                    alert(data.Message);
+                    close_popup();
+                } else {
+                    //alert("data.Success"+data.Success);
+                    alert("Œÿ« œ— –Œ?—Â «ÿ·«⁄«  œ— ”„  ”—Ê—! :" + data.Error);
+                }
+            },
+            error: function (data) {
+                alert("Œÿ« œ— –Œ?—Â «ÿ·«⁄«  œ— «?Ãò”! :" + data.error);
+            }
+        });
+
+
+***********************************  controler
+
+
+        [HttpPost]
+        public JsonResult Save_Popup()
+        {
+            //**************** ê—› ‰ ·?”  „—«Õ· „«œÂ ’œ
+            var codeLevelMade100 = Request.Params["levelId"];
+            var listLevelId = !string.IsNullOrWhiteSpace(codeLevelMade100) ?
+                codeLevelMade100?.Split(',').Select(Int32.Parse).ToList() : new List<int>();
+            var count = listLevelId.Count == 0 ? 1 : listLevelId.Count;
+            //******************************************
+
+            var ax_file = Request.Files["ax_file"];
+            byte[] buffer_ax_file;
+
+            if (ax_file == null)
+                buffer_ax_file = null;
+            else
+            {
+                buffer_ax_file = new byte[ax_file.ContentLength];
+                ax_file.InputStream.Read(buffer_ax_file, 0, ax_file.ContentLength);
+            }
+
+            var emza_file = Request.Files["emza_file"];
+            byte[] buffer_emza_file;
+
+            if (emza_file == null)
+                buffer_emza_file = null;
+            else
+            {
+                buffer_emza_file = new byte[emza_file.ContentLength];
+                emza_file.InputStream.Read(buffer_emza_file, 0, emza_file.ContentLength);
+            }
+
+            //if (ax_file == null || emza_file == null)
+            //    return Json(new { Success = false, Error = "«‘ò«· œ— ⁄„·?«  ê—› ‰ ›«?· Â«" }, JsonRequestBehavior.AllowGet);
+
+            int Kodasli, Code_kar;
+
+            try
+            {
+                string kodasli = Request.Params["kodasli"];
+                Kodasli = int.Parse(kodasli);
+                string code_kar = Request.Params["code_kar"];
+                Code_kar = int.Parse(code_kar);
+            }
+            catch (Exception)
+            {
+                return Json(new { Success = false, Error = "«‘ò«· œ— ⁄„·?«  ê—› ‰ «⁄œ«œ" }, JsonRequestBehavior.AllowGet);
+            }
+
+
+            bool StatusKarshenas = (Request.Params["StatusKarshenas"] == "True" || Request.Params["StatusKarshenas"] == "true");
+
+            try
+            {
+                // »Â  ⁄œ«œ ·?”  „—«Õ· „«œÂ 100 ò«—‘‰«” —« «÷«›Â „?ò‰œ
+                List<string> opid = new List<string>();
+                for (int i = 0; i < count; i++)
+                {
+                    int? levelId = listLevelId.Count == 0 ? (int?)null : listLevelId[i];
+                    var levelName = SabethaService.GetDataBykodfarei(15, levelId?? 0)?.sharh;
+                    if (Code_kar == -1)
+                    {
+                        int op_id = M100_karshenasanService.Add_M100_karshenasan(Kodasli, Code_kar,
+                    Request.Params["name_kar"], Request.Params["family_kar"], Request.Params["father_kar"],
+                    Request.Params["id_kar"], Request.Params[" kodmeli_kar"], Request.Params["datet_kar"],
+                    Request.Params["madrak_kar"], Request.Params["reshte_kar"], Request.Params["d_akhz_kar"],
+                    Request.Params["tel_kar"], Request.Params["addres_kar"], buffer_ax_file,
+                    buffer_emza_file, null, StatusKarshenas, levelId, levelName);
+
+                        if (op_id > 0)
+                        {
+                            InsertHistory(
+                                "«?Ã«œ ‰„«?‰œÂ Ãœ?œ »Â ‰«„  " + Request.Params["name_kar"] + " " +
+                                Request.Params["family_kar"] + " »Â ‘„«—Â " + op_id.ToString(), "«÷«›Â ò—œ‰ ?ò ‰„«?‰œÂ");
+                            opid.Add(op_id.ToString());
+                        }
+                    }
+                    else
+                    {
+                        bool change_ax = (Request.Params["change_ax"] == "True" || Request.Params["change_ax"] == "true");
+                        bool change_emza = (Request.Params["change_emza"] == "True" || Request.Params["change_emza"] == "true");
+
+                        bool updaet_op = Business.M100_karshenasanService.Update_M100_karshenasan(Kodasli, Code_kar,
+                    Request.Params["name_kar"], Request.Params["family_kar"], Request.Params["father_kar"],
+                    Request.Params["id_kar"], Request.Params[" kodmeli_kar"], Request.Params["datet_kar"],
+                    Request.Params["madrak_kar"], Request.Params["reshte_kar"], Request.Params["d_akhz_kar"],
+                    Request.Params["tel_kar"], Request.Params["addres_kar"], buffer_ax_file,
+                    buffer_emza_file, null, StatusKarshenas, levelId, levelName, change_ax, change_emza, false);
+                        if (updaet_op)
+                        {
+                            InsertHistory("»Â —Ê“ —”«‰? ‰„«?‰œÂ Ãœ?œ »Â ‰«„  " + Request.Params["name_kar"] + " " +
+                                Request.Params["family_kar"] + " »Â ‘„«—Â " + Request.Params["code_kar"],
+                                "»Â —Ê“ —”«‰?  ?ò ‰„«?‰œÂ");
+
+                        }
+                        return Json(new { Success = true, Message = ". €??—«  »« „Ê›ﬁ?  –Œ?—Â ê—œ?œ" }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+
+                if (Code_kar == -1)
+                    return Json(new
+                    {
+                        Success = true,
+                        Message = $"‰„«?‰œÂ Ãœ?œ »Â ‘„«—Â {string.Join(" - ", opid)} »« „Ê›ﬁ?  «÷«›Â ê—œ?œ."
+                    },
+                        JsonRequestBehavior.AllowGet);
+
+                return Json(new { Success = false, Error = "«‘ò«· œ— »—Ê“ —”«‰?" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { Success = false, Error = "«‘ò«· œ— ⁄„·?« " }, JsonRequestBehavior.AllowGet);
+            }
+        }
+

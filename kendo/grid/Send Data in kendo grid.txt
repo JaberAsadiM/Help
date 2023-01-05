@@ -1,0 +1,40 @@
+.Read(read => read.Action("FillRayOnKhalafGrid", "SodorRayNew", new { shop = TempData.Peek("shop"), shod = TempData.Peek("shod"), pishnevisID = TempData.Peek("pishnevisId") }))
+
+    .Update(up => up.Action("updateRayOnKhalafGrid", "SodorRayNew").Data("KhalafOnMade100GridReadData"))
+
+    .Destroy(des => des.Action("DeleteRayOnKhalafGrid", "SodorRayNew"))
+
+
+
+
+    function KhalafOnMade100GridReadData() {
+        return {
+            shop : GetShop(),
+            shod : GetShod(),
+            pishnevisID : GetPishnevisId()
+        }
+    }
+
+
+************************************************************ send data bye route Value
+
+    @(Html.Kendo().Grid<Amard.Shahrsazi.DataAccess.DbContext.Daramad_t_formool_m>()
+                      .Name("GridDaramad_t_formool_search2")
+                      .Columns(columns =>
+                      {
+                           columns.Template(@<text></text>).ClientTemplate("<input type='checkbox' name='chkbSlc_selectFormulasearch'  class='k-checkbox-t-formool'   />").Title("ÇäÊÎÇÈ").Width(40);
+                          columns.Bound(c => c.radif).Title("˜Ï").Width(40).HtmlAttributes(new { @class="font_Numbers"});
+                          columns.Bound(c => c.onvan_avarez).Title("ÚäæÇä ÚæÇÑÖ").Width(180).HtmlAttributes(new { style="font-size:11px"});
+                      })
+
+                      .Resizable(rl => rl.Columns(true))
+                      .Selectable(sl => sl.Mode(GridSelectionMode.Single).Type(GridSelectionType.Row))
+                      .HtmlAttributes(new { style = "height:350px" })
+                              .Scrollable()
+                      .DataSource(datasource => datasource
+                          .Ajax()
+                          .Read(read => read.Action("FormulaDetection", "SelectFormula" , new
+                          { codeTypeRequest = ViewBag.codeTypeRequest, shop = ViewBag.shop, shod = ViewBag.shod })
+                          )
+                      )
+      )

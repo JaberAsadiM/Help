@@ -1,0 +1,56 @@
+﻿@model string
+
+@{
+    //string id = ViewData["intType"].ToString();
+    
+    var gridName = ViewData["GridName"].ToString();
+    
+    //if (string.IsNullOrEmpty(id)) { id = "0"; }
+    var objectId = "#" + gridName + "_Parametric_tabaghe";
+}
+
+    @(Html.Kendo().ComboBox().Filter(FilterType.Contains)
+          .Name(gridName + "_Parametric_tabaghe").HtmlAttributes(new { ID = gridName + "_Parametric_tabaghe", onchange = "CheckForValue('" + @objectId + "')" })
+          .BindTo(new SelectList(AmardWebShahrsazi.Business.SabethaService.GetData(3), "kodfarei", "sharh")))
+
+<script>
+    function CheckForValue(oId) {
+        var selectText = $(oId).data().kendoComboBox.text();
+        var lst = $(oId).data().kendoComboBox.options.dataSource;
+        var canFind = false;
+        var firstText = "";
+        var firstValue = "";
+        var findText = "";
+        var findValue = "";
+        var isNumber = $.isNumeric(selectText);
+        for (var i = 0; i < lst.length; i++) {
+            var t = lst[i].Text;
+            var v = lst[i].Value;
+            if (i === 0) {
+                firstText = t;
+                firstValue = v;
+            }
+            if (isNumber) {
+                if (v === selectText) {
+                    findText = t;
+                    findValue = v;
+                    canFind = true;
+                    break;
+                }
+            } else {
+                if (t === selectText) {
+                    canFind = true;
+                    break;
+                }
+            }
+        }
+        if (canFind && isNumber) {
+            $(oId).data().kendoComboBox.value(findValue);
+            $(oId).data().kendoComboBox.text(findText);
+        }
+        else if (!canFind) {
+            $(oId).data().kendoComboBox.value(firstValue);
+            $(oId).data().kendoComboBox.text(firstText);
+        }
+    }
+</script>

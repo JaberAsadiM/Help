@@ -1,0 +1,41 @@
+function btnFilter_FullSearchParvandeh_Click() {
+        var strCond = FilterConditions();
+
+        var amlakShahrdari = $("#chkAmlakShahrdari_parvandehInfo").is(':checked');
+        var IsParvandehMadar = $("#chkIsParvandehMadar_SearchParvandeh").is(':checked');
+
+        var fullSearchParvandeh = {
+            ShenaseGhabz: $("#txtShenaseGhabz_SearchParvandeh").val(),
+            ShenasePardakht: $("#txtShenasePardakht_SearchParvandeh").val(),
+            strCond: strCond,
+            blnMelk: $("#chkFaghatMelk").is(':checked'),
+            blnSenf: $("#chkFaghatSenf").is(':checked'),
+            IsParvandehMadar: IsParvandehMadar,
+            amlakShahrdari: amlakShahrdari,
+            TypeSearch: '@ViewBag.TypeSearch',
+            blnSakhteman: $("#chkFaghatSakhteman").is(':checked'),
+            blnApar: $("#chkFaghatApar").is(':checked'),
+            Assumption: $('#radio_Assumption_SearchParvandeh').is(":checked"),
+            NonCooperation: $('#radio_NonCooperation_SearchParvandeh').is(":checked"),
+            Nothing: $('#radio_Nothing_SearchParvandeh').is(":checked"),
+            ParametricRange: $("#txtC_mahdodeh_SearchParvandeh").val()
+    };
+
+        $.ajax({
+            type: "POST",
+            datatype: "JSON",
+            url: '@(Url.Action("Get_Grid_FullSearch_Parvandeh", "ParvandehInfo"))',
+            data: fullSearchParvandeh,
+            @*{
+                fullSearchParvandeh, strCond: strCond, blnMelk: $("#chkFaghatMelk").is(':checked'), blnSenf: $("#chkFaghatSenf").is(':checked'),
+                IsParvandehMadar: IsParvandehMadar, amlakShahrdari: amlakShahrdari, TypeSearch: '@ViewBag.TypeSearch',
+                blnSakhteman: $("#chkFaghatSakhteman").is(':checked'), blnApar: $("#chkFaghatApar").is(':checked')
+            },*@
+            success: function (data) {
+                $("#divGridSearchParvandeh").html(data);
+            },
+            error: function (data) {
+                showAppMessage("Œÿ« œ— Ã” ÃÊ","error");
+            }
+        });
+    }

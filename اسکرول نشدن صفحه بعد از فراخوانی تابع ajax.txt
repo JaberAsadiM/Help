@@ -1,0 +1,4 @@
+   $('#btnDeletePoshtFormul_Daramadi').click(function (e) {
+        e.preventDefault();      ÏÑ ÇÈÊÏÇ? ÊÇ?Ú ã?äæ?Ó?ã ÊÇ ÈÚÏ ÇÒ ÇäÌÇã ˜ÇÑ ÊÇÈÚ ÕİÍå ÇÓ˜Ñæá äæÔÏ Èå ÈÇáÇ
+
+}

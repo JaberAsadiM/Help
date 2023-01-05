@@ -1,0 +1,2 @@
+       window.open("@Url.Action("Index","Print", new { area=""})" + "?Id=618" + "&Data=" + shop + "," +
+           shod + "," + pishnevisId + "," + pishnevisId + "," + printChenge);

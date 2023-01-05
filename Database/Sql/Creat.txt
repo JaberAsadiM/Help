@@ -1,0 +1,49 @@
+IF Not EXISTS (SELECT name FROM sys.schemas WHERE name = N'Renovation')
+BEGIN
+      
+	  EXEC('CREATE SCHEMA [Renovation]');
+  
+END  
+
+
+***********************************************
+
+
+IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'VoteViolationType')
+BEGIN
+
+	CREATE TABLE [Made100].[VoteViolationType](
+		[Id] [INT] IDENTITY(1,1) NOT NULL,
+		[ShoP] [BIGINT] NOT NULL,
+		[ShoD] [BIGINT] NOT NULL,
+		[PishnevisId] [TINYINT] NOT NULL,
+		[DestructiveArea] [DECIMAL](8, 2) NULL,
+		[PenaltyAmount] [DECIMAL](14, 2) NULL,
+		[CertificateNumber] [NVARCHAR](50) NULL,
+		[CertificateDate] [DATETIME] NULL,
+		[VoteNumber] [INT] NOT NULL,
+		[VoteDate] [DATETIME] NOT NULL,
+		[Urban] [BIT] NULL,
+		[Technical] [BIT] NULL,
+		[Sanitary] [BIT] NULL,
+		[HasBeenBuilt] [BIT] NULL,
+		[DemolitionEntireBuilding] [BIT] NULL,
+		[PartialDestruction] [BIT] NULL,
+		[BlockTheWindow] [BIT] NULL,
+		[TerraceObstruction] [BIT] NULL
+	) ON [PRIMARY]
+
+
+	ALTER TABLE [Made100].[VoteViolationType]  WITH CHECK ADD  CONSTRAINT [FK_VoteViolationType_Made100_Ray] FOREIGN KEY([VoteNumber])
+	REFERENCES [dbo].[Made100_Ray] ([RayNo])
+ 
+	ALTER TABLE [Made100].[VoteViolationType] CHECK CONSTRAINT [FK_VoteViolationType_Made100_Ray]
+
+	EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'„”«Õ   Œ—?»?' , @level0type=N'SCHEMA',@level0name=N'Made100', @level1type=N'TABLE',@level1name=N'VoteViolationType', @level2type=N'COLUMN',@level2name=N'DestructiveArea'
+	
+	EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'„»·€ Ã—?„Â' , @level0type=N'SCHEMA',@level0name=N'Made100', @level1type=N'TABLE',@level1name=N'VoteViolationType', @level2type=N'COLUMN',@level2name=N'PenaltyAmount'
+
+level1name=N'VoteViolationType', @level2type=N'COLUMN',@level2name=N'TerraceObstruction'
+
+
+End

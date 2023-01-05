@@ -1,0 +1,17 @@
+return Json(new { Success = true, Error = "", shop = Shop, malekId = MalekinID }, JsonRequestBehavior.AllowGet);
+
+success: function(data) {
+                if (data.Success) {
+                    if (data.shop == 0 || data.shop == "0") {
+                        showAppMessage("کد نوسازی در سیستم تعریف نیست", "error");
+                        return false;
+                    }
+                    document.getElementById('txtShoParvandeh_TaeedFishNosazi').value = data.shop;
+                    document.getElementById('txtCodeMalek_TaeedFishNosazi').value = data.malekId;
+                    $("#txtCodeMalek_TaeedFishNosazi").focus();
+
+                } else {
+                    showAppMessage(data.Error, "error");
+                    return false;
+                }
+            },

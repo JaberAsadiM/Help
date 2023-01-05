@@ -1,0 +1,43 @@
+                @{
+                    var enumFoulDefinitionType = Enum.GetValues(typeof(AmardWebShahrsazi.Models.Enum.EnumFoulDefinitionType))
+                    .Cast<AmardWebShahrsazi.Models.Enum.EnumFoulDefinitionType>().Select(v => new SelectListItem
+                    {
+                    Text = v.ToString(),
+                    Value = ((int)v).ToString()
+                    }).ToList();
+                }
+
+                @(Html.Kendo().ComboBoxFor(model => model.CalculationTypeParking).BindTo(enumFoulDefinitionType))
+
+***************************************************************
+
+                @(Html.Kendo().ComboBox()
+                    .Name("cmbEnumFoulDefinitionType_FormulaM100")
+                    .HtmlAttributes(new { style = "width:170px" })
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .Filter(FilterType.Contains)
+                    .HighlightFirst(true)
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        { read.Action("ReadEnumFoulDefinitionType", "FormulaMade100"); });
+                    })
+                 )
+
+
+//contruler code
+
+        public JsonResult ReadEnumFoulDefinitionType()
+        {
+            var enumFoulDefinitionType = Enum.GetValues(typeof(EnumFoulDefinitionType)).Cast<EnumFoulDefinitionType>()
+                                        .Select(v => new SelectListItem
+                                        {
+                                            Text = MyFunctions.GetDisplayEnumName(v),
+                                            Value = ((int)v).ToString()
+                                        }).ToList();
+
+            return Json(enumFoulDefinitionType, JsonRequestBehavior.AllowGet);
+        }
+
+**********************************

@@ -1,0 +1,52 @@
+**********1
+
+                            foreach (DataRow item in GovahiSakhteman_dataset.Tables[3].Rows)
+                            {
+                                double mojaz1 = 0;
+                                double mojaz2 = 0;
+                                double mojaz3 = 0;
+                                double mojaz4 = 0;
+                                double mojaz5 = 0;
+                                double mojaz6 = 0;
+
+                                if (!item["Masahat1"].Equals(System.DBNull.Value))
+                                    mojaz1 = Convert.ToDouble(item["Masahat1"]);
+				}
+
+
+
+********************2
+
+
+ DataRow[] result127 = dtTajmi.Tables[0].Select();
+
+                        foreach (DataRow row127 in result127)
+                        {
+                            TotalAmount127 += (decimal)row127[0];
+                            row127[0] = TotalAmount127;
+                        }
+
+
+****** add data in new row
+
+
+DataRow[] result127 = dtTajmi.Tables[0].Select();
+                        string dataTime127="";
+                        if (result127.Length > 0)
+                        {
+                            DataRow row127 = result127[0];
+                            dataTime127 = row127[3].ToString();
+                        }
+
+                        DataRow drCodDaramadiNosazi = dtTajmi.Tables[0].NewRow();
+                        drCodDaramadiNosazi["kod_daramadi"] = tarifha127.CodDaramadiNosazi;
+                        drCodDaramadiNosazi["jam"] = finalDaramadAvarez127.Sum(a => a.mablaghBes);
+                        drCodDaramadiNosazi["sharh"] = codDaramadiNosazi127.sharh;
+                        drCodDaramadiNosazi["DateFish"] = dataTime127;
+                        dtTajmi.Tables[0].Rows.Add(drCodDaramadiNosazi);
+
+
+*********************************************************************   check Null
+
+if (!item["Masahat1"].Equals(System.DBNull.Value))
+                                    mojaz1 = Convert.ToDouble(item["Masahat1"]);

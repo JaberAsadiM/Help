@@ -1,0 +1,3 @@
+ @Html.TextAreaFor(c => c.DarkhastViewModel.matn_eteraz_m, new { id = "txtmatnEtraz_m", @readonly = "readonly", @class = "textAreaSodorRay", @style = "width:100%;" })
+
+

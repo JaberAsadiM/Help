@@ -1,0 +1,43 @@
+public JsonResult GetGridSearch([DataSourceRequest] DataSourceRequest request, string Condition)
+        {
+            try
+            {
+                var userSession = (UserProfileSessionData)Session["UserProfile"];
+                using (ShahrsaziEntities db = new ShahrsaziEntities())
+                {
+                    if ((Condition != "") & (Condition != null))
+                        Condition = " and " + Condition;
+                    var data =
+                        db.v_Baygani.SqlQuery("select * from v_Baygani e where (flag = 1) and (noebaygani = 1)" +
+                                              Condition).ToList();
+
+                    if (!string.IsNullOrEmpty(userSession.StrOrganizationId))
+                    {
+                        var orgId = userSession.StrOrganizationId.Split(',');
+                        data = data.Where(c => orgId.Contains(c.AreaId.ToString())).ToList();
+                    }
+
+                    return Json(data.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                var st = ex.Message;
+                return null;
+            }
+        }
+
+                var data = db.Erja.SqlQuery("select * from erja e where " + Condition + " (e.adder IN (SELECT MAX(er.adder)as max FROM erja er WHERE e.sh_darkhast=er.sh_darkhast))")
+
+
+
+*******************************************
+
+        
+            using var db = new ShahrsaziEntities();
+
+            var sql = @"SELECT * FROM dbo.Fish fish INNER JOIN dbo.LogTotalCalc lo ON lo.shoFish=fish.shofish
+                WHERE lo.TypeCalc = "+type+" and lo.userCode = "+userCode+" and lo.StatusCalc = "+status+
+                      "order by mantaghe,hoze,blok,shomelk,sakhteman,apar,senfi";
+
+            return db.Database.SqlQuery<Fish>(sql).ToList();

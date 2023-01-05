@@ -1,0 +1,3 @@
+$.cookie("jobListId" , "value");
+
+var jobListId = $.cookie("jobListId");

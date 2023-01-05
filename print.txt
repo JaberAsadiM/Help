@@ -1,0 +1,8 @@
+report.RegData("dtModelDarkhast", new
+                        {
+                            c_nosazi = modelItemDarkhast.c_nosazi,
+                            malekName = malekName,
+                            pelakSabtid = pelakSabtidsEkhtar,
+                            AreaNumber = areaNumber
+                        });
+

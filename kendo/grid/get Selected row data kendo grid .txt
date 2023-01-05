@@ -1,0 +1,7 @@
+        var myGrid = $("#RayDetail_Made100").data("kendoGrid");
+        var mySelectRowGrid = myGrid.select();
+        var dataitem = myGrid.dataItem(mySelectRowGrid);
+        if (dataitem == null || dataitem == undefined)
+            return;
+
+	var id = dataitem.Id

@@ -1,0 +1,1 @@
+{ToWordsFa(dtAsnafAvarez.TotalAmount - dtAsnafAvarez.Discount) + "     Ñ?Çá  "}

@@ -1,0 +1,33 @@
+ @(Html.Kendo().Upload()
+            .Name("files")
+            .Async(a => a
+                .Save("Events_Save", "Upload")
+                .Remove("Events_Remove", "Upload")
+                .AutoUpload(false)
+            )
+            .Events(events => events
+                .Cancel("onCancel")
+                .Clear("onClear")
+                .Complete("onComplete")
+                .Error("onError")
+                .Progress("onProgress")
+                .Remove("onRemove")
+                .Select("onSelect")
+                .Success("onSuccess")
+                .Upload("onUpload")
+            )
+        )
+
+*************************************
+ .Events(events => events
+            .Change("onChange")
+            .DataBound("onDataBound")
+            .DataBinding("onDataBinding")
+            .Sort("onSorting")
+            .Filter("onFiltering")
+            .Group("onGrouping")
+            .Page("onPaging")
+            .GroupCollapse("onGroupCollapse")
+            .GroupExpand("onGroupExpand")
+
+        )

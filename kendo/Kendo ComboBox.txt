@@ -1,0 +1,4 @@
+
+****************************   get value  
+
+ var komisionType = $("#cmbEnumFoulDefinitionType_ReportMade100").data("kendoComboBox").value();

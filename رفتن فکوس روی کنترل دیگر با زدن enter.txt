@@ -1,0 +1,17 @@
+
+            <td class="Labels_MoshakhasatSakhteman"><label>„”«Õ  «?”  —„Å</label></td>
+            <td class="Values_MoshakhasatSakhteman">
+                @Html.TextBoxFor(c => c.ramp, new { id = "txtRamp_Sakhteman", @class = "editSakhtemanTxt_parvandeh", onkeydown = "TextBoxesSakhteman_OnKeyDown(event, 'chkIsIsYardParking')", onkeypress = "return IsFloatNumber(event);" })
+            </td>
+
+            <td colspan="2" class="Values_MoshakhasatSakhteman">
+                @Html.CheckBox("chkIsIsYardParking", false, new { id = "chkIsIsYardParking", @class = "editSakhtemanTxt_parvandeh_K", onchange = "chkIsIsYardParkingChnage()", style = "width:10px" })
+                <span> «„ò«‰ «” ›«œÂ «“ ’Õ‰ Õ?«ÿ »Â ⁄‰Ê«‰ Å«—ò?‰ê „?”— »«‘œ</span>
+            </td>
+
+
+    function TextBoxesSakhteman_OnKeyDown(event, NextControl) {
+        if (event.keyCode == 13) {
+            document.getElementById(NextControl).focus();
+        }
+    }

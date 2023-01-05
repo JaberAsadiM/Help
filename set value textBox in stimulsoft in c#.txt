@@ -1,0 +1,2 @@
+if (report.GetComponentByName("txt1") is StiText)
+    (report.GetComponentByName("txt1") as StiText).Text = item["noeestefadeh"].ToString();

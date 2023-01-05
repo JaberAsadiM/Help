@@ -1,0 +1,13 @@
+﻿@using Amard.Shahrsazi.Core.Utilities
+@using AmardWebShahrsazi.Models.Enum
+@model EnumFoulDefinitionType?
+
+@(Html.Kendo().DropDownListFor(model => model)
+    .Filter(FilterType.Contains)
+    .HtmlAttributes(new { style = "Width:135px;" })
+    .BindTo(Enum.GetValues(typeof(EnumFoulDefinitionType)).Cast<EnumFoulDefinitionType>().Select(v => new SelectListItem
+    {
+        Text = v.GetDisplayName(),
+        Value = ((int)v).ToString()
+    }).ToList()
+    ))

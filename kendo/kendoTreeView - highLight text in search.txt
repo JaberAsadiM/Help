@@ -1,0 +1,33 @@
+//var tv = $("#BudgetTreeView").data('kendoTreeView');
+        //$("span.k-in > span.highlight").each(function () {
+        //    $(this).parent().text($(this).parent().text());
+        //});
+
+        //// ignore if no search term
+        //if ($.trim($(this).val()) == '') {
+        //    return;
+        //}
+
+        //var term = this.value.toUpperCase();
+        //var tlen = term.length;
+
+        //$('#BudgetTreeView span.k-in').each(function (index) {
+        //    var text = $(this).text();
+        //    var html = '';
+        //    var q = 0;
+        //    while ((p = text.toUpperCase().indexOf(term, q)) >= 0) {
+        //        html += text.substring(q, p) + '<span class="highlight">' + text.substr(p, tlen) + '</span>';
+        //        q = p + tlen;
+        //    }
+
+        //    if (q > 0) {
+        //        html += text.substring(q);
+        //        $(this).html(html);
+
+        //        $(this).parentsUntil('.k-treeview').filter('.k-item').each(
+        //            function (index, element) {
+        //                tv.expand($(this));
+        //                $(this).data("txtSearch", term);
+        //            }
+        //        );
+        //    }

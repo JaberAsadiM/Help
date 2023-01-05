@@ -1,0 +1,40 @@
+                    var ex = para?.kodasli switch
+                    {
+                         6 => db.Melk.Any(a => a.c_noesanad == para.kodfarei) ,
+                        18 => db.Melk.Any(a => a.c_vazsanad == para.kodfarei),
+                        8 => db.Melk.Any(a => a.c_noemalekiat == para.kodfarei),
+                        22 => db.Melk.Any(a => a.c_vazmelk == para.kodfarei),
+                        33 => db.Melk.Any(a => a.c_noemelk == para.kodfarei),
+                        19 => db.Melk.Any(a => a.c_mogheyat == para.kodfarei),
+                        _ => false
+                    };
+
+                    if (ex)
+                        throw new Exception("اطلاعات مرتبط در دیتابیس موجود میباشد");
+
+                    if (para != null)
+                    {
+                        //db.parametric.Remove(para);
+                        //db.SaveChanges();
+                    }
+
+
+******************************************************
+
+
+            switch (formolfield)
+            {
+                case "FloorNumber":
+                    return Dv_KarbariService.SortKarbariByFloorNumber(karbari.c_tabagheh.GetValueOrDefault());
+
+                case "FloorArea":
+                    return karbari.masahat_k;
+                    
+                case { } s when s.StartsWith("FloorNumberRadif_"):
+                    {
+                        return Dv_KarbariService.SortKarbariByFloorNumber(
+                            Convert.ToInt32(formolfield.Replace("FloorNumberRadif_", "")));
+                    }
+                default:
+                    return Calc_Meghdar(formolfield, Shop, Sh_Darkhast, year);
+            }

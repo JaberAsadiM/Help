@@ -1,0 +1,5 @@
+var grid = $("#MalekinMorediGrid").data("kendoGrid"); 
+var models = grid.dataSource.data();
+var model = models.filter(word => word.id == 1);
+var row = grid.table.find("[data-uid=" + model[0].uid + "]");
+grid.select(row);
