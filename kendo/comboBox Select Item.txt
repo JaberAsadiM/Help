@@ -1,0 +1,4 @@
+var dropdownlist = $("#cmbGhazaeeKarshenasan_DecisionToVote").data("kendoComboBox");
+
+dropdownlist.select(1);
+dropdownlist.trigger("change");
