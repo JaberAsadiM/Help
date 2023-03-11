@@ -1,0 +1,8 @@
+
+
+As already mentioned by Mike, there is no option 'Enable NuGet Package Restore' in VS2015. You'll have to invoke the restore process manually. A nice way - without messing with files and directories - is using the NuGet Package Management Console: Click into the 'Quick start' field (usually in the upper right corner), enter console, open the management console, and enter command:
+
+Update-Package –reinstall
+This will re-install all packages of all projects in your solution. To specify a single project, enter:
+
+Update-Package –reinstall -ProjectName MyProject
