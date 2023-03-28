@@ -1,0 +1,1 @@
+ $("#txtTozihatFishRegister").val('@(Html.Raw(Json.Encode(Model.sharh)))');
