@@ -1,0 +1,1 @@
+Update dbo.Dv_malekin  set name=REPLACE(name,' ','') , family=REPLACE(family,' ','')
