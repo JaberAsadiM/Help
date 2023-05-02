@@ -1,0 +1,4 @@
+تغییر نوع فیلد	
+ALTER TABLE [Made100].BuildingTypeDetail ALTER COLUMN  Coefficient  nvarchar(10) NULL
+
+
