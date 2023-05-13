@@ -1,0 +1,39 @@
+
+
+
+
+    @(Html.Kendo().ListView<AmardWebShahrsazi.Areas.ArchiveElectronic.Models.PicModel>()
+    .Name("listView")
+    .TagName("div")
+    .ClientTemplateId("temp")    => ************************************************************************
+
+
+
+
+
+
+
+
+
+<script type="text/x-kendo-tmpl" id="temp">
+    <div class="ImageDiv1" id="Div_#:shop#_#:radif#_#:codetree#_#=ext2(vabasteh)#"
+         ondblclick="show_gallery('#:shop#', '#:radif#', '#:codetree#', '#:shop#_#:radif#_#:codetree#', '#:vabasteh#', '#:code_nosazi#');"
+         onclick="Selected_Image('#:shop#_#:radif#_#:codetree#_#=ext(vabasteh)#');">
+
+        <div class="Div_Color" style="width:145px; height:23px; clear:both">
+            <div style="width: 40px; font-family: 'B Yekan'; font-size:9pt; direction: rtl; float: right"> «—?Œ :</div>
+            <div style="width:80px; font-family:'B Yekan'; font-size:9pt;direction:rtl;float:right">#=myCustomFunction(tarikh)#</div>
+
+        </div>
+        <div class="Img_ArchiveDiv" style="width:145px; height:110px; clear:both">
+            <img class="Img_Archive" id="#:shop#_#:radif#_#:codetree#" src="data:image/png;base64,#:aks2#" width="145px" height="110px" />
+        </div>
+        @*<p unselectable="on">”«⁄  ¬Å·Êœ : #=TanzimSaat(saat)#</p>*@
+        <p unselectable="on">#:Sharh#</p>
+        <div class="Div_Color" style="width:145px; height:23px; clear:both">
+            <div style="width: 60px; font-family: 'B Yekan'; font-size:9pt; direction: rtl; float: right">‘„«—Â  : </div>
+            <div style="width:40px; font-family:'B Yekan'; font-size:9pt;direction:rtl;float:right">#:radif#</div>
+            <input name="chkSelectionImage" value="#:shop#_#:radif#_#:codetree#_#=ext(vabasteh)#" style="font-size: x-small; width:10px" type="checkbox">
+        </div>
+    </div>
+</script>
