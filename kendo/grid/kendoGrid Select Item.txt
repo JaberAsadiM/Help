@@ -1,0 +1,2 @@
+                var grid = $("#TafkikFormol_Grid_asnaf").data("kendoGrid");
+                grid.select("tr:eq(0), tr:eq(1)");
