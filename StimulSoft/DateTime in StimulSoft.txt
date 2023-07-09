@@ -1,0 +1,1 @@
+{IIF((Length(dateConstruction)==8), Left(dateConstruction,4) +'/' + Mid(dateConstruction,4,2)+'/' + Right(dateConstruction,2), dateConstruction)}

@@ -1,0 +1,21 @@
+
+************10.3
+tarifha => ¬œ—” ‰ﬁ‘Â :
+ http://192.168.10.108:6080/arcgis/rest/services/maryanaj/Mariyanaj140203016/MapServer
+
+
+tarifha => ¬œ—” ”—Ê?” ò—Êò? (PrintingTools) :
+http://192.168.10.108:6080/arcgis/rest/services/Utilities/PrintingTools/GPServer//Export Web Map Task
+
+
+web config => 
+<add key="pathkrooki" value="\\192.168.10.108\arcgisserver\directories\arcgisoutput\Utilities\PrintingTools_GPServer\"/>
+
+
+tarifha =>  „Ê«—œ ò‰ —·? => „”?— ›«?· ò—Êò? : Œ«·? »«‘œ
+
+********************************************
+"http://192.168.10.108:6080/arcgis/rest/services/Utilities/PrintingTools/GPServer"
+"http://192.168.10.108:6080/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export Web Map Task"
+
+
