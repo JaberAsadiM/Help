@@ -1,0 +1,38 @@
+        $.ajax({
+            //cache: false,
+            type: "post",
+            //datatype: "JSON",
+            url: '@(Url.Action("Save_Popup", "Supervisor"))',
+            data: data ,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data.Success === true) {
+                    alert(data.Message);
+                    close_popup();
+                } else {
+                    //alert("data.Success"+data.Success);
+                    alert("Œÿ« œ— –Œ?—Â «ÿ·«⁄«  œ— ”„  ”—Ê—! :" + data.Error);
+                }
+            },
+            error: function (data) {
+                alert("Œÿ« œ— –Œ?—Â «ÿ·«⁄«  œ— «?Ãò”! :" + data.error);
+            }
+        });
+
+
+
+***********************************  controler
+
+
+        [HttpPost]
+        public JsonResult Save_Popup()
+        {
+            //**************** ê—› ‰ ·?”  „—«Õ· „«œÂ ’œ
+            var codeLevelMade100 = Request.Params["levelId"];
+            var listLevelId = !string.IsNullOrWhiteSpace(codeLevelMade100) ?
+                codeLevelMade100?.Split(',').Select(Int32.Parse).ToList() : new List<int>();
+            var count = listLevelId.Count == 0 ? 1 : listLevelId.Count;
+            //******************************************
+
+	}

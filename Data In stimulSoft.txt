@@ -1,0 +1,1 @@
+{IIF((Length(dtSavabegh.tarikh_g2)==8), Left(dtSavabegh.tarikh_g2,4) +'/' + Mid(dtSavabegh.tarikh_g2,4,2)+'/' + Right(dtSavabegh.tarikh_g2,2), dtSavabegh.tarikh_g2)}

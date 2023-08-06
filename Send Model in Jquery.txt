@@ -39,3 +39,87 @@ function btnFilter_FullSearchParvandeh_Click() {
             }
         });
     }
+
+************************************************************************** 2.
+
+function btnCalc_AsnafKoli_click() {
+   
+        var year = $("#txtFromYearAsnafKoli").val();
+        var s = GetWhereData_AsnafKoli();
+        var selectStructs = '';
+        var selectedDiscounts = [];
+
+
+        var chList = $("input[type='checkbox'][name^='ch_']");
+        var disList = $("input[name^='discount_']");
+        for (var i = 0; i < chList.length; i++) {
+            if (chList[i].checked) {
+                var v = $("#ch_h_" + chList[i].id).val();
+                var dis = $("#discount_" + chList[i].id).val();
+                selectStructs += v;
+                if (i !== (chList.length - 1))
+                    selectStructs += ";";
+                selectedDiscounts.push({
+                    CodeFarei: parseInt(v),
+                    Discount: parseInt(dis),
+                });
+            }
+        }
+
+        if (selectStructs == '' || selectStructs == null || selectStructs == undefined)
+        {
+            showAppMessage("ãæÇÑÏ ãÍÇÓÈå ÑÇ ÇäÊÎÇÈ äãÇ??Ï", "warning");
+            return false;
+        }
+
+        var data = new FormData();
+
+        data.append("type", s.type);
+        data.append("mantaghe", s.mantaghe);
+        data.append("hoze", s.hoze);
+        data.append("blok", s.blok);
+        data.append("melk", s.melk);
+        data.append("toNo", s.toNo);
+        data.append("ToBed", s.ToBed);
+        data.append("FromBed", s.FromBed);
+        data.append("ShoghlCode", s.ShoghlCode);
+        data.append("AsnafCode", s.AsnafCode);
+        data.append("NameFamily", s.NameFamily);
+        data.append("Kodemeli", s.Kodemeli);
+        data.append("year", year);
+        data.append("selectStructs", selectStructs);
+
+        $.each(selectedDiscounts, function (i, val) {
+            data.append(`[${i}].CodeFarei`, val.CodeFarei);
+            data.append(`[${i}].Discount`, val.Discount);
+        });
+
+        
+        $.ajax({
+            contentType: false,
+            processData: false,
+            type: "POST",
+            url: '@(Url.Action("Calculation", "CalcAll"))',
+            //dataType: 'json',
+            //traditonal: true,
+            ///contentType: "application/json; charset=utf-8", // add this
+            data: data, // change this
+            success: function(data) {
+                if (data.success == true || data.success == 'true') {
+                    btnFilter_AsnafKoli_Click();
+                    showAppMessage(data.res, "success");
+                } else {
+                    showAppMessage(data.error, "error");
+                }
+            },
+        });
+    }
+
+
+        [HttpPost]
+        public ActionResult Calculation(asnafMohasebeKoli model, List<NoeMohasebeAsnafTakhfifViewModel> selectedDiscounts)
+        {
+
+        }
+
+

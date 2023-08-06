@@ -1,0 +1,5 @@
+        var grid = $("#AvarezMorediGrid").data("kendoGrid");
+        //grid.hideColumn("sal");
+        var opts = grid.options;
+        opts.columns[3].width = "1000px";
+        grid.setOptions(opts);

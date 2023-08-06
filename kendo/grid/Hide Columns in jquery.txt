@@ -1,0 +1,2 @@
+        var grid = $("#AvarezMorediGrid").data("kendoGrid");
+         grid.hideColumn("sal");

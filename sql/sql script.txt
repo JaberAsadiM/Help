@@ -1,0 +1,31 @@
+
+;WITH AX AS
+(
+SELECT  
+DISTINCT
+dbo.Fish.m_khadamat , dbo.Fish.SHOP 
+FROM dbo.FishSabti,dbo.Fish 
+WHERE date > 14010100 
+AND FishSabti.shop =  dbo.Fish.shop  
+AND dbo.Fish.sal = 1401 
+--AND FishSabti.shop = 26416
+)
+SELECT SUM(m_khadamat) AS SUM1 FROM AX
+
+
+
+******************************************************
+
+
+(dbo.Melk.manteghhe_g + '-' + dbo.Melk.hozeh_g + '-' + dbo.Melk.blok_g + '-' +
+dbo.Melk.shomelk_g + '-' + dbo.Melk.sakhteman_g + '-' + dbo.Melk.apar_g + '-' +dbo.Melk.senfi_g)  AS codeNosaziGhadim
+FROM dbo.Dv_malekin , dbo.Parvandeh,dbo.Melk
+WHERE dbo.Dv_malekin.shop = dbo.Parvandeh.shop AND dbo.Dv_malekin.shop = dbo.Melk.shop  
+and
+dbo.Dv_malekin.shop  in 
+(
+53157,
+59971,
+59996,
+60020,
+60023)
