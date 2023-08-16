@@ -1,20 +1,26 @@
- @(Html.Kendo()
-                    .MultiSelect()
-                    //.AutoClose(false)
-                    .Name("cmbSearchmarhaleKarshenasanM100")
-                    .HtmlAttributes(new { style = "width:150px" })
-                    .DataTextField("sharh")
-                    .DataValueField("kodfarei")
-                    //.SelectedIndex(0)
-                    .Filter(FilterType.Contains)
-                    .HighlightFirst(true)
-                    .DataSource(source =>
-                    { source.Read(read => { read.Action("FillSearchmarhaleMade100Combo", "Supervisor").Type(HttpVerbs.Post); }); }))
+    @(Html.Kendo()
+                .MultiSelect()
+                .Value(Model.SeparateItems.Split(','))
+ 			//.Value(new[] { 2, 7 })
+                .Name("cmbSearchmarhaleKarshenasanM100")
+
+                .HtmlAttributes(new { style = "width:150px" })
+                .DataTextField("sharh")
+                .DataValueField("kodfarei")
+                //.SelectedIndex(0)
+                .Filter(FilterType.Contains)
+                .HighlightFirst(true)
+                .DataSource(source =>
+                { source.Read(read => { read.Action("FillComboSeparateItems", "Tarifha", new {area = "Definitions" }).Type(HttpVerbs.Post); }); }))
+
 
 
 
 
 *************************** Script
+
+var c_NoeDarkhast: $("#cmbSearchmarhaleKarshenasanM100").val();
+
 
         var data = new FormData();
         data.append("kodasli", kodasli);

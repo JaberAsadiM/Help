@@ -1,0 +1,8 @@
+                if ((report.GetComponentByName("karbari" + row.ToString()) as StiText) != null)
+                    (report.GetComponentByName("karbari" + row.ToString()) as StiText).Text = item["noeestefadeh"]?.ToString() ?? string.Empty;
+
+**************************************
+
+        if (report.Dictionary.DataSources["dtNaameh"] != null)
+            report.RegData("dtNaameh", govahiPayanSakhtemanDataset.Tables[12]);
+
