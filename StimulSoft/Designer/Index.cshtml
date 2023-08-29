@@ -1,0 +1,102 @@
+﻿@using Stimulsoft.Report.Mvc
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>طراحی گزارش</title>
+    @*<link href="@Url.Content("~/Content/css/Report.css?ver=1.0")" rel="stylesheet"/>*@
+
+    <script src="~/Scripts/jquery-1.11.2.min.js"></script>
+    <link href="~/Content/Report.css" rel="stylesheet" />
+</head>
+<body>
+<div>
+
+    @*@Html.Stimulsoft().StiMvcDesigner("MvcMobileDesigner1",
+        new StiMvcDesignerOptions()
+        {
+            Actions = new StiMvcDesignerOptions.ActionOptions()
+            {
+                GetReport = "GetBaseReportData",
+                PreviewReport = "GetReportSnapshot",
+                SaveReport = "SaveReportTemplate",
+                //SaveReportAs = "SaveReportAs",
+                DesignerEvent = "DesignerEvent"
+            },
+            Toolbar = new StiMvcDesignerOptions.ToolbarOptions()
+            {
+
+                ShowPreviewButton = false,
+                ShowAboutButton = false
+            },
+            FileMenu = new StiMvcDesignerOptions.FileMenuOptions()
+            {
+                ShowExit = false,
+                ShowOpen = false,
+                ShowClose = false,
+                ShowSaveAs = false,
+                ShowNew = false,
+                ShowOptions = false,
+                ShowInfo = false,
+                ShowAbout = false,
+                ShowHelp = false
+            },
+            Localization = "~/Content/Localizations/fa.xml"
+        })*@
+
+    @using Stimulsoft.Report.Web
+
+    ...
+
+    @*@Html.Stimulsoft().StiMvcViewer(new StiMvcViewerOptions()
+    {
+        Actions =
+        {
+            GetReport = "GetReport",
+            ViewerEvent = "ViewerEvent"
+        },
+        Appearance =
+        {
+            FullScreenMode = true,
+            ScrollbarsMode = true
+        },
+        Toolbar =
+        {
+            DisplayMode = StiToolbarDisplayMode.Separated
+        }
+    })*@
+    
+    @Html.Stimulsoft().StiMvcDesigner(new StiMvcDesignerOptions()
+    {
+        Actions =
+        {
+            GetReport = "GetReport",
+            PreviewReport = "PreviewReport",
+            SaveReport = "SaveReport",
+            DesignerEvent = "DesignerEvent"
+        }
+    })
+    
+    <h2>Using the Viewer and Designer in One Project</h2>
+
+    <br />
+    @Html.ActionLink("Design Report", "Designer")
+    <br /><br />
+    @*@Html.ActionLink("View Report", "Viewer")*@
+
+    <script>
+        $(window).on("unload",
+            function() {
+                window.opener.dialog = null;
+            });
+    </script>
+</div>
+</body>
+</html>
