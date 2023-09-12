@@ -1,0 +1,29 @@
+ var erjas = db.Erja;
+ var licences = db.parvaneh;
+
+ var q =
+     (from erja in erjas
+
+      join parvaneh in licences on new
+      { Shop = (double)erja.shop, ShDarkhast = (long)erja.sh_darkhast } equals new
+      { Shop = (double)parvaneh.shop, ShDarkhast = (long)parvaneh.shodarkhast } into tempAcc
+
+      from parvaneh in tempAcc.DefaultIfEmpty()
+
+      select new ErjaParvaneh()
+      {
+          shop = erja.shop,
+          sh_darkhast = erja.sh_darkhast,
+          c_marhaleh = erja.c_marhaleh,
+          marhaleh = erja.marhaleh,
+          sho_parvaneh = parvaneh.sho_parvaneh,
+          tarikh_parvaneh = parvaneh.tarikh_parvaneh,
+          serial_parvaneh = parvaneh.serial_parvaneh,
+          c_nodarkhast = erja.c_nodarkhast,
+          noedarkhast = erja.noedarkhast,
+          code_nosazi = erja.code_nosazi,
+          c_vaziatErja = erja.c_vaziatErja,
+          vaziatErja = erja.vaziatErja,
+          name_mot = erja.name_mot,
+          noe_parvaneh = parvaneh.noe_parvaneh
+      }).Distinct().AsQueryable();
