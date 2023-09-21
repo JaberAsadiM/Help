@@ -1,8 +1,7 @@
  var erjas = db.Erja;
  var licences = db.parvaneh;
 
- var q =
-     (from erja in erjas
+ var q =(from erja in erjas
 
       join parvaneh in licences on new
       { Shop = (double)erja.shop, ShDarkhast = (long)erja.sh_darkhast } equals new
@@ -27,3 +26,87 @@
           name_mot = erja.name_mot,
           noe_parvaneh = parvaneh.noe_parvaneh
       }).Distinct().AsQueryable();
+
+
+**************************************************************
+
+
+
+            var folder = db.Parvandeh;
+            var malkins = db.Dv_malekin.Where(a => a.mtable_name == "shoghli");
+            var asnaf_Avarez = db.Asnaf_Avarez.Where(a => a.PaymentAmount > 0);
+            var asnaf_Formul = db.Asnaf_Formol.Where(a => a.Deleted != true);
+
+            var q = (from parvandeh in folder
+
+                     join malkin in malkins on parvandeh.shop equals (double)malkin.shop into tempMaleks
+
+                     join asnafAvarez in asnaf_Avarez on parvandeh.shop equals asnafAvarez.ShoP into tempAsnafAvarezs
+
+                     join asnafFormul in asnaf_Formul on new
+                     { Term = tempAsnafAvarezs.FirstOrDefault()!.Term, TypeAvarez = tempAsnafAvarezs.FirstOrDefault()!.TypeAvarez } equals new
+                     { Term = asnafFormul.Term, TypeAvarez = asnafFormul.FormolTypeCode.Value }
+                             //tempAsnafAvarezs.FirstOrDefault().Term equals asnafFormul.Term 
+                             into tempAsnafFormuls
+
+                     from malkin in tempMaleks.DefaultIfEmpty()
+                     from asnafAvarez in tempAsnafAvarezs.DefaultIfEmpty()
+                     from asnafFormul in tempAsnafFormuls.DefaultIfEmpty()
+
+                     select new v_AsnafSiyaheViewModel()
+                     {
+                         ShoP = (long)parvandeh.shop,
+                         CodeN = parvandeh.codeN,
+                         Term = asnafFormul.Term,
+                         JobCode = asnafAvarez.JobCode,
+                         PaymentAmount = asnafAvarez.PaymentAmount,
+                         Date = asnafAvarez.Date,
+                         DateVosul = asnafAvarez.DateVosul,
+                         Discount = asnafAvarez.Discount,
+                         NameFamily = malkin.name + " " + malkin.family,
+                         JobName = asnafAvarez.JobName,
+                         addressMalek = malkin.address,
+                         mantaghe = parvandeh.mantaghe,
+                         apar = parvandeh.apar,
+                         blok = parvandeh.blok,
+                         hoze = parvandeh.hoze,
+                         sakhteman = parvandeh.sakhteman,
+                         senfi = parvandeh.senfi,
+                         Kod_Daramadi = asnafFormul.Kod_Daramadi,
+                         BodjeName = asnafFormul.BodjeName,
+                         shomelk = parvandeh.shomelk,
+                         Id = malkin.id
+                     }).Distinct().AsQueryable();
+
+
+**************************************************************
+ var contacts = _contactService.Value.List().ToList();
+ var cities = _locationService.Value.GetAllCities();
+ var provinces = _locationService.Value.GetAllProvinces();
+ var accIndependentCodings = _accIndependentCoding
+     .Where(x => x.IndependentId == 12 || x.IndependentId == 13 || x.IndependentId == 17)
+     .ToList();
+
+ var result =
+     (from employee in contacts
+
+      join accIndependentCoding in accIndependentCodings on employee.ContactId equals accIndependentCoding.Value into tempAcc
+      join city in cities on employee.CityId equals city.Id into tempCity
+      join province in provinces on employee.ProvinceId equals province.Id into tempProvince
+
+      from accIndependentCoding in tempAcc.DefaultIfEmpty()
+      from city in tempCity.DefaultIfEmpty()
+      from province in tempProvince.DefaultIfEmpty()
+
+      select new AccIndependentCodingView
+      {
+          ProvinceId = employee.ProvinceId,
+          SectionId = employee.SectionId,
+          CityId = employee.CityId,
+          Coding = accIndependentCoding?.Coding ?? 0,
+          IndependentId = accIndependentCoding?.IndependentId ?? 0,
+
+          CityTitle = city?.Name ?? "",
+
+          StateTitle = province?.Name ?? "",
+      }).AsQueryable().Where(expression);
