@@ -1,0 +1,484 @@
+Date: Sun, 12 Feb 2023 08:33:49 +0000 (UTC)
+Message-ID: <283414863.69.1676190829799@amardinfra>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_68_856631783.1676190829798"
+
+------=_Part_68_856631783.1676190829798
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>Property Green Space (=D9=81=D8=B6=D8=A7=DB=8C =D8=B3=D8=A8=D8=
+=B2)</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        font-size: 10pt;
+        line-height: 1.2;
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: #fff !important;
+        color: #000 !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: #000;
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        page-break-after: avoid;
+    }
+
+    pre {
+        font-family: Monaco, "Courier New", monospace;
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>Property Green Space (=D9=81=D8=B6=D8=A7=DB=8C =D8=B3=D8=A8=D8=B2)<=
+/h1>
+    <div class=3D"Section1">
+        <p style=3D"text-align: center;"><br></p>
+<div class=3D"table-wrap">
+<table class=3D"relative-table confluenceTable" style=3D"width: 83.8323%;ma=
+rgin-left: auto;margin-right: auto;">
+<colgroup>
+<col style=3D"width: 18.8245%;">
+<col style=3D"width: 6.43368%;">
+<col style=3D"width: 6.11597%;">
+<col style=3D"width: 7.70453%;">
+<col style=3D"width: 31.0564%;">
+<col style=3D"width: 10.0079%;">
+<col style=3D"width: 19.857%;">
+</colgroup>
+<tbody>
+<tr>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: center;" =
+data-highlight-colour=3D"#8777d9"><span style=3D"color: rgb(255,255,255);">=
+Name</span></th>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: center;" =
+colspan=3D"1" data-highlight-colour=3D"#8777d9"><span style=3D"color: rgb(2=
+55,255,255);">Type</span></th>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: center;" =
+colspan=3D"1" data-highlight-colour=3D"#8777d9"><span style=3D"color: rgb(2=
+55,255,255);">Nullable</span></th>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: center;" =
+data-highlight-colour=3D"#8777d9"><span style=3D"color: rgb(255,255,255);">=
+English Description</span></th>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: right;" d=
+ata-highlight-colour=3D"#8777d9"><span style=3D"color: rgb(255,255,255);">P=
+ersian Description</span></th>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: center;" =
+colspan=3D"1" data-highlight-colour=3D"#8777d9"><span style=3D"color: rgb(2=
+55,255,255);">Validation</span></th>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: center;" =
+colspan=3D"1" data-highlight-colour=3D"#8777d9"><p><span style=3D"color: rg=
+b(255,255,255);">Sample Data</span></p></th>
+</tr>
+<tr>
+<td style=3D"text-align: left;" class=3D"confluenceTd">Id</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td style=3D"text-align: center;" class=3D"confluenceTd">primary key</td>
+<td style=3D"text-align: right;" class=3D"confluenceTd">=D8=B4=D9=86=D8=A7=
+=D8=B3=D9=87 =DB=8C=DA=A9=D8=AA=D8=A7 =DA=A9=D8=A7=D8=B1=D8=A8=D8=B1 =DA=A9=
+=D9=87 =D9=87=D9=85=D8=A7=D9=86 =D8=B4=D9=85=D8=A7=D8=B1=D9=87 =D9=BE=D8=B1=
+=D9=88=D9=86=D8=AF=D9=87 =D9=81=D8=B9=D9=84=DB=8C =D9=85=D8=A7 =D9=86=D8=B1=
+=D9=85 =D8=A7=D9=81=D8=B2=D8=A7=D8=B1 =D8=A7=D8=B3=D8=AA</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1</t=
+d>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Estate=
+Id</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=85=D9=84=DA=A9</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">GreenSpaceTypeCategoryId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=86=D9=88=D8=B9 =D9=81=D8=B6=D8=A7=DB=8C =D8=
+=B3=D8=A8=D8=B2</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">2</t=
+d>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">GreenS=
+paceTypeCategoryname</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">&nbs=
+p;string</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D9=86=D9=88=D8=B9 =D9=81=D8=B6=D8=A7=DB=8C =D8=B3=D8=A8=D8=
+=B2</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=81=D8=B6=D8=A7=DB=8C =D8=B3=D8=A8=D8=B2 =D9=85=D8=B3=DA=A9=D9=88=D9=86=DB=
+=8C</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Meter&=
+nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">deci=
+mal</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=85=D8=B3=D8=A7=D8=AD=D8=AA</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">10.3=
+</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Create=
+dAt</td>
+<td colspan=3D"1" class=3D"confluenceTd">DateTime</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B2=D9=85=D8=A7=D9=86 =D8=A7=DB=8C=D8=AC=D8=A7=D8=AF =D8=B3=D8=A7=D8=AE=D8=
+=AA=D9=85=D8=A7=D9=86</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">2022=
+-05-02 09:34:06.026546+04:30</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Update=
+dAt</td>
+<td colspan=3D"1" class=3D"confluenceTd">DateTime</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B2=D9=85=D8=A7=D9=86 =D8=A2=D8=AE=D8=B1=DB=8C=D9=86 =D9=88=DB=8C=D8=B1=D8=
+=A7=DB=8C=D8=B4 =D8=B3=D8=A7=D8=AE=D8=AA=D9=85=D8=A7=D9=86 (=D8=AF=D8=B1 =
+=D8=A7=D8=A8=D8=AA=D8=AF=D8=A7 =D8=A7=DB=8C=D8=AC=D8=A7=D8=AF =D8=B3=D8=A7=
+=D8=AE=D8=AA=D9=85=D8=A7=D9=86 =D8=A8=D8=B1=D8=A7=D8=A8=D8=B1 =D8=A8=D8=A7 =
+=D8=AA=D8=A7=D8=B1=DB=8C=D8=AE =D8=A7=DB=8C=D8=AC=D8=A7=D8=AF =D8=B3=D8=A7=
+=D8=AE=D8=AA=D9=85=D8=A7=D9=86 =D8=A7=D8=B3=D8=AA)</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">2022=
+-05-02 09:34:06.026546+04:30</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Creato=
+rId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =DA=A9=D8=A7=D8=B1=D8=A8=D8=B1 =D8=A7=DB=8C=D8=
+=AC=D8=A7=D8=AF =DA=A9=D9=86=D9=86=D8=AF=D9=87 =D8=A7=DB=8C=D9=86 =D8=B3=D8=
+=A7=D8=AE=D8=AA=D9=85=D8=A7=D9=86</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1</t=
+d>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Update=
+rId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =DA=A9=D8=A7=D8=B1=D8=A8=D8=B1=DB=8C =DA=A9=D9=
+=87 =D8=A2=D8=AE=D8=B1=DB=8C=D9=86 =D8=A8=D8=A7=D8=B1 =D8=A7=DB=8C=D9=86 =
+=D8=B3=D8=A7=D8=AE=D8=AA=D9=85=D8=A7=D9=86 =D8=B1=D8=A7 =D9=88=DB=8C=D8=B1=
+=D8=A7=DB=8C=D8=B4 =DA=A9=D8=B1=D8=AF</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">IsArchived</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">bool=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=A2=DB=8C=D8=A7 =D8=A7=DB=8C=D9=86 =D8=B3=D8=A7=D8=AE=D8=AA=D9=85=D8=A7=D9=
+=86 =D8=A8=D9=87 =D8=B3=D8=B7=D9=84 =D8=B2=D8=A8=D8=A7=D9=84=D9=87 =DA=A9=
+=D9=87 =D9=82=D8=A7=D8=A8=D9=84=DB=8C=D8=AA =D8=A8=D8=A7=D8=B2=DA=AF=D8=B4=
+=D8=AA =D8=A7=D8=B2 =D8=B3=D9=85=D8=AA =D9=81=D8=B1=D8=A7=D9=86=D8=AA =D8=
+=B1=D8=A7 =D8=AF=D8=A7=D8=B1=D8=AF=D8=8C =D8=B1=D9=81=D8=AA=D9=87 =D8=A7=D8=
+=B3=D8=AA</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">true=
+ / false</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">IsActive</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">bool=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=A8=D8=B9=D8=AF =D8=A7=D8=B2 =D8=A2=D9=BE=D8=AF=DB=8C=D8=AA =D8=B4=D8=AF=D9=
+=86 =DB=8C=DA=A9 =D8=B3=D8=A7=D8=AE=D8=AA=D9=85=D8=A7=D9=86 =D9=81=D8=B9=D8=
+=A7=D9=84 =D9=85=DB=8C =D8=B4=D9=88=D8=AF =D9=88 =D9=86=D8=B3=D8=AE=D9=87 =
+=DA=A9=D9=BE=DB=8C =D8=A7=D8=B2 =D8=A2=D9=86 =D8=A7=DB=8C=D8=AC=D8=A7=D8=AF=
+ =D8=B4=D8=AF=D9=87.=D8=AA=D9=81=D8=A7=D9=88=D8=AA =D8=A2=D9=86 =D8=A8=D8=
+=A7 =D8=AD=D8=B0=D9=81 =D9=86=D8=B1=D9=85 =D8=A7=D9=81=D8=B2=D8=A7=D8=B1=DB=
+=8C =D8=A2=D9=86 =D8=A7=D8=B3=D8=AA =DA=A9=D9=87 =D8=AF=D8=B1 =D8=A2=DB=8C=
+=D9=86=D8=AF=D9=87 =D8=A8=D8=A7=DB=8C=D8=AF =D8=A8=D9=87 =D8=B4=DA=A9=D9=84=
+ =D8=AA=D8=A7=D8=B1=DB=8C=D8=AE=DA=86=D9=87 =D8=A8=D9=87 =DA=A9=D8=A7=D8=B1=
+=D8=A8=D8=B1 =D9=86=D9=85=D8=A7=DB=8C=D8=B4 =D8=AF=D8=A7=D8=AF=D9=87 =D8=B4=
+=D9=88=D8=AF</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">true=
+ / false</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p style=3D"text-align: center;"><br></p>
+    </div>
+</body>
+</html>
+------=_Part_68_856631783.1676190829798
+Content-Type: image/svg+xml
+Content-Transfer-Encoding: 7bit
+Content-Location: file:///C:/9bc34f5d83987c629e0ebf1991b3f3c9
+
+<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><circle fill="#00875A" cx="8" cy="8" r="8"/><path d="M10.242 4.474a.941.941 0 0 1 1.634.934L8.11 11.996a.941.941 0 0 1-1.54.136L4.218 9.308a.941.941 0 1 1 1.446-1.205L7.15 9.886l3.093-5.412z" stroke="#FFF" stroke-width=".2" fill="#FFF" fill-rule="nonzero"/></g></svg>
+------=_Part_68_856631783.1676190829798
+Content-Type: image/svg+xml
+Content-Transfer-Encoding: 7bit
+Content-Location: file:///C:/79931df36f5618a92c12b13d3bb4f95b
+
+<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><circle fill="#DE350B" cx="8" cy="8" r="8"/><path d="M9.485 8.071l2.122 2.121a1 1 0 1 1-1.415 1.415l-2.12-2.122-2.122 2.122a1 1 0 1 1-1.414-1.415l2.12-2.12-2.12-2.122A1 1 0 1 1 5.95 4.536l2.121 2.12 2.121-2.12a1 1 0 1 1 1.415 1.414L9.485 8.07z" fill="#FFF"/></g></svg>
+------=_Part_68_856631783.1676190829798--

@@ -1,0 +1,1523 @@
+Date: Sun, 12 Feb 2023 08:33:35 +0000 (UTC)
+Message-ID: <1281945170.63.1676190815983@amardinfra>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_62_1354983320.1676190815851"
+
+------=_Part_62_1354983320.1676190815851
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>Property Details (=D9=85=D8=B4=D8=AE=D8=B5=D8=A7=D8=AA =D9=85=D9=
+=84=DA=A9)</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        font-size: 10pt;
+        line-height: 1.2;
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: #fff !important;
+        color: #000 !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: #000;
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        page-break-after: avoid;
+    }
+
+    pre {
+        font-family: Monaco, "Courier New", monospace;
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>Property Details (=D9=85=D8=B4=D8=AE=D8=B5=D8=A7=D8=AA =D9=85=D9=84=
+=DA=A9)</h1>
+    <div class=3D"Section1">
+        <p style=3D"text-align: center;"><br></p>
+<div class=3D"table-wrap">
+<table class=3D"relative-table wrapped confluenceTable" style=3D"width: 84.=
+8934%;margin-left: auto;margin-right: auto;">
+<colgroup>
+<col style=3D"width: 24.0212%;">
+<col style=3D"width: 6.21508%;">
+<col style=3D"width: 6.00559%;">
+<col style=3D"width: 7.61173%;">
+<col style=3D"width: 27.9143%;">
+<col style=3D"width: 9.49488%;">
+<col style=3D"width: 18.7093%;">
+</colgroup>
+<tbody>
+<tr>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: center;" =
+data-highlight-colour=3D"#8777d9"><span style=3D"color: rgb(255,255,255);">=
+Name</span></th>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: center;" =
+colspan=3D"1" data-highlight-colour=3D"#8777d9"><span style=3D"color: rgb(2=
+55,255,255);">Type</span></th>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: center;" =
+colspan=3D"1" data-highlight-colour=3D"#8777d9"><span style=3D"color: rgb(2=
+55,255,255);">Nullable</span></th>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: center;" =
+data-highlight-colour=3D"#8777d9"><span style=3D"color: rgb(255,255,255);">=
+English Description</span></th>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: right;" d=
+ata-highlight-colour=3D"#8777d9"><span style=3D"color: rgb(255,255,255);">P=
+ersian Description</span></th>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: center;" =
+colspan=3D"1" data-highlight-colour=3D"#8777d9"><span style=3D"color: rgb(2=
+55,255,255);">Validation</span></th>
+<th class=3D"highlight-#8777d9 confluenceTh" style=3D"text-align: center;" =
+colspan=3D"1" data-highlight-colour=3D"#8777d9"><p><span style=3D"color: rg=
+b(255,255,255);">Sample Data</span></p></th>
+</tr>
+<tr>
+<td style=3D"text-align: left;" class=3D"confluenceTd">Id</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td style=3D"text-align: center;" class=3D"confluenceTd">primary key</td>
+<td style=3D"text-align: right;" class=3D"confluenceTd">=D8=B4=D9=86=D8=A7=
+=D8=B3=D9=87 =DB=8C=DA=A9=D8=AA=D8=A7 =DA=A9=D8=A7=D8=B1=D8=A8=D8=B1 =DA=A9=
+=D9=87 =D9=87=D9=85=D8=A7=D9=86 =D8=B4=D9=85=D8=A7=D8=B1=D9=87 =D9=BE=D8=B1=
+=D9=88=D9=86=D8=AF=D9=87 =D9=81=D8=B9=D9=84=DB=8C =D9=85=D8=A7 =D9=86=D8=B1=
+=D9=85 =D8=A7=D9=81=D8=B2=D8=A7=D8=B1 =D8=A7=D8=B3=D8=AA</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">2</t=
+d>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Proper=
+tyId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=85=D9=84=DA=A9=DB=8C =DA=A9=D9=87 =D8=AF=D8=
+=B1 =D8=A2=D9=86 =D9=82=D8=B1=D8=A7=D8=B1 =D8=AF=D8=A7=D8=B1=D8=AF</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">5</t=
+d>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Addres=
+s</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=A2=D8=AF=D8=B1=D8=B3</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A8=D8=B4 =D8=A2=D8=B2=D8=A7=D8=AF=DA=AF=D8=A7=D9=86 12</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">PhoneN=
+umber</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd"><p>=
+=D8=B4=D9=85=D8=A7=D8=B1=D9=87 =D8=AA=D9=84=D9=81=D9=86</p></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">011-=
+32280609</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Plaque=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=BE=D9=84=D8=A7=DA=A9 =D8=A2=D8=A8=DB=8C</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">50</=
+td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Mother=
+FolderNumber&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=85=D8=A7=D8=B1=D9=87 =D9=BE=D8=B1=D9=88=D9=86=D8=AF=D9=87 =D9=85=D8=
+=A7=D8=AF=D8=B1</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">0245=
+</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Archiv=
+eFolderNumber</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=85=D8=A7=D8=B1=D9=87 =D9=BE=D8=B1=D9=88=D9=86=D8=AF=D9=87 =D8=A8=D8=
+=A7=DB=8C=DA=AF=D8=A7=D9=86=DB=8C</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">0365=
+4</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Curren=
+tStatusMeter</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">deci=
+mal&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=85=D8=B3=D8=A7=D8=AD=D8=AA =D9=88=D8=B6=D8=B9 =D9=85=D9=88=D8=AC=D9=88=D8=
+=AF</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">120<=
+/td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Correc=
+tiveMeter</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">deci=
+mal&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=85=D8=B3=D8=A7=D8=AD=D8=AA =D8=A7=D8=B5=D9=84=D8=A7=D8=AD=DB=8C / =D8=AA=
+=D8=B9=D8=B1=DB=8C=D8=B6=DB=8C</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">9.5<=
+/td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">RemainingMeter</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">deci=
+mal&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=85=D8=B3=D8=A7=D8=AD=D8=AA =D8=A8=D8=A7=D9=82=DB=8C=D9=85=D8=A7=D9=86=D8=
+=AF=D9=87 (=D9=85=D8=B3=D8=A7=D8=AD=D8=AA =D9=85=D9=88=D8=AC=D9=88=D8=AF - =
+=D9=85=D8=B3=D8=A7=D8=AD=D8=AA =D8=A7=D8=B5=D9=84=D8=A7=D8=AD=DB=8C)</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">110.=
+5</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">DocumentMeter</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">deci=
+mal&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-information" src=3D"fe543af65345aa271c7e1de3636=
+da9e8" data-emoticon-name=3D"information" alt=3D"(info)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">&nbsp=
+;=D9=85=D8=B3=D8=A7=D8=AD=D8=AA =D8=B7=D8=A8=D9=82 =D8=B3=D9=86=D8=AF</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">115.=
+5</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">DeedOwnershipTypeCategoryId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=86=D9=88=D8=B9 =D8=B3=D9=86=D8=AF =D9=85=D8=
+=A7=D9=84=DA=A9=DB=8C=D8=AA</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">2</t=
+d>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">DeedOw=
+nershipTypeCategoryname</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D9=86=D9=88=D8=B9 =D8=B3=D9=86=D8=AF =D9=85=D8=A7=D9=84=DA=
+=A9=DB=8C=D8=AA</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B3=D9=86=D8=AF =D9=82=D9=88=D9=84=D9=86=D8=A7=D9=85=D9=87 =D8=A7=DB=8C</td=
+>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">DeedSt=
+atusCategoryId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=88=D8=B6=D8=B9=DB=8C=D8=AA =D8=B3=D9=86=D8=
+=AF</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">DeedStatusCategoryname</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D9=88=D8=B6=D8=B9=DB=8C=D8=AA =D8=B3=D9=86=D8=AF</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D8=B4 =D8=AF=D8=A7=D9=86=DA=AF</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">OwnershipTypeCategoryId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=86=D9=88=D8=B9 =D9=85=D8=A7=D9=84=DA=A9=DB=
+=8C=D8=AA</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">3</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">OwnershipTypeCategoryname</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D9=86=D9=88=D8=B9 =D9=85=D8=A7=D9=84=DA=A9=DB=8C=D8=AA</td=
+>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=A7=D8=B3=D8=AA=DB=8C=D8=AC=D8=A7=D8=B1=DB=8C =D8=A7=D9=88=D9=82=D8=A7=D9=
+=81=DB=8C</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">EstateStatusCategoryId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=88=D8=B6=D8=B9=DB=8C=D8=AA =D9=85=D9=84=DA=
+=A9</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">EstateStatusCategoryname</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D9=88=D8=B6=D8=B9=DB=8C=D8=AA =D9=85=D9=84=DA=A9</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B2=D9=85=DB=8C=D9=86 =D8=AF=D8=A7=D8=B1=D8=A7=DB=8C =D8=B3=D8=A7=D8=AE=D8=
+=AA=D9=85=D8=A7=D9=86</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">EstateTypeCategoryId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=86=D9=88=D8=B9 =D9=85=D9=84=DA=A9</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">3</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">EstateTypeCategoryname</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D9=86=D9=88=D8=B9 =D9=85=D9=84=DA=A9</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=AF=D9=88=D9=84=D8=AA=DB=8C</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">EstatePositionCategoryId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=85=D9=88=D9=82=D8=B9=DB=8C=D8=AA =D8=B2=D9=
+=85=DB=8C=D9=86</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">EstatePositionStageCategoryname</t=
+d>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D9=85=D9=88=D9=82=D8=B9=DB=8C=D8=AA =D8=B2=D9=85=DB=8C=D9=
+=86</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=AF=D9=88 =D9=86=D8=A8=D8=B4</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">EstateScopeCategoryId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=85=D8=AD=D8=AF=D9=88=D8=AF=D9=87</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">2</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">EstateScopeStageCategoryname</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D9=85=D8=AD=D8=AF=D9=88=D8=AF=D9=87</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=AF=D8=A7=D8=AE=D9=84 =D9=85=D8=AD=D8=AF=D9=88=D8=AF=D9=87 =D8=AE=D8=AF=D9=
+=85=D8=A7=D8=AA=DB=8C</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">RegisterPlaque</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=BE=D9=84=D8=A7=DA=A9 =D8=AB=D8=A8=D8=AA=DB=8C</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">3541=
+</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">SeparationRegisterPlaque</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=AA=D9=81=DA=A9=DB=8C=DA=A9=DB=8C =D9=BE=D9=84=D8=A7=DA=A9 =D8=AB=D8=A8=D8=
+=AA=DB=8C</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">6</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">FromBranchRegisterPlaque</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=A7=D8=B2 =D9=81=D8=B1=D8=B9=DB=8C =D9=BE=D9=84=D8=A7=DA=A9 =D8=AB=D8=A8=D8=
+=AA=DB=8C</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">3541=
+3</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">BranchRegisterPlaque</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=81=D8=B1=D8=B9=DB=8C =D9=BE=D9=84=D8=A7=DA=A9 =D8=AB=D8=A8=D8=AA=DB=8C</td=
+>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">52</=
+td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">MainRegisterPlaque</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">&nbsp=
+;=D8=A7=D8=B5=D9=84=DB=8C =D9=BE=D9=84=D8=A7=DA=A9 =D8=AB=D8=A8=D8=AA=DB=8C=
+</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">801<=
+/td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">PartRegisterPlaque</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=A8=D8=AE=D8=B4 =D9=BE=D9=84=D8=A7=DA=A9 =D8=AB=D8=A8=D8=AA=DB=8C</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><pre class=3D"tw-data-text tw-text=
+-large tw-ta" title=3D""><span class=3D"Y2IQFc" lang=3D"en">FormulaCategory=
+Id</span></pre></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=81=D8=B1=D9=85=D9=88=D9=84</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">2</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><span class=3D"Y2IQFc" lang=3D"en"=
+>FormulaCategoryName</span></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D9=81=D8=B1=D9=85=D9=88=D9=84</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=85=D9=84=DA=A9 =D8=AF=D8=A7=D8=B1=D8=A7=DB=8C =D8=B3=D8=A7=D8=AE=D8=AA=D9=
+=85=D8=A7=D9=86 =D8=A7=D8=AF=D8=A7=D8=B1=DB=8C</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">HabitationStatusCategoryId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=88=D8=B6=D8=B9=DB=8C=D8=AA =D8=B3=DA=A9=D9=
+=88=D9=86=D8=AA</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">2</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">HabitationStatusCategoryName</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D9=88=D8=B6=D8=B9=DB=8C=D8=AA =D8=B3=DA=A9=D9=88=D9=86=D8=
+=AA</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><pre class=3D"tw-data-text tw-text=
+-large tw-ta"><span class=3D"Y2IQFc" lang=3D"en">RegulationsCategoryId</spa=
+n></pre></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D8=B6=D8=A7=D8=A8=D8=B7=D9=87</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">&nbs=
+p;3</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><pre class=3D"tw-data-text tw-text=
+-large tw-ta"><span class=3D"Y2IQFc" lang=3D"en">RegulationsCategoryName</s=
+pan></pre></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D8=B6=D8=A7=D8=A8=D8=B7=D9=87</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=85=D8=B3=DA=A9=D9=88=D9=86=DB=8C =DA=A9=D9=85 =D8=AA=D8=B1=D8=A7=DA=A9=D9=
+=85</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">UTMX&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">deci=
+mal</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=85=D8=AE=D8=AA=D8=B5=D8=A7=D8=AA =D8=AC=D8=BA=D8=B1=D8=A7=D9=81=DB=8C=D8=
+=A7=DB=8C=DB=8C X</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">6341=
+31.25</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">UTMY&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">deci=
+mal</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=85=D8=AE=D8=AA=D8=B5=D8=A7=D8=AA =D8=AC=D8=BA=D8=B1=D8=A7=D9=81=DB=8C=D8=
+=A7=DB=8C=DB=8C Y</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><p>5=
+12.6451</p></td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><pre class=3D"tw-data-text tw-text=
+-large tw-ta"><span class=3D"Y2IQFc" lang=3D"en">Oldrenovationcode</span></=
+pre></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=DA=
+=A9=D8=AF =D9=86=D9=88=D8=B3=D8=A7=D8=B2=DB=8C =D9=82=D8=AF=DB=8C=D9=85</td=
+>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1-2-=
+1005-2-0-0-0</td>
+</tr>
+<tr>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><pre=
+ class=3D"tw-data-text tw-text-large tw-ta"><span class=3D"Y2IQFc" lang=3D"=
+en">DocumentissuancereferenceCategoryId</span></pre></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=85=D8=B1=D8=AC=D8=B9 =D8=B5=D8=AF=D9=88=D8=
+=B1 =D8=B3=D9=86=D8=AF</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">3</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><span class=3D"Y2IQFc" lang=3D"en"=
+>DocumentissuancereferenceCategoryName</span></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=85=D8=B1=D8=AC=D8=B9 =D8=B5=D8=AF=D9=88=D8=
+=B1 =D8=B3=D9=86=D8=AF</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=A7=D8=AF=D8=A7=D8=B1=D9=87 =D8=AB=D8=A8=D8=AA</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><pre class=3D"tw-data-text tw-text=
+-large tw-ta"><span class=3D"Y2IQFc" lang=3D"en">DateofRegistration</span><=
+/pre></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">date=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=AA=D8=A7=D8=B1=DB=8C=D8=AE =D8=AB=D8=A8=D8=AA</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1400=
+0203</td>
+</tr>
+<tr>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><pre class=
+=3D"tw-data-text tw-text-large tw-ta" title=3D""><span class=3D"Y2IQFc" lan=
+g=3D"en">Paymentyear</span></pre></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff">int</td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff"><img class=3D"emoticon emoticon-tick" src=3D"9bc34f5d839=
+87c629e0ebf1991b3f3c9" data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff"><br></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: right;" t=
+itle=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-c=
+olour=3D"#eae6ff"><label title=3D"">=D8=B3=D8=A7=D9=84 =D9=BE=D8=B1=D8=AF=
+=D8=A7=D8=AE=D8=AA=DB=8C</label></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff"><br></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff">1393</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><pre class=3D"tw-data-text tw-text=
+-large tw-ta"><span class=3D"Y2IQFc" lang=3D"en">Arenadocumentnumber</span>=
+</pre></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4 =D8=B3=D9=86=D8=AF =D8=B9=D8=B1=D8=B5=D9=87</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">5411=
+3</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><pre class=3D"tw-data-text tw-text=
+-large tw-ta"><span class=3D"Y2IQFc" lang=3D"en">Documentnumberofnobles</sp=
+an></pre></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4 =D8=B3=D9=86=D8=AF =D8=A7=D8=B9=DB=8C=D8=A7=D9=86</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">7896=
+</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><span class=3D"Y2IQFc" lang=3D"en"=
+>piece number</span></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><p><=
+img class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c=
+9" data-emoticon-name=3D"tick" alt=3D"(tick)"></p></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd"><labe=
+l>=D8=B4=D9=85=D8=A7=D8=B1=D9=87 =D9=82=D8=B7=D8=B9=D9=87</label></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><p>4=
+78744</p></td>
+</tr>
+<tr>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><pre class=
+=3D"tw-data-text tw-text-large tw-ta" title=3D""><span class=3D"Y2IQFc" lan=
+g=3D"en">Auction Date</span></pre></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff">DateTime</td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff"><img class=3D"emoticon emoticon-tick" src=3D"9bc34f5d839=
+87c629e0ebf1991b3f3c9" data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><br></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: right;" t=
+itle=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-c=
+olour=3D"#eae6ff">=D8=AA=D8=A7=D8=B1=DB=8C=D8=AE =D9=85=D8=B2=D8=A7=DB=8C=
+=D8=AF=D9=87</td>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><br></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff">14010203</td>
+</tr>
+<tr>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><pre class=
+=3D"tw-data-text tw-text-large tw-ta" title=3D""><span class=3D"Y2IQFc" lan=
+g=3D"en">Date of receipt</span></pre></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff">DateTime</td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff"><img class=3D"emoticon emoticon-tick" src=3D"9bc34f5d839=
+87c629e0ebf1991b3f3c9" data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><br></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: right;" t=
+itle=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-c=
+olour=3D"#eae6ff">=D8=AA=D8=A7=D8=B1=DB=8C=D8=AE =D9=81=DB=8C=D8=B4</td>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><br></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff">14010306</td>
+</tr>
+<tr>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><span class=
+=3D"Y2IQFc" title=3D"" lang=3D"en">Fish amount</span></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff">decimal&nbsp;</td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff"><img class=3D"emoticon emoticon-tick" src=3D"9bc34f5d839=
+87c629e0ebf1991b3f3c9" data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><br></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: right;" t=
+itle=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-c=
+olour=3D"#eae6ff">=D9=85=D8=A8=D9=84=D8=BA =D9=81=DB=8C=D8=B4</td>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><br></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff">15600000</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd"><span =
+class=3D"Y2IQFc" lang=3D"en">Pool type CategoryId</span></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd"><p>=
+=D8=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=86=D9=88=D8=B9 =D8=A7=D8=B3=D8=AA=D8=AE=
+=D8=B1</p></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1</t=
+d>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd"><span =
+class=3D"Y2IQFc" lang=3D"en">Pool type CategoryName</span></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D9=86=D9=88=D8=B9 =D8=A7=D8=B3=D8=AA=D8=AE=D8=B1</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=AA=D8=AC=D8=A7=D8=B1=DB=8C</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd"><pre c=
+lass=3D"tw-data-text tw-text-large tw-ta"><span class=3D"Y2IQFc" lang=3D"en=
+">Pool volume</span></pre></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">deci=
+mal&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=AD=D8=AC=D9=85 =D8=A7=D8=B3=D8=AA=D8=AE=D8=B1</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">5423=
+.36</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd"><pre c=
+lass=3D"tw-data-text tw-text-large tw-ta"><span class=3D"Y2IQFc" lang=3D"en=
+">Pool area</span></pre></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">deci=
+mal&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=85=D8=B3=D8=A7=D8=AD=D8=AA =D8=A7=D8=B3=D8=AA=D8=AE=D8=B1</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">565.=
+69</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd"><span =
+class=3D"Y2IQFc" lang=3D"en">greenhouseType CategoryId</span></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=86=D9=88=D8=B9 =DA=AF=D9=84=D8=AE=D8=A7=D9=
+=86=D9=87</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">2</t=
+d>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd"><span =
+class=3D"Y2IQFc" lang=3D"en">greenhouseType CategoryName</span></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D9=86=D9=88=D8=B9 =DA=AF=D9=84=D8=AE=D8=A7=D9=86=D9=87</td=
+>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=A7=D8=AE=D8=AA=D8=B5=D8=A7=D8=B5=DB=8C =D9=85=D9=84=DA=A9=DB=8C</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd"><span =
+class=3D"Y2IQFc" lang=3D"en">Greenhouse area</span></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">deci=
+mal&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=85=D8=B3=D8=A7=D8=AD=D8=AA =DA=AF=D9=84=D8=AE=D8=A7=D9=86=D9=87</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">51.7=
+4</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">wellTy=
+pe<span class=3D"Y2IQFc" lang=3D"en">CategoryId</span></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =D9=86=D9=88=D8=B9 =DA=86=D8=A7=D9=87</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">2</t=
+d>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">wellTy=
+pe<span class=3D"Y2IQFc" lang=3D"en">CategoryName</span></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=86=D8=A7=D9=85 =D9=86=D9=88=D8=B9 =DA=86=D8=A7=D9=87</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B9=D9=85=DB=8C=D9=82 =D8=A8=D8=A7 =D9=85=D9=88=D8=AA=D9=88=D8=B1 =D9=BE=D9=
+=85=D9=BE</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd"><pre c=
+lass=3D"tw-data-text tw-text-large tw-ta"><span class=3D"Y2IQFc" lang=3D"en=
+">Number of wells</span></pre></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=AA=D8=B9=D8=AF=D8=A7=D8=AF =DA=86=D8=A7=D9=87</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">15</=
+td>
+</tr>
+<tr>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><pre class=
+=3D"tw-data-text tw-text-large tw-ta" title=3D""><span class=3D"Y2IQFc" lan=
+g=3D"en">SeparationofareasaccordingtArticle 100</span></pre></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff">string&nbsp;</td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff"><img class=3D"emoticon emoticon-tick" src=3D"9bc34f5d839=
+87c629e0ebf1991b3f3c9" data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><br></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: right;" t=
+itle=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-c=
+olour=3D"#eae6ff">=D8=AA=D9=81=DA=A9=DB=8C=DA=A9 =D8=B9=D8=B1=D8=B5=D9=87 =
+=D8=B7=D8=A8=D9=82 =D9=85=D8=A7=D8=AF=D9=87 =D8=B5=D8=AF</td>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><br></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff"><br></td>
+</tr>
+<tr>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><pre class=
+=3D"tw-data-text tw-text-large tw-ta" title=3D""><span class=3D"Y2IQFc" lan=
+g=3D"en">Passageandareaandpreparation</span></pre></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff">string&nbsp;</td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff"><img class=3D"emoticon emoticon-tick" src=3D"9bc34f5d839=
+87c629e0ebf1991b3f3c9" data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><br></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: right;" t=
+itle=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-c=
+olour=3D"#eae6ff">=D9=85=D8=B9=D8=A8=D8=B1 =D9=88 =D9=85=D9=86=D8=B7=D9=82=
+=D9=87 =D9=88 =D8=A2=D9=85=D8=A7=D8=AF=D9=87 =D8=B3=D8=A7=D8=B2=DB=8C</td>
+<td class=3D"highlight-#eae6ff confluenceTd" title=3D"Background color : Li=
+ght purple 35%" colspan=3D"1" data-highlight-colour=3D"#eae6ff"><br></td>
+<td class=3D"highlight-#eae6ff confluenceTd" style=3D"text-align: center;" =
+title=3D"Background color : Light purple 35%" colspan=3D"1" data-highlight-=
+colour=3D"#eae6ff"><br></td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><pre class=3D"tw-data-text tw-text=
+-large tw-ta"><span class=3D"Y2IQFc" lang=3D"en">Communicationexpertprice</=
+span></pre></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">deci=
+mal&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=82=DB=8C=D9=85=D8=AA =DA=A9=D8=A7=D8=B1=D8=B4=D9=86=D8=A7=D8=B3=DB=8C =D8=
+=A7=D8=A8=D9=84=D8=A7=D8=BA=DB=8C =D8=B4=D9=85=D8=A7=D8=B1=D9=87 393/=DA=A9=
+ =D9=85=D9=88=D8=B1=D8=AE 94/8/26</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><p>2=
+150054.500</p></td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><pre class=3D"tw-data-text tw-text=
+-large tw-ta"><span class=3D"Y2IQFc" lang=3D"en">Endowmentcontractnumber</s=
+pan></pre></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=85=D8=A7=D8=B1=D9=87 =D9=82=D8=B1=D8=A7=D8=B1=D8=AF=D8=A7=D8=AF =D8=
+=A7=D9=88=D9=82=D8=A7=D9=81=DB=8C</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1351=
+/=DA=A9</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><span class=3D"Y2IQFc" lang=3D"en"=
+>Propertyareaaccordingtothe endowment contract</span></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">deci=
+mal&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=85=D8=B3=D8=A7=D8=AD=D8=AA =D9=85=D9=84=DA=A9 =D8=B7=D8=A8=D9=82 =D9=82=D8=
+=B1=D8=A7=D8=B1=D8=AF=D8=A7=D8=AF =D8=A7=D9=88=D9=82=D8=A7=D9=81=DB=8C</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><p>6=
+53.7</p></td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><pre class=3D"tw-data-text tw-text=
+-large tw-ta"><span class=3D"Y2IQFc" lang=3D"en">DocumentNotes</span></pre>=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">stri=
+ng&nbsp;</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-tick" src=3D"9bc34f5d83987c629e0ebf1991b3f3c9" =
+data-emoticon-name=3D"tick" alt=3D"(tick)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D9=
+=85=D9=84=D8=A7=D8=AD=D8=B8=D8=A7=D8=AA =D8=B3=D9=86=D8=AF</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">Text=
+</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Create=
+dAt</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">Date=
+Time</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B2=D9=85=D8=A7=D9=86 =D8=A7=DB=8C=D8=AC=D8=A7=D8=AF =D8=B3=D8=A7=D8=AE=D8=
+=AA=D9=85=D8=A7=D9=86</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">2022=
+-05-02 09:34:06.026546+04:30</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Update=
+dAt</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">Date=
+Time</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B2=D9=85=D8=A7=D9=86 =D8=A2=D8=AE=D8=B1=DB=8C=D9=86 =D9=88=DB=8C=D8=B1=D8=
+=A7=DB=8C=D8=B4 =D8=B3=D8=A7=D8=AE=D8=AA=D9=85=D8=A7=D9=86 (=D8=AF=D8=B1 =
+=D8=A7=D8=A8=D8=AA=D8=AF=D8=A7 =D8=A7=DB=8C=D8=AC=D8=A7=D8=AF =D8=B3=D8=A7=
+=D8=AE=D8=AA=D9=85=D8=A7=D9=86 =D8=A8=D8=B1=D8=A7=D8=A8=D8=B1 =D8=A8=D8=A7 =
+=D8=AA=D8=A7=D8=B1=DB=8C=D8=AE =D8=A7=DB=8C=D8=AC=D8=A7=D8=AF =D8=B3=D8=A7=
+=D8=AE=D8=AA=D9=85=D8=A7=D9=86 =D8=A7=D8=B3=D8=AA)</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">2022=
+-05-02 09:34:06.026546+04:30</td>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Creato=
+rId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =DA=A9=D8=A7=D8=B1=D8=A8=D8=B1 =D8=A7=DB=8C=D8=
+=AC=D8=A7=D8=AF =DA=A9=D9=86=D9=86=D8=AF=D9=87 =D8=A7=DB=8C=D9=86 =D8=B3=D8=
+=A7=D8=AE=D8=AA=D9=85=D8=A7=D9=86</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1</t=
+d>
+</tr>
+<tr>
+<td style=3D"text-align: left;" colspan=3D"1" class=3D"confluenceTd">Update=
+rId</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">int<=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=B4=D9=86=D8=A7=D8=B3=D9=87 =DA=A9=D8=A7=D8=B1=D8=A8=D8=B1=DB=8C =DA=A9=D9=
+=87 =D8=A2=D8=AE=D8=B1=DB=8C=D9=86 =D8=A8=D8=A7=D8=B1 =D8=A7=DB=8C=D9=86 =
+=D8=B3=D8=A7=D8=AE=D8=AA=D9=85=D8=A7=D9=86 =D8=B1=D8=A7 =D9=88=DB=8C=D8=B1=
+=D8=A7=DB=8C=D8=B4 =DA=A9=D8=B1=D8=AF</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">1</t=
+d>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">IsArchived</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">bool=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=A2=DB=8C=D8=A7 =D8=A7=DB=8C=D9=86 =D8=B3=D8=A7=D8=AE=D8=AA=D9=85=D8=A7=D9=
+=86 =D8=A8=D9=87 =D8=B3=D8=B7=D9=84 =D8=B2=D8=A8=D8=A7=D9=84=D9=87 =DA=A9=
+=D9=87 =D9=82=D8=A7=D8=A8=D9=84=DB=8C=D8=AA =D8=A8=D8=A7=D8=B2=DA=AF=D8=B4=
+=D8=AA =D8=A7=D8=B2 =D8=B3=D9=85=D8=AA =D9=81=D8=B1=D8=A7=D9=86=D8=AA =D8=
+=B1=D8=A7 =D8=AF=D8=A7=D8=B1=D8=AF=D8=8C =D8=B1=D9=81=D8=AA=D9=87 =D8=A7=D8=
+=B3=D8=AA</td>
+<td colspan=3D"1" class=3D"confluenceTd"><br></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">true=
+ / false</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">IsActive</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">bool=
+</td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><img=
+ class=3D"emoticon emoticon-cross" src=3D"79931df36f5618a92c12b13d3bb4f95b"=
+ data-emoticon-name=3D"cross" alt=3D"(error)"></td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd"><br>=
+</td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd">=D8=
+=A8=D8=B9=D8=AF =D8=A7=D8=B2 =D8=A2=D9=BE=D8=AF=DB=8C=D8=AA =D8=B4=D8=AF=D9=
+=86 =DB=8C=DA=A9 =D8=B3=D8=A7=D8=AE=D8=AA=D9=85=D8=A7=D9=86 =D9=81=D8=B9=D8=
+=A7=D9=84 =D9=85=DB=8C =D8=B4=D9=88=D8=AF =D9=88 =D9=86=D8=B3=D8=AE=D9=87 =
+=DA=A9=D9=BE=DB=8C =D8=A7=D8=B2 =D8=A2=D9=86 =D8=A7=DB=8C=D8=AC=D8=A7=D8=AF=
+ =D8=B4=D8=AF=D9=87.=D8=AA=D9=81=D8=A7=D9=88=D8=AA =D8=A2=D9=86 =D8=A8=D8=
+=A7 =D8=AD=D8=B0=D9=81 =D9=86=D8=B1=D9=85 =D8=A7=D9=81=D8=B2=D8=A7=D8=B1=DB=
+=8C =D8=A2=D9=86 =D8=A7=D8=B3=D8=AA =DA=A9=D9=87 =D8=AF=D8=B1 =D8=A2=DB=8C=
+=D9=86=D8=AF=D9=87 =D8=A8=D8=A7=DB=8C=D8=AF =D8=A8=D9=87 =D8=B4=DA=A9=D9=84=
+ =D8=AA=D8=A7=D8=B1=DB=8C=D8=AE=DA=86=D9=87 =D8=A8=D9=87 =DA=A9=D8=A7=D8=B1=
+=D8=A8=D8=B1 =D9=86=D9=85=D8=A7=DB=8C=D8=B4 =D8=AF=D8=A7=D8=AF=D9=87 =D8=B4=
+=D9=88=D8=AF</td>
+<td style=3D"text-align: right;" colspan=3D"1" class=3D"confluenceTd"><br><=
+/td>
+<td style=3D"text-align: center;" colspan=3D"1" class=3D"confluenceTd">true=
+ / false</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p style=3D"text-align: center;"><span class=3D"confluence-embedded-file-wr=
+apper confluence-embedded-manual-size"><img class=3D"confluence-embedded-im=
+age" height=3D"250" src=3D"/download/attachments/7864331/2.png?version=3D1&=
+amp;modificationDate=3D1656502068320&amp;api=3Dv2" data-image-src=3D"/downl=
+oad/attachments/7864331/2.png?version=3D1&amp;modificationDate=3D1656502068=
+320&amp;api=3Dv2" data-unresolved-comment-count=3D"0" data-linked-resource-=
+id=3D"9207821" data-linked-resource-version=3D"1" data-linked-resource-type=
+=3D"attachment" data-linked-resource-default-alias=3D"2.png" data-base-url=
+=3D"http://192.168.10.36:8082" data-linked-resource-content-type=3D"image/p=
+ng" data-linked-resource-container-id=3D"7864331" data-linked-resource-cont=
+ainer-version=3D"11"></span><span class=3D"confluence-embedded-file-wrapper=
+ confluence-embedded-manual-size"><img class=3D"confluence-embedded-image" =
+height=3D"250" src=3D"/download/attachments/7864331/1.png?version=3D1&amp;m=
+odificationDate=3D1656502064958&amp;api=3Dv2" data-image-src=3D"/download/a=
+ttachments/7864331/1.png?version=3D1&amp;modificationDate=3D1656502064958&a=
+mp;api=3Dv2" data-unresolved-comment-count=3D"0" data-linked-resource-id=3D=
+"9207820" data-linked-resource-version=3D"1" data-linked-resource-type=3D"a=
+ttachment" data-linked-resource-default-alias=3D"1.png" data-base-url=3D"ht=
+tp://192.168.10.36:8082" data-linked-resource-content-type=3D"image/png" da=
+ta-linked-resource-container-id=3D"7864331" data-linked-resource-container-=
+version=3D"11"></span></p>
+<p style=3D"text-align: center;"><br></p>
+    </div>
+</body>
+</html>
+------=_Part_62_1354983320.1676190815851
+Content-Type: image/svg+xml
+Content-Transfer-Encoding: 7bit
+Content-Location: file:///C:/9bc34f5d83987c629e0ebf1991b3f3c9
+
+<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><circle fill="#00875A" cx="8" cy="8" r="8"/><path d="M10.242 4.474a.941.941 0 0 1 1.634.934L8.11 11.996a.941.941 0 0 1-1.54.136L4.218 9.308a.941.941 0 1 1 1.446-1.205L7.15 9.886l3.093-5.412z" stroke="#FFF" stroke-width=".2" fill="#FFF" fill-rule="nonzero"/></g></svg>
+------=_Part_62_1354983320.1676190815851
+Content-Type: image/svg+xml
+Content-Transfer-Encoding: 7bit
+Content-Location: file:///C:/79931df36f5618a92c12b13d3bb4f95b
+
+<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><circle fill="#DE350B" cx="8" cy="8" r="8"/><path d="M9.485 8.071l2.122 2.121a1 1 0 1 1-1.415 1.415l-2.12-2.122-2.122 2.122a1 1 0 1 1-1.414-1.415l2.12-2.12-2.12-2.122A1 1 0 1 1 5.95 4.536l2.121 2.12 2.121-2.12a1 1 0 1 1 1.415 1.414L9.485 8.07z" fill="#FFF"/></g></svg>
+------=_Part_62_1354983320.1676190815851
+Content-Type: image/svg+xml
+Content-Transfer-Encoding: 7bit
+Content-Location: file:///C:/fe543af65345aa271c7e1de3636da9e8
+
+<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><circle fill="#0052CC" cx="8" cy="8" r="8"/><g transform="translate(6 3)" fill="#FFF"><rect x="1" y="5" width="2" height="6" rx="1"/><rect x=".5" width="3" height="3" rx="1.5"/></g></g></svg>
+------=_Part_62_1354983320.1676190815851--

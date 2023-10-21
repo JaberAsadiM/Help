@@ -122,4 +122,32 @@ function btnCalc_AsnafKoli_click() {
 
         }
 
+**********************************Send kendoGrid Data By json
 
+    function CreateFoulDefinitionPishamadegi() {
+        var data = $("#ConflictGrdPishamadegiha_DefinitionFoul").data("kendoGrid").dataSource.data();
+        var dataKarbariGrid = $("#ConflictMojodGrid_DefinitionFoul").data("kendoGrid").dataSource.data();
+        var Shodarkhast = $("#ReqDetShod_Foul").text();
+        $.ajax({
+            type: "POST",
+            data: {
+                strModel: JSON.stringify(data),
+                shod: Shodarkhast,
+                radif: data[0].d_radif,
+            },
+            url: '@Url.Action("CreateFoulDefinitionPishamadegi", "FoulDefinition")',
+            success: function (data) {
+                showAppMessage("À»  »« „Ê›ﬁ?  «‰Ã«„ ‘œ.", "success");
+            },
+            error: function (data) {
+                showAppMessage(data, "error");
+            }
+        });
+    }
+
+
+        [HttpPost]
+        public ActionResult CreateFoulDefinitionPishamadegi(string strModel, decimal shod, decimal radif)
+        {
+            var DvPishamadegiViewModel = JsonConvert.DeserializeObject<List<Dv_pishamadegiViewModel>>(strModel);
+}
